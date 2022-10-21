@@ -23,9 +23,15 @@ public class Repository<T> {
         writeFile(itemList);
     }
 
-    public void remove(T item) {
+    public void remove(int id) {
         List<T> itemList = readFile();
-        itemList.remove(item);
+        itemList.remove(id);
+        writeFile(itemList);
+    }
+
+    public void edit(int id, T newItem) {
+        List<T> itemList = readFile();
+        itemList.set(id, newItem);
         writeFile(itemList);
     }
 

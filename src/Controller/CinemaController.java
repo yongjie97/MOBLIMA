@@ -1,17 +1,22 @@
-package Service;
+package Controller;
 
 import Constant.DataFileConstant;
 import Entity.Cinema;
 import Entity.CinemaClass;
 import Repository.CinemaRepository;
 
-public class CinemaService {
+public class CinemaController {
 
     private static CinemaRepository cinemaRepository = new CinemaRepository(DataFileConstant.CINEMA_FILE);
 
     public static void addCinema(String name, CinemaClass cinemaClass, char[][] cinemaLayout) {
         Cinema cinema = new Cinema(name, cinemaClass, cinemaLayout);
         cinemaRepository.add(cinema);
+    }
+
+    public static void editCinema(int id, String name, CinemaClass cinemaClass, char[][] cinemaLayout) {
+        Cinema cinema = new Cinema(name, cinemaClass, cinemaLayout);
+        cinemaRepository.edit(id, cinema);
     }
 
     public static String getCinemaInfo(int id) {
@@ -37,7 +42,7 @@ public class CinemaService {
             }
             newString.append("\n");
         }
-        return newString.toString();
+        return newString.toString().substring(0, newString.length()-1);
     }
 
     private static String getSeatTypeFormat(char c, char row, int seatNo) {
