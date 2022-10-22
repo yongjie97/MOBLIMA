@@ -151,7 +151,9 @@ public class ShowTimeController {
         }
     }
 
-    public static void reserveSeat(ShowTime showTime, String seatNo) {
+    public static void reserveSeat(int cinemaId, int showTimeId, String seatNo) {
+        Cinema cinema = cinemaRepository.get(cinemaId);
+        ShowTime showTime = cinema.getShowTime().get(showTimeId);
         showTime.getSeatsTaken().add(seatNo);
     }
 

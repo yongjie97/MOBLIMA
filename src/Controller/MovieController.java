@@ -107,17 +107,4 @@ public class MovieController {
         return true;
     }
 
-
-    /*public static String getAvailableMovies() {
-        List<Movie> movies = movieRepository.getAll();
-        movies.removeIf(x -> x.getMovieStatus().equals(MovieStatus.FINISHED));
-        if (movies.size() < 1)
-            return "No movies found";
-        StringBuilder output = new StringBuilder("");
-        for (int i = 0; i < movies.size(); i++) {
-            output.append(MessageFormat.format("{0}: {1}\n", i + 1, movies.get(i).getName()));
-        }
-        return output.substring(0, output.length() - 1).toString();
-    }*/
-
 }
