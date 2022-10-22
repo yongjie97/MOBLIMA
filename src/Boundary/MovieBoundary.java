@@ -1,6 +1,10 @@
 package Boundary;
 
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import Controller.MovieController;
@@ -8,9 +12,13 @@ import Entity.Movie;
 import Entity.MovieRating;
 import Entity.MovieStatus;
 import Entity.MovieType;
+import Exception.EmptyListException;
+import Exception.InvalidIdException;
 import Exception.InvalidInputException;
 
 public class MovieBoundary {
+
+    private static List<Integer> movieIds = new ArrayList<>();
 
     public static void manageMovie() {
         int userInput = 0;
@@ -43,11 +51,101 @@ public class MovieBoundary {
                         MovieBoundary.showMovieList();
                         break;
                     case 5:
-                        MovieBoundary.showMovieDetails();
+                        MovieBoundary.selectMovieForDetails();
                         break;
                     default:
                         throw new Exception();
                 }
+            } catch (Exception e) {
+                System.out.println("Please enter a valid option.");
+            }
+        } while (userInput != -1);
+    }
+
+    public static void findMovie() {
+        int userInput = 0;
+        do {
+            try {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("===============================");
+                System.out.println("1: Search Movie");
+                System.out.println("2: List Available Movie");
+                System.out.println("Enter -1 to go back");
+                System.out.println("===============================");
+                System.out.print("Please enter your option: ");
+                userInput = sc.nextInt();
+                sc.nextLine();
+                switch (userInput) {
+                    case 1:
+                        MovieBoundary.searchMovie();
+                        break;
+                    case 2:
+                        MovieBoundary.showAvailableMovieList();
+                        break;
+                    case -1:
+                        break;
+                    default:
+                        throw new Exception();
+                }
+                int movieId = MovieBoundary.askForMovieSelection();
+                if (movieId == -1) break;
+                MovieBoundary.showMovieOptions(movieIds.get(movieId-1));
+            } catch (EmptyListException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println("Please enter a valid option.");
+            }
+        } while (userInput != -1);
+    }
+
+    public static int askForMovieSelection() {
+        int userInput = 0;
+        do {
+            try {
+                Scanner sc = new Scanner(System.in);
+                System.out.print("Please select a movie (-1 to back): ");
+                userInput = sc.nextInt();
+                if (userInput == -1) break;
+                return userInput;
+            } catch (Exception e) {
+                System.out.println("Please enter a valid option.");
+            }
+        } while (userInput != -1);
+        return -1;
+    }
+
+    public static void showMovieOptions(int movieId) {
+        int userInput = 0;
+        do {
+            try {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("===============================");
+                System.out.println("You have selected: " + MovieController.getMovie(movieId).getName());
+                System.out.println("1: View Movie Details");
+                System.out.println("2: View Movie Rating & Reviews");
+                System.out.println("3: Purchase Ticket");
+                System.out.println("Enter -1 to go back");
+                System.out.println("===============================");
+                System.out.print("Please enter your option: ");
+                userInput = sc.nextInt();
+                sc.nextLine();
+                switch (userInput) {
+                    case 1:
+                        MovieBoundary.showMovieDetails(movieId);
+                        break;
+                    case 2:
+                        // Rating & Reviews
+                        break;
+                    case 3:
+                        // Purchase Ticket
+                        break;
+                    case -1:
+                        break;
+                    default:
+                        throw new Exception();
+                }
+            } catch (EmptyListException e) {
+                System.out.println(e.getMessage());
             } catch (Exception e) {
                 System.out.println("Please enter a valid option.");
             }
@@ -72,17 +170,17 @@ public class MovieBoundary {
             System.out.print("Please enter the director: ");
             director = sc.nextLine().trim();
 
-            System.out.println(MovieController.getMovieType());
+            showMovieType();
             System.out.print("Please select a movie type: ");
             type = sc.nextInt();
             sc.nextLine();
 
-            System.out.println(MovieController.getMovieRating());
+            showMovieRating();
             System.out.print("Please select a movie rating: ");
             rating = sc.nextInt();
             sc.nextLine();
 
-            System.out.println(MovieController.getMovieStatus());
+            showMovieStatus();
             System.out.print("Please select the movie status: ");
             status = sc.nextInt();
             sc.nextLine();
@@ -99,7 +197,6 @@ public class MovieBoundary {
     }
 
     public static void editMovie() {
-
         while (true) {
             try {
                 showMovieList();
@@ -115,7 +212,7 @@ public class MovieBoundary {
                     Movie movie = MovieController.getMovie(movieId - 1);
                     int editField = 0;
                     while (editField != -1) {
-                        System.out.println(MovieController.getMovieDetails(movieId - 1));
+                        showMovieDetails(movieId - 1);
                         System.out.println("1: Edit mame");
                         System.out.println("2: Edit synopsis");
                         System.out.println("3: Edit cast");
@@ -150,22 +247,22 @@ public class MovieBoundary {
                                 movie.setDirector(newInput);
                                 break;
                             case 5:
-                                System.out.println(MovieController.getMovieType());
+                                showMovieType();
                                 System.out.print("Please select a movie type: ");
                                 newIntInput = sc.nextInt();
-                                movie.setMovieType(MovieType.values()[newIntInput-1]);
+                                movie.setMovieType(MovieType.values()[newIntInput - 1]);
                                 break;
                             case 6:
-                                System.out.println(MovieController.getMovieRating());
+                                showMovieRating();
                                 System.out.print("Please select a movie rating: ");
                                 newIntInput = sc.nextInt();
-                                movie.setMovieRating(MovieRating.values()[newIntInput-1]);
+                                movie.setMovieRating(MovieRating.values()[newIntInput - 1]);
                                 break;
                             case 7:
-                                System.out.println(MovieController.getMovieStatus());
+                                showMovieStatus();
                                 System.out.print("Please select the movie status: ");
                                 newIntInput = sc.nextInt();
-                                movie.setMovieStatus(MovieStatus.values()[newIntInput-1]);
+                                movie.setMovieStatus(MovieStatus.values()[newIntInput - 1]);
                                 break;
                             case -1:
                                 break;
@@ -212,17 +309,7 @@ public class MovieBoundary {
         }
     }
 
-    public static void showMovieList() {
-        System.out.println("Movie List");
-        System.out.println(MovieController.getMovieList());
-    }
-
-    public static void showMovieListByStatus() {
-        System.out.println("Movie List");
-        System.out.println(MovieController.getMovieList());
-    }
-
-    public static void showMovieDetails() {
+    public static void selectMovieForDetails() {
         showMovieList();
         if (!MovieController.isEmpty()) {
             System.out.print("Please select a movie: ");
@@ -231,8 +318,102 @@ public class MovieBoundary {
             int userInput = sc.nextInt();
 
             System.out.println("Movie Detail");
-            System.out.println(MovieController.getMovieDetails(userInput - 1));
+            showMovieDetails(userInput - 1);
         }
+    }
+
+    public static void showMovieList() {
+        try {
+            List<Movie> movies = MovieController.getMovieList();
+            StringBuilder output = new StringBuilder("Movie List\n");
+            for (int i = 0; i < movies.size(); i++) {
+                output.append(MessageFormat.format("{0}: {1}\n", i + 1, movies.get(i).getName()));
+            }
+            System.out.println(output.substring(0, output.length() - 1).toString());
+        } catch (EmptyListException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void showAvailableMovieList() throws EmptyListException {
+        try {
+            movieIds.clear();
+            HashMap<Integer, Movie> movies = MovieController.getAvailableMovieList();
+            StringBuilder output = new StringBuilder("Movie List\n");
+            int i = 1;
+            for (HashMap.Entry<Integer, Movie> movie : movies.entrySet()) {
+                movieIds.add(movie.getKey());
+                output.append(MessageFormat.format("{0}: {1}\n", i++, movie.getValue().getName()));
+            }
+            System.out.println(output.substring(0, output.length() - 1).toString());
+        } catch (EmptyListException e) {
+            throw new EmptyListException (e.getMessage());
+        }
+    }
+
+    public static void searchMovie() throws EmptyListException {
+        try {
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Please enter your search query: ");
+            String query = sc.nextLine();
+            movieIds.clear();
+            HashMap<Integer, Movie> movies = MovieController.getAvailableMovieList();
+            StringBuilder output = new StringBuilder("Movie List\n");
+            int i = 1;
+            for (HashMap.Entry<Integer, Movie> movie : movies.entrySet()) {
+                if (movie.getValue().getName().contains(query)) {
+                    movieIds.add(movie.getKey());
+                    output.append(MessageFormat.format("{0}: {1}\n", i++, movie.getValue().getName()));
+                }
+            }
+            if (i == 1)
+                throw new EmptyListException("No movies found.");
+            System.out.println(output.substring(0, output.length() - 1).toString());
+        } catch (EmptyListException e) {
+            throw new EmptyListException (e.getMessage());
+        }
+    }
+
+    public static void showMovieDetails(int movieId) {
+        try {
+            Movie movie = MovieController.getMovie(movieId);
+            StringBuilder output = new StringBuilder("");
+            output.append("Movie Name: " + movie.getName() + "\n");
+            output.append("Synopsis: " + movie.getSynopsis() + "\n");
+            output.append("Cast " + movie.getCast() + "\n");
+            output.append("Director: " + movie.getDirector() + "\n");
+            output.append("Rating: " + movie.getRating() + "\n");
+            output.append("Movie Type: " + movie.getMovieType() + "\n");
+            output.append("Movie Rating: " + movie.getMovieRating() + "\n");
+            output.append("Movie Status: " + movie.getMovieStatus());
+            System.out.println(output.toString());
+        } catch (InvalidIdException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void showMovieType() throws EmptyListException {
+        StringBuilder output = new StringBuilder("Movie Type\n");
+        for (int i = 0; i < MovieType.values().length; i++) {
+            output.append(MessageFormat.format("{0}: {1}\n", i + 1, MovieType.values()[i]));
+        }
+        System.out.println(output.substring(0, output.length() - 1).toString());
+    }
+
+    public static void showMovieRating() {
+        StringBuilder output = new StringBuilder("Movie Rating\n");
+        for (int i = 0; i < MovieRating.values().length; i++) {
+            output.append(MessageFormat.format("{0}: {1}\n", i + 1, MovieRating.values()[i]));
+        }
+        System.out.println(output.substring(0, output.length() - 1).toString());
+    }
+
+    public static void showMovieStatus() {
+        StringBuilder output = new StringBuilder("Movie Status\n");
+        for (int i = 0; i < MovieStatus.values().length; i++) {
+            output.append(MessageFormat.format("{0}: {1}\n", i + 1, MovieStatus.values()[i]));
+        }
+        System.out.println(output.substring(0, output.length() - 1).toString());
     }
 
 }

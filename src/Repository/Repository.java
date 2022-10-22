@@ -51,6 +51,14 @@ public class Repository<T> {
             return itemList.size();
     }
 
+    public boolean isEmpty() {
+        List<T> itemList = readFile();
+        if (itemList == null)
+            return true;
+        else
+            return false;
+    }
+
     private void writeFile(List<T> itemList) {
         File temp = new File(filePath);
         if (temp.exists()) 

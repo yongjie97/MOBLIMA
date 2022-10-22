@@ -1,12 +1,14 @@
 package Controller;
 
-import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.List;
 
 import Constant.DataFileConstant;
 import Entity.Movie;
 import Entity.MovieRating;
 import Entity.MovieStatus;
 import Entity.MovieType;
+import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
 import Repository.MovieRepository;
@@ -29,7 +31,9 @@ public class MovieController {
     }
 
     public static void editMovie(int id, String name, String synopsis, String cast, String director,
-            int movieType, int movieRating, int movieStatus) throws InvalidInputException {
+            int movieType, int movieRating, int movieStatus) throws InvalidIdException, InvalidInputException {    
+        if (id < 0 || id >= movieRepository.size())
+            throw new InvalidIdException("Please enter a valid movie id.");
         try {
             if (isValidInput(name, synopsis, cast, director, movieType, movieRating, movieStatus)) {
                 Movie newMovie = new Movie(name, synopsis, director, cast, MovieType.values()[movieType],
@@ -48,97 +52,36 @@ public class MovieController {
             movieRepository.remove(id);
     }
 
-    public static Movie getMovie(int id) {
+    public static Movie getMovie(int id) throws InvalidIdException {
+        if (id < 0 || id >= movieRepository.size())
+            throw new InvalidIdException("Please enter a valid movie id.");
+
         return movieRepository.get(id);
     }
 
-    public static String getMovieDetails(int id) {
-        if (id < 0 || id >= movieRepository.size()) return "Please enter a valid movie id.";
-        Movie movie = movieRepository.get(id);
-        StringBuilder output = new StringBuilder("");
-        output.append("Movie Name: " + movie.getName() + "\n");
-        output.append("Synopsis: " + movie.getSynopsis() + "\n");
-        output.append("Cast " + movie.getCast() + "\n");
-        output.append("Director: " + movie.getDirector() + "\n");
-        output.append("Rating: " + movie.getRating() + "\n");
-        output.append("Movie Type: " + movie.getMovieType() + "\n");
-        output.append("Movie Rating: " + movie.getMovieRating() + "\n");
-        output.append("Movie Status: " + movie.getMovieStatus());
-        return output.toString();
+    public static List<Movie> getMovieList() throws EmptyListException {
+        if (movieRepository.isEmpty())
+            throw new EmptyListException("No movies found.");
+        return movieRepository.getAll();
     }
 
-    public static String getMovieList() {
-        if (movieRepository.size() < 1)
-            return "No movies found";
-        StringBuilder output = new StringBuilder("");
-        for (int i = 0; i < movieRepository.size(); i++) {
-            output.append(MessageFormat.format("{0}: {1}\n", i + 1, movieRepository.get(i).getName()));
+    public static HashMap<Integer, Movie> getAvailableMovieList() throws EmptyListException {
+
+        List<Movie> movies = movieRepository.getAll();   
+        if (movies.isEmpty())     
+            throw new EmptyListException("No available movies found.");
+
+        HashMap<Integer, Movie> list = new HashMap<>(); 
+        for (int i = 0; i < movies.size(); i++) {
+            if (movies.get(i).getMovieStatus() != MovieStatus.FINISHED)
+                list.put(i, movies.get(i));
         }
-        return output.substring(0, output.length() - 1).toString();
-    }
 
-    public static String getMovieListByStatus(int selection) {
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < movieRepository.size(); i++) {
-            if (movieRepository.get(i).getMovieStatus() == MovieStatus.values()[selection - 1])
-                output.append(MessageFormat.format("{0}: {1}\n", i + 1, movieRepository.get(i).getName()));
-        }
-        if (output.isEmpty())
-            return "No movies found";
-        else
-            return output.substring(0, output.length() - 1).toString();
-    }
-
-    public static String getMovieListByRating(int selection) {
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < movieRepository.size(); i++) {
-            if (movieRepository.get(i).getMovieRating() == MovieRating.values()[selection - 1])
-                output.append(MessageFormat.format("{0}: {1}\n", i + 1, movieRepository.get(i).getName()));
-        }
-        if (output.isEmpty())
-            return "No movies found";
-        else
-            return output.substring(0, output.length() - 1).toString();
-    }
-
-    public static String getMovieListByType(int selection) {
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < movieRepository.size(); i++) {
-            if (movieRepository.get(i).getMovieType() == MovieType.values()[selection - 1])
-                output.append(MessageFormat.format("{0}: {1}\n", i + 1, movieRepository.get(i).getName()));
-        }
-        if (output.isEmpty())
-            return "No movies found";
-        else
-            return output.substring(0, output.length() - 1).toString();
-    }
-
-    public static String getMovieType() {
-        StringBuilder output = new StringBuilder("");
-        for (int i = 0; i < MovieType.values().length; i++) {
-            output.append(MessageFormat.format("{0}: {1}\n", i + 1, MovieType.values()[i]));
-        }
-        return output.substring(0, output.length() - 1).toString();
-    }
-
-    public static String getMovieRating() {
-        StringBuilder output = new StringBuilder("");
-        for (int i = 0; i < MovieRating.values().length; i++) {
-            output.append(MessageFormat.format("{0}: {1}\n", i + 1, MovieRating.values()[i]));
-        }
-        return output.substring(0, output.length() - 1).toString();
-    }
-
-    public static String getMovieStatus() {
-        StringBuilder output = new StringBuilder("");
-        for (int i = 0; i < MovieStatus.values().length; i++) {
-            output.append(MessageFormat.format("{0}: {1}\n", i + 1, MovieStatus.values()[i]));
-        }
-        return output.substring(0, output.length() - 1).toString();
-    }
-
+        return list;
+    }    
+    
     public static boolean isEmpty() {
-        return movieRepository.size() < 1;
+        return movieRepository.isEmpty();
     }
 
     public static int size() {
@@ -161,8 +104,20 @@ public class MovieController {
             throw new InvalidInputException("Please select a valid movie rating.");
         if (movieStatus < 0 || movieStatus >= MovieStatus.values().length)
             throw new InvalidInputException("Please select a valid movie status.");
-
         return true;
     }
+
+
+    /*public static String getAvailableMovies() {
+        List<Movie> movies = movieRepository.getAll();
+        movies.removeIf(x -> x.getMovieStatus().equals(MovieStatus.FINISHED));
+        if (movies.size() < 1)
+            return "No movies found";
+        StringBuilder output = new StringBuilder("");
+        for (int i = 0; i < movies.size(); i++) {
+            output.append(MessageFormat.format("{0}: {1}\n", i + 1, movies.get(i).getName()));
+        }
+        return output.substring(0, output.length() - 1).toString();
+    }*/
 
 }

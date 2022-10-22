@@ -10,7 +10,7 @@ import Constant.DataFileConstant;
 import Entity.Cinema;
 import Entity.CinemaClass;
 import Entity.ShowTime;
-import Exception.EmptyShowTimeException;
+import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Repository.CinemaRepository;
 
@@ -43,7 +43,7 @@ public class CinemaController {
             return output.substring(0, output.length() - 1).toString();
     }
 
-    public static String getCinemaShowTime(int cinemaId) throws InvalidIdException, EmptyShowTimeException {
+    public static String getCinemaShowTime(int cinemaId) throws InvalidIdException, EmptyListException {
         int size = cinemaRepository.size();
 
         if (cinemaId < 0 || cinemaId >= size)
@@ -51,7 +51,7 @@ public class CinemaController {
 
         List<ShowTime> showTime = cinemaRepository.get(cinemaId).getShowTime();
         if (showTime.isEmpty())
-            throw new EmptyShowTimeException("No showtime found");
+            throw new EmptyListException("No showtime found");
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < showTime.size(); i++) {
             output.append(MessageFormat.format("{0}: {1} | {2}\n", i + 1, showTime.get(i).getMovie().getName(), getDateTimeFormat(showTime.get(i).getDateTime())));

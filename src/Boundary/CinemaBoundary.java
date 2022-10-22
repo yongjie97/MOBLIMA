@@ -9,7 +9,7 @@ import Constant.ApplicationConstant;
 import Controller.CinemaController;
 import Controller.ShowTimeController;
 import Entity.ShowTime;
-import Exception.EmptyShowTimeException;
+import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
 
@@ -130,7 +130,7 @@ public class CinemaBoundary {
                 } while (editField != -1);
             } catch (InvalidIdException e) {
                 System.out.println(e.getMessage());
-            } catch (EmptyShowTimeException e) {
+            } catch (EmptyListException e) {
                 System.out.println(e.getMessage());
             } catch (InvalidInputException e) {
                 System.out.println(e.getMessage());
@@ -162,7 +162,7 @@ public class CinemaBoundary {
                 System.out.println("Showtime has been deleted.");
             } catch (InvalidIdException e) {
                 System.out.println(e.getMessage());
-            } catch (EmptyShowTimeException e) {
+            } catch (EmptyListException e) {
                 System.out.println(e.getMessage());
             } catch (Exception e) {
                 System.out.println("Please enter a valid option.");
@@ -182,7 +182,7 @@ public class CinemaBoundary {
                     return;
 
                 getShowTime(cinemaId - 1);
-            } catch (EmptyShowTimeException e) {
+            } catch (EmptyListException e) {
                 System.out.println(e.getMessage());
             } catch (Exception e) {
                 System.out.println("Please enter a valid option.");
@@ -195,7 +195,7 @@ public class CinemaBoundary {
         System.out.println(CinemaController.getCinemaList());
     }
 
-    public static void getShowTime(int cinemaId) throws InvalidIdException, EmptyShowTimeException {
+    public static void getShowTime(int cinemaId) throws InvalidIdException, EmptyListException {
         System.out.println(CinemaController.getCinemaShowTime(cinemaId));
     }
 

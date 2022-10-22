@@ -1,6 +1,4 @@
 import Boundary.HomeBoundary;
-import Controller.CinemaController;
-import Entity.CinemaClass;
 
 public class MoblimaApp {
     public static void main(String[] args) throws Exception {
@@ -14,6 +12,7 @@ public class MoblimaApp {
                 { 'A', 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 'A' } };
         //CinemaController.addCinema("Hall 1", CinemaClass.NORMAL, layout);
 
+        HomeBoundary.userUI();
         HomeBoundary.adminUI();
     }
 }
