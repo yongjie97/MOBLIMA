@@ -3,14 +3,56 @@ package Boundary;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import Constant.MovieRating;
-import Constant.MovieStatus;
-import Constant.MovieType;
 import Controller.MovieController;
 import Entity.Movie;
+import Entity.MovieRating;
+import Entity.MovieStatus;
+import Entity.MovieType;
 import Exception.InvalidInputException;
 
 public class MovieBoundary {
+
+    public static void manageMovie() {
+        int userInput = 0;
+        do {
+            try {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("===============================");
+                System.out.println("Welcome to MOBLIMA - Movie Module");
+                System.out.println("1: Add Movie");
+                System.out.println("2: Edit Movie");
+                System.out.println("3: Delete Movie");
+                System.out.println("4: View Movie List");
+                System.out.println("5: Show Movie Details");
+                System.out.println("Enter -1 to go back");
+                System.out.println("===============================");
+                System.out.print("Please enter your option: ");
+                userInput = sc.nextInt();
+                sc.nextLine();
+                switch (userInput) {
+                    case 1:
+                        MovieBoundary.addMovie();
+                        break;
+                    case 2:
+                        MovieBoundary.editMovie();
+                        break;
+                    case 3:
+                        MovieBoundary.deleteMovie();
+                        break;
+                    case 4:
+                        MovieBoundary.showMovieList();
+                        break;
+                    case 5:
+                        MovieBoundary.showMovieDetails();
+                        break;
+                    default:
+                        throw new Exception();
+                }
+            } catch (Exception e) {
+                System.out.println("Please enter a valid option.");
+            }
+        } while (userInput != -1);
+    }
 
     public static void addMovie() {
         try {
@@ -46,6 +88,7 @@ public class MovieBoundary {
             sc.nextLine();
 
             MovieController.addMovie(name, synopsis, cast, director, type - 1, rating - 1, status - 1);
+            System.out.println("Movie has been added.");
         } catch (InputMismatchException e) {
             System.out.println("Invalid input");
         } catch (InvalidInputException e) {
@@ -73,13 +116,13 @@ public class MovieBoundary {
                     int editField = 0;
                     while (editField != -1) {
                         System.out.println(MovieController.getMovieDetails(movieId - 1));
-                        System.out.println("1: Name");
-                        System.out.println("2: Synopsis");
-                        System.out.println("3: Cast");
-                        System.out.println("4: Director");
-                        System.out.println("5: Movie Type");
-                        System.out.println("6: Movie Rating");
-                        System.out.println("7: Movie Status");
+                        System.out.println("1: Edit mame");
+                        System.out.println("2: Edit synopsis");
+                        System.out.println("3: Edit cast");
+                        System.out.println("4: Edit director");
+                        System.out.println("5: Edit movie type");
+                        System.out.println("6: Edit movie rating");
+                        System.out.println("7: Edit movie status");
                         System.out.print("Please select a field to edit (-1 to back): ");
                         editField = sc.nextInt();
                         sc.nextLine();
@@ -127,6 +170,7 @@ public class MovieBoundary {
                             case -1:
                                 break;
                         }
+                        System.out.println("Movie has been edited.");
                         if (editField != -1) {
                             MovieController.editMovie(movieId - 1, movie.getName(), movie.getSynopsis(),
                                     movie.getCast(), movie.getDirector(), movie.getMovieType().ordinal(),
@@ -159,6 +203,7 @@ public class MovieBoundary {
                 if (userInput == -1)
                     return;
                 MovieController.deleteMovie(userInput - 1);
+                System.out.println("Movie has been deleted.");
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input");
             } catch (Exception e) {

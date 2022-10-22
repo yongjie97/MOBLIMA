@@ -1,4 +1,4 @@
-package Constant;
+package Entity;
 
 public enum MovieStatus {
 

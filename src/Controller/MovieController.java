@@ -3,10 +3,10 @@ package Controller;
 import java.text.MessageFormat;
 
 import Constant.DataFileConstant;
-import Constant.MovieRating;
-import Constant.MovieStatus;
-import Constant.MovieType;
 import Entity.Movie;
+import Entity.MovieRating;
+import Entity.MovieStatus;
+import Entity.MovieType;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
 import Repository.MovieRepository;

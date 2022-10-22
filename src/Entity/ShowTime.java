@@ -1,11 +1,10 @@
 package Entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 
-public class ShowTime {
-
-    private Cinema cinema;
+public class ShowTime implements Serializable {
 
     private Movie movie;
 
@@ -13,19 +12,10 @@ public class ShowTime {
 
     private HashSet<String> seatsTaken;
 
-    public ShowTime(Cinema cinema, Movie movie, LocalDateTime dateTime) {
-        this.cinema = cinema;
+    public ShowTime(Movie movie, LocalDateTime dateTime) {
         this.movie = movie;
         this.dateTime = dateTime;
         seatsTaken = new HashSet<>();
-    }
-
-    public Cinema getCinema() {
-        return cinema;
-    }
-
-    public void setCinema(Cinema cinema) {
-        this.cinema = cinema;
     }
 
     public HashSet<String> getSeatsTaken() {

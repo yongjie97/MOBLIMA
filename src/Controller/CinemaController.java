@@ -1,8 +1,17 @@
 package Controller;
 
+import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import Constant.ApplicationConstant;
 import Constant.DataFileConstant;
 import Entity.Cinema;
 import Entity.CinemaClass;
+import Entity.ShowTime;
+import Exception.EmptyShowTimeException;
+import Exception.InvalidIdException;
 import Repository.CinemaRepository;
 
 public class CinemaController {
@@ -14,9 +23,45 @@ public class CinemaController {
         cinemaRepository.add(cinema);
     }
 
-    public static void editCinema(int id, String name, CinemaClass cinemaClass, char[][] cinemaLayout) {
+    public static void editCinema(int id, String name, CinemaClass cinemaClass,
+            char[][] cinemaLayout) {
         Cinema cinema = new Cinema(name, cinemaClass, cinemaLayout);
         cinemaRepository.edit(id, cinema);
+    }
+
+    public static String getCinemaList() {
+        int size = cinemaRepository.size();
+        if (size < 1)
+            return "No cinema found";
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            output.append(MessageFormat.format("{0}: {1}\n", i + 1, cinemaRepository.get(i).getName()));
+        }
+        if (output.isEmpty())
+            return "No cinema found";
+        else
+            return output.substring(0, output.length() - 1).toString();
+    }
+
+    public static String getCinemaShowTime(int cinemaId) throws InvalidIdException, EmptyShowTimeException {
+        int size = cinemaRepository.size();
+
+        if (cinemaId < 0 || cinemaId >= size)
+            throw new InvalidIdException("Please enter a valid cinema id.");
+
+        List<ShowTime> showTime = cinemaRepository.get(cinemaId).getShowTime();
+        if (showTime.isEmpty())
+            throw new EmptyShowTimeException("No showtime found");
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < showTime.size(); i++) {
+            output.append(MessageFormat.format("{0}: {1} | {2}\n", i + 1, showTime.get(i).getMovie().getName(), getDateTimeFormat(showTime.get(i).getDateTime())));
+        }
+        return output.substring(0, output.length() - 1).toString();
+    }
+
+    public static String getDateTimeFormat(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ApplicationConstant.DATETIME_FORMAT);
+        return dateTime.format(formatter).toString();
     }
 
     public static String getCinemaInfo(int id) {
@@ -38,21 +83,22 @@ public class CinemaController {
             int seatNo = 1;
             for (int j = 0; j < seatLayout[i].length; j++) {
                 newString.append(getSeatTypeFormat(seatLayout[i][j], row, seatNo));
-                if (seatLayout[i][j] == 1) seatNo++;
+                if (seatLayout[i][j] == 1)
+                    seatNo++;
             }
             newString.append("\n");
         }
-        return newString.toString().substring(0, newString.length()-1);
+        return newString.toString().substring(0, newString.length() - 1);
     }
 
     private static String getSeatTypeFormat(char c, char row, int seatNo) {
         if (c == 1) {
-                return "|*|";
+            return "|*|";
         } else if (c == 0) {
             return "   ";
         } else {
             return new StringBuilder().append(c).toString();
         }
     }
-    
+
 }

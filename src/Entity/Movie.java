@@ -3,10 +3,6 @@ package Entity;
 import java.io.Serializable;
 import java.util.List;
 
-import Constant.MovieRating;
-import Constant.MovieStatus;
-import Constant.MovieType;
-
 public class Movie implements Serializable {
 
     private String name;
