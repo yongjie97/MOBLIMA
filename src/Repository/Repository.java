@@ -65,7 +65,7 @@ public class Repository<T> {
         }
     }
 
-    protected List<T> readFile() {
+    private List<T> readFile() {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath));   
             List<T> itemList = (ArrayList<T>) ois.readObject();
