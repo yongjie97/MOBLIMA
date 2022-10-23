@@ -1,5 +1,3 @@
-package sce.SC2002.WWC.first;
-
 	import java.util.Scanner;
 	import java.io.PrintStream;
 	import java.math.BigDecimal;
