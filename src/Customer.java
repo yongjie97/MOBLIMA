@@ -7,7 +7,7 @@ public class Customer extends User{
 	static String password;
 	static UserRole role;
 	ArrayList<MovieReview> Reviews = new ArrayList<MovieReview>();
-	ArrayList<Bookings> Bookings = new ArrayList<Bookings>();
+	ArrayList<Booking> Bookings = new ArrayList<Booking>();
 	Customer(String name, String email, String password, UserRole role) {
 		super();
 		this.name = name;
@@ -32,12 +32,13 @@ public class Customer extends User{
 	
 	private static void bookMovie() {
 		// depends on Booking
+		Booking()
 	}
 	
 	// dependent on Booking object
 	public static void getBookings() {
 		for (int x = 0; x < Bookings.size; x ++) {
-			System.out.println((x+1)+ ". "+ Bookings[x].getMovieName+ " at " + Bookings[x].getShowTime);
+			System.out.println((x+1)+ ". "+ Bookings[x].getMovieName+ " at " + Bookings[x].getShowTime + " at " + Bookings[x].getCinema);
 		}
 	}
 	public static void setReview() {
