@@ -3,10 +3,10 @@ public class MovieReview extends User {
 	
 	private double Rating;
 	
-	public static double getRating() {
+	public double getRating() {
 		return this.rating;
 	}
-	public static getReviewer() {
+	public getReviewer() {
 		return this.name;
 	}
 
