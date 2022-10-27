@@ -1,5 +1,5 @@
 
-public class MovieReview extends User {
+public class MovieReview {
 	
 	private double Rating;
 	
