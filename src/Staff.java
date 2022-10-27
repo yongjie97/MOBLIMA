@@ -11,7 +11,7 @@ public class Staff extends User {
 		
 	}
 	
-	public static void addMovie() {
+	public void addMovie() {
 		String Name,Synopsis,Director,Cast;
 		MovieType movieType;
 		MovieStatus movieStatus;
@@ -70,7 +70,7 @@ public class Staff extends User {
 	
 	
 	
-	public static void editMovie() {
+	public void editMovie() {
 		Scanner sc = new Scanner(System.in);
 		int choice;
 		int arrSize = movieList.size();
@@ -175,7 +175,7 @@ public class Staff extends User {
 		
 	}
 	
-	public static void setHolidays() {
+	public void setHolidays() {
 		String date;
 		int j;
 		Scanner sc = new Scanner(System.in);
@@ -208,7 +208,7 @@ public class Staff extends User {
 		
 		
 	}
-	public static ArrayList<String> getHoliday() {
+	public ArrayList<String> getHoliday() {
 		return holiday;
 	}
 	
