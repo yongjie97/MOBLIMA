@@ -80,9 +80,9 @@ public class Cineplex {
 						cinemalist.get(select_choice).setName(new_name);
 						break;
 					case 2:
-						System.out.println("Please select the new Class"
-								+ "1. PLATINUM"
-								+ "2. NORMAL");
+						System.out.println("Please select the new Class\n"
+								+ "1. PLATINUM\n"
+								+ "2. NORMAL\n");
 						while(true) {
 							if (scan.nextInt()==1)
 								cinemaClass = CinemaClass.PLATINUM;
