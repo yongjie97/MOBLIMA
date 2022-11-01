@@ -15,8 +15,7 @@ public class Booking implements Serializable{
 	private int seatno;
 	private double price;
 	private String cinemaname;
-	private int transID;
-	private int age; 
+	private int transID; 
 	private String emailaddress;
 	private int mobilenumber;
 	
