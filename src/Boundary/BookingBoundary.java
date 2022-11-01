@@ -1,5 +1,3 @@
-package sce.SC2002.WWC.first;
-
 import java.util.Scanner;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
