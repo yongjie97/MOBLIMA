@@ -251,6 +251,8 @@ System.out.println("Booking Date:"+ FormatDateTime);
 System.out.println("Transaction ID: MOB"+FormatDateTime); 
 System.out.println("Thanks for Booking with Us!");
 
+public static void getBooking();
+return BookingController.addbooking;
 
 
 }
