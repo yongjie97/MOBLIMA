@@ -12,9 +12,9 @@
 		 
             BigDecimal WeekendPriceIncrementpercent =new BigDecimal("0.40");
 	    BigDecimal HolidayPriceIncrement = new BigDecimal("2.00");
-	    BigDecimal GoodsandServicesTaxpercent= new BigDecimal("0.7");
+	    BigDecimal GoodsandServicesTaxpercentforWeekdays= new BigDecimal("0.7");
 	    
-	    public SystemSettings (BigDecimal TotalPrice, BigDecimal NormalPrice,BigDecimal SeniorPrice, BigDecimal ChildPrice, BigDecimal PlatinumPrice, BigDecimal WeekendPriceIncrementpercent, BigDecimal HolidayPriceIncrement, BigDecimal GoodsandServicesTaxpercent) {
+	    public SystemSettings (BigDecimal TotalPrice, BigDecimal NormalPrice,BigDecimal SeniorPrice, BigDecimal ChildPrice, BigDecimal PlatinumPrice, BigDecimal WeekendPriceIncrementpercent, BigDecimal HolidayPriceIncrement, BigDecimal GoodsandServicesTaxpercentforWeekdays) {
 			this.TotalPrice = TotalPrice;
 			this.NormalPrice = NormalPrice;
 			this.SeniorPrice = SeniorPrice;
@@ -22,7 +22,7 @@
 			this.PlatinumPrice = PlatinumPrice;
 			this.WeekendPriceIncrementpercent = WeekendPriceIncrementpercent;
 			this.HolidayPriceIncrement = HolidayPriceIncrement;
-			this.GoodsandServicesTaxpercent = GoodsandServicesTaxpercent; 
+			this.GoodsandServicesTaxpercentforWeekdays = GoodsandServicesTaxpercentforWeekdays; 
 		}
 		
 		public BigDecimal getTotalPrice() {
@@ -46,8 +46,8 @@
 		public BigDecimal getHolidayPriceIncrement() {
 			return HolidayPriceIncrement;
 		}
-		public BigDecimal getGoodsandServicesTaxpercent() {
-			return GoodsandServicesTaxpercent;
+		public BigDecimal getGoodsandServicesTaxpercentforWeekdays() {
+			return GoodsandServicesTaxpercentforWeekdays;
 		}
                 public static ArrayList<String> getHoliday() {
 	
