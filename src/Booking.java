@@ -1,7 +1,6 @@
-	import java.util.Scanner;
+import java.util.Scanner;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.UUID;
 
 
 import java.time.LocalDateTime;
