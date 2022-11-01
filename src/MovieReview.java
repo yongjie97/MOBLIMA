@@ -1,13 +1,12 @@
 
-public class MovieReview {
+public class MovieReview extends MovieReviewBoundary {
 	
-	private double Rating;
-	
-	public double getRating() {
-		return this.rating;
+	private double Rating;	
+	public void staffReview() {
+		this.staffReview();
 	}
-	public getReviewer() {
-		return this.name;
+	public void userReview() {
+		this.userReview();
 	}
 
 
