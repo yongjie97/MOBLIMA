@@ -1,3 +1,4 @@
+package Boundary;
 import java.util.Scanner;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
