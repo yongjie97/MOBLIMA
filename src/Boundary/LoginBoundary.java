@@ -1,50 +1,43 @@
 package Boundary;
+
 import java.util.Scanner;
 
 import Constant.DataFileConstant;
-import Entity.UserRole;
 import Repository.UserRepository;
+import Controller.UserController;
 
 public class LoginBoundary {
 	private static int choice;
+	private static int result;
 	private static String username;
 	private static String password;
 	private static UserRepository userRepository = new UserRepository(DataFileConstant.USER_FILE);
 	private static int size = userRepository.size();
-	public static int Login() {
-		Scanner scan = new Scanner(System.in);
-		System.out.println("===============================");
-	    System.out.println("Welcome to MOBLIMA - Login Module");
-	    System.out.println("1: LOGIN AS STAFF");
-	    System.out.println("2: LOGIN AS USER");
-	    System.out.println("3: EXIT");
-	    System.out.println("===============================");
-	    choice = scan.nextInt();
-	    if (choice == 3) {
-	    	return 3;
+
+	public static void Login() {
+		while (true) {
+			Scanner scan = new Scanner(System.in);
+			System.out.println("===============================");
+		    System.out.println("Welcome to MOBLIMA - Login Module");
+		    System.out.println("Please enter your username");
+			username = scan.next();
+			System.out.println("Please enter your password");
+			password = scan.next();
+		    System.out.println("===============================");
+	    	result =UserController.LoginFunction(username, password);
+	    	if (result > 0) {
+	    		break;
+	    	}
+	    	System.out.println("Wrong information");
+	    	System.out.println("1. Try again");
+	    	System.out.println("2. Exit");
+	    	choice = scan.nextInt();
+	    	if (choice == 2)
+	    		break;
 	    }
-	    System.out.println("Please enter your username");
-		username = scan.next();
-		System.out.println("Please enter your password");
-		password = scan.next();
-	    switch(choice) {
-	    	case 1:	    		
-            	for (int i=0;i < size; i++) {
-            		if ((userRepository.get(i).getName() == username) && (userRepository.get(i).getPassword()== password)&&(userRepository.get(i).getRole()== UserRole.Staff)) {
-            			return 2;
-            		}
-            	}
-            	return 0;
-	    	case 2:
-	    		for (int i=0;i < size; i++) {
-            		if ((userRepository.get(i).getName() == username) && (userRepository.get(i).getPassword()== password)&&(userRepository.get(i).getRole()== UserRole.Customer)) {
-            			return 2;
-            		}
-	    		}
-	    		return 0;
-	    	default:
-	    		return 0;
-	    }
+	    return;
+	    
+		// login function giving 1 for customer, 2 for staff
     
     }
 }
