@@ -17,7 +17,7 @@ import Entity.ShowTime;
 import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
-import Entity.Booking; 
+import Entity.Booking;
 import Entity.Cinema;
 
 public class BookingBoundary {
@@ -26,11 +26,12 @@ public class BookingBoundary {
 	private static ShowTime time;
 	private static int seatno;
 	private static String cinemaname;
-	private String transID; 
+	private String transID;
 	private static String emailaddress;
 	private static int mobilenumber;
 	private String bookingdate;
 	private static BigDecimal TotalPrice;
+	static BigDecimal CouplePrice = new BigDecimal("16.00");
 	static BigDecimal NormalPrice = new BigDecimal("13.50");
 	static BigDecimal SeniorPrice = new BigDecimal("5.00");
 	static BigDecimal ChildPrice = new BigDecimal("7.50");
@@ -38,7 +39,9 @@ public class BookingBoundary {
 	static BigDecimal WeekendPriceIncrementpercent = new BigDecimal("0.40");
 	static BigDecimal HolidayPriceIncrement = new BigDecimal("2.00");
 	static BigDecimal GoodsandServicesTaxpercentforWeekdays = new BigDecimal("0.7");
-	public void Booking(Customer customer, Movie movie, ShowTime time, int seatno, BigDecimal TotalPrice, String transID, String cinemaname,int mobilenumber,String emailaddress,String bookingdate) {
+
+	public void Booking(Customer customer, Movie movie, ShowTime time, int seatno, BigDecimal TotalPrice,
+			String transID, String cinemaname, int mobilenumber, String emailaddress, String bookingdate) {
 		this.customer = customer;
 		this.time = time;
 		this.movie = movie;
@@ -48,10 +51,9 @@ public class BookingBoundary {
 		this.cinemaname = cinemaname;
 		this.mobilenumber = mobilenumber;
 		this.emailaddress = emailaddress;
-		this.bookingdate = bookingdate;		
+		this.bookingdate = bookingdate;
 	}
-	
-	
+
 	public static void Booking() {
 		int userInput = 0;
 
@@ -115,29 +117,22 @@ public class BookingBoundary {
 	}
 
 	public static String viewSeats() {
-		StringBuilder newString = new StringBuilder();
-		char[][] seatLayout = cinema.getCinemaLayout();
-
-		for (int i = 0; i < seatLayout.length; i++) {
-			char row = seatLayout[i][0];
-			int seatNo = 1;
-			for (int j = 0; j < seatLayout[i].length; j++) {
-				newString.append(getSeatTypeFormat(seatLayout[i][j], row, seatNo));
-				if (seatLayout[i][j] == 1)
-					seatNo++;
-			}
-			newString.append("\n");
-		}
-		return newString.toString().substring(0, newString.length() - 1);
-	}
-
-	private static String getSeatTypeFormat(char c, char row, int seatNo) {
-		if (c == 1) {
-			return "|*|";
-		} else if (c == 0) {
-			return "   ";
-		} else {
-			return new StringBuilder().append(c).toString();
+		while(true) {
+		getCinemaLayout();
+		Scanner g = new Scanner(System.in);
+		System.out.println("Which Cinema do you want to view?");
+		int cinemaId= g.nextInt();
+		g.nextLine();
+		System.out.println("How many seats do you want to book?");
+		int numberofseats = g.nextInt();
+		System.out.println("Which seat(s) do you want to book?");
+		System.out.println("0, 0, 0, 0, 0, 'S', 'C', 'R', 'E', 'E', 'N', 0, 0, 0, 0, 0"+ g.nextLine()+
+				                   "'E', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'E'"+ g.nextLine()+
+				                   "'D', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'D'"+g.nextLine()+
+				                   "'C', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'C'"+ g.nextLine()+
+				                   "'B', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'B'"+ g.nextLine()+
+				                   "'A', 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 'A'");
+		String seatno = g.toString();
 		}
 	}
 
@@ -146,16 +141,20 @@ public class BookingBoundary {
 		Scanner s = new Scanner(System.in);
 		System.out.println("What is your age?");
 		int age = s.nextInt();
-		System.out.println("Do you want an upgraded seat(Type 1 = Yes; Type 2 = No)");
+		System.out.println("Do you want an upgraded seat(Type 1 = Yes; Type 2 = No)?");
 		int YesorNo = s.nextInt();
+		System.out.println("Do you want to have a couple seat(Type 1=Yes; Type 2 = No)?");
+		int YorN = s.nextInt();
 		System.out.print("Please enter a positive integer (0 for holidays,1 for weekends, others for other days): ");
 		int choice = s.nextInt();
+
 		while (true) {
 			if (choice == 0) {
 				TotalPrice = NormalPrice.add(HolidayPriceIncrement);
 				TotalPrice = SeniorPrice.add(HolidayPriceIncrement);
 				TotalPrice = ChildPrice.add(HolidayPriceIncrement);
 				TotalPrice = PlatinumPrice.add(HolidayPriceIncrement);
+				TotalPrice = CouplePrice.add(HolidayPriceIncrement);
 				if (age < 12) {
 					TotalPrice = ChildPrice;
 					System.out.println("You are under 12." + "Your price is: " + TotalPrice);
@@ -179,22 +178,34 @@ public class BookingBoundary {
 						System.out.println("Not Applicable");
 					}
 				}
+				System.out.println("For Couple Seats:");
+				if (YorN < 2) {
+					TotalPrice = CouplePrice;
+					System.out.println("Your price is SGD" + TotalPrice);
+				} else {
+					if (YorN > 2) {
+						System.out.println("Not Applicable");
+					}
+				}
 			} else {
 				if (choice == 1) {
 					BigDecimal weekendPriceIncrement = NormalPrice.multiply(WeekendPriceIncrementpercent);
 					BigDecimal weekendPriceIncrement2 = PlatinumPrice.multiply(WeekendPriceIncrementpercent);
 					BigDecimal weekendPriceIncrement3 = SeniorPrice.multiply(WeekendPriceIncrementpercent);
 					BigDecimal weekendPriceIncrement4 = ChildPrice.multiply(WeekendPriceIncrementpercent);
+					BigDecimal weekendPriceIncrement5 = CouplePrice.multiply(WeekendPriceIncrementpercent);
 
 					weekendPriceIncrement = weekendPriceIncrement.setScale(2, RoundingMode.HALF_UP);
 					weekendPriceIncrement2 = weekendPriceIncrement2.setScale(2, RoundingMode.HALF_UP);
 					weekendPriceIncrement3 = weekendPriceIncrement3.setScale(2, RoundingMode.HALF_UP);
 					weekendPriceIncrement4 = weekendPriceIncrement4.setScale(2, RoundingMode.HALF_UP);
+					weekendPriceIncrement5 = weekendPriceIncrement5.setScale(2, RoundingMode.HALF_UP);
 
 					TotalPrice = NormalPrice.add(weekendPriceIncrement);
 					TotalPrice = PlatinumPrice.add(weekendPriceIncrement2);
 					TotalPrice = SeniorPrice.add(weekendPriceIncrement3);
 					TotalPrice = ChildPrice.add(weekendPriceIncrement4);
+					TotalPrice = CouplePrice.add(weekendPriceIncrement5);
 					if (age < 12) {
 						TotalPrice = ChildPrice;
 						System.out.println("You are under 12." + "Your price is: " + TotalPrice);
@@ -218,11 +229,21 @@ public class BookingBoundary {
 							System.out.println("Not Applicable");
 						}
 					}
+					System.out.println("For Couple Seats:");
+					if (YorN < 2) {
+						TotalPrice = CouplePrice;
+						System.out.println("Your price is SGD" + TotalPrice);
+					} else {
+						if (YorN > 2) {
+							System.out.println("Not Applicable");
+						}
+					}
 				} else if (choice > 1) {
 					BigDecimal GoodsandServicesTax = NormalPrice.multiply(GoodsandServicesTaxpercentforWeekdays);
 					BigDecimal GoodsandServicesTax2 = PlatinumPrice.multiply(GoodsandServicesTaxpercentforWeekdays);
 					BigDecimal GoodsandServicesTax3 = SeniorPrice.multiply(GoodsandServicesTaxpercentforWeekdays);
 					BigDecimal GoodsandServicesTax4 = ChildPrice.multiply(GoodsandServicesTaxpercentforWeekdays);
+					BigDecimal GoodsandServicesTax5 = CouplePrice.multiply(GoodsandServicesTaxpercentforWeekdays);
 
 					GoodsandServicesTax = GoodsandServicesTax.setScale(2, RoundingMode.HALF_UP);
 
@@ -232,10 +253,14 @@ public class BookingBoundary {
 
 					GoodsandServicesTax4 = GoodsandServicesTax4.setScale(2, RoundingMode.HALF_UP);
 
+					GoodsandServicesTax5 = GoodsandServicesTax5.setScale(2, RoundingMode.HALF_UP);
+
 					TotalPrice = NormalPrice.add(GoodsandServicesTax);
 					TotalPrice = PlatinumPrice.add(GoodsandServicesTax2);
 					TotalPrice = SeniorPrice.add(GoodsandServicesTax3);
 					TotalPrice = ChildPrice.add(GoodsandServicesTax4);
+					TotalPrice = CouplePrice.add(GoodsandServicesTax5);
+
 					if (age < 12) {
 						TotalPrice = ChildPrice;
 						System.out.println("You are under 12." + "Your price is: " + TotalPrice);
@@ -256,6 +281,15 @@ public class BookingBoundary {
 						System.out.println("Your price is SGD " + TotalPrice);
 					} else {
 						if (YesorNo >= 2) {
+							System.out.println("Not Applicable");
+						}
+					}
+					System.out.println("For Couple Seats:");
+					if (YorN < 2) {
+						TotalPrice = CouplePrice;
+						System.out.println("Your price is SGD" + TotalPrice);
+					} else {
+						if (YorN > 2) {
 							System.out.println("Not Applicable");
 						}
 					}
@@ -282,13 +316,16 @@ public class BookingBoundary {
 		System.out.println("Booking Date:" + FormatDateTime);
 		System.out.println("Transaction ID: MOB" + FormatDateTime);
 		System.out.println("Thanks for Booking with Us!");
-		
+
 	}
-	
-	public static void getTransactionDetails(Customer customer, Movie movie, ShowTime time, int seatno, BigDecimal TotalPrice, String transID, String cinemaname,int mobilenumber,String emailaddress,String bookingdate) throws InvalidIdException {
-	        System.out.println(BookingController.getTransactionDetails(customer, movie, time, seatno, TotalPrice, transID, cinemaname, mobilenumber, emailaddress, bookingdate));
-	    }
-	
+
+	public static void getTransactionDetails(Customer customer, Movie movie, ShowTime time, int seatno,
+			BigDecimal TotalPrice, String transID, String cinemaname, int mobilenumber, String emailaddress,
+			String bookingdate) throws InvalidIdException {
+		System.out.println(BookingController.getTransactionDetails(customer, movie, time, seatno, TotalPrice, transID,
+				cinemaname, mobilenumber, emailaddress, bookingdate));
+	}
+
 	public static void getShowTime(int cinemaId) throws InvalidIdException, EmptyListException {
 		System.out.println(CinemaController.getCinemaShowTime(cinemaId));
 	}
@@ -296,8 +333,13 @@ public class BookingBoundary {
 	public static void getShowTimeDetail(int cinemaId, int showTimeId) throws InvalidIdException {
 		System.out.println(ShowTimeController.getShowTimeDetail(cinemaId, showTimeId));
 	}
+
 	public static void getCinema() {
-        System.out.println("Cinema List");
-        System.out.println(CinemaController.getCinemaList());
-    }
+		System.out.println("Cinema List");
+		System.out.println(CinemaController.getCinemaList());
+	}
+	public static void getCinemaLayout() {
+		System.out.println("Cinema Layout");
+		System.out.println(CinemaController.getCinemaLayout());
+	}
 }
