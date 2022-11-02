@@ -1,76 +1,59 @@
 package Controller;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import Constant.DataFileConstant;
+import Entity.Movie;
+import Entity.MovieRating;
+import Entity.MovieStatus;
+import Entity.MovieType;
+import Exception.EmptyListException;
+import Exception.InvalidIdException;
+import Exception.InvalidInputException;
+import Repository.MovieRepository;
 
 public class MovieReviewController {
 	
-	private String movieName;
-	private ArrayList<String> reviews,name;
-	private static ArrayList<MovieReviewController> movieList;
-	
-	public MovieReviewController(String movieName){
-		this.movieName=movieName;
-		this.name=null;
-		this.reviews=null;
-		
-	}
 	
 	
-	public static void addReview(String movieName,String review) {
-		int arrSize = movieList.size();
-		movieName=movieName.toLowerCase();
-		for (int i=0;i<arrSize;i++) {
-			if (movieList.get(i).getName().toLowerCase().equals(movieName)) {
-				movieList.get(i).setReview(review);
-				break;
+	public static void addReview(int id, String name, String review, double rating) throws InvalidIdException, InvalidInputException {
+		if (id < 0 || id >= MovieController.movieRepository.size())
+			throw new InvalidIdException("Please enter a valid movie id.");
+		try {
+			if (isValidInput(review, rating)) {
+				MovieReview newReview = new MovieReview(name, review, rating);
+				Movie movie =MovieController.getMovie(id);
+			    movie.getMovieReview().add(newReview);
+			    double size = movie.getMovieReview().size();
+			    double newRating = (((size-1)*movie.getRating())+rating)/size;
+			    movie.setRating(newRating);
+			    MovieController.movieRepository.edit(id,movie);
 			}
-		
+		} catch (InvalidInputException e) {
+			throw new InvalidInputException(e.getMessage());
 		}
-		System.out.println("Movie not found");
 	}
-	public static void addMovieForReview(String movieName) {
-		MovieReviewController M = new MovieReviewController(movieName);
-		movieList.add(M);
-	}
-	
-	public static void printReview(String movieName) {
-		int arrSize = movieList.size();
-		movieName=movieName.toLowerCase();
-		for (int i=0;i<arrSize;i++) {
-			if (movieList.get(i).getName().toLowerCase().equals(movieName)) {
-				int size = movieList.get(i).getReviews().size();
-				for (int j=0;j<size;j++) {
-					System.out.println(movieList.get(i).getReviews().get(j));
-				}
-				break;
-			}
-		
-		}
-		System.out.println("Movie not found");
-		
-	}
-	
-	public boolean checkMovie(String movieName) {
-		int arrSize = movieList.size();
-		movieName=movieName.toLowerCase();
-		for (int i=0;i<arrSize;i++) {
-			if (movieList.get(i).getName().toLowerCase().equals(movieName)) {
-				return true;
-			}
-			
-	 }
-		return false;
-	}
-	
-	public ArrayList<String> getReviews() {
-		return this.reviews;
-	}
-	
-	public void setReview(String reviews) {
-		this.reviews.add(reviews);
-	}
-	
-	public String getName() {
-		return this.movieName;
+    
+    public static List<MovieReview> getMovieReviewList(int id) throws EmptyListException, InvalidIdException {
+    	if (id < 0 || id >= MovieController.movieRepository.size())
+			throw new InvalidIdException("Please enter a valid movie id.");
+   
+        if (MovieController.getMovie(id).getMovieReview().isEmpty())
+            throw new EmptyListException("No reviews found.");
+        return MovieController.getMovie(id).getMovieReview();
+    }
+
+
+
+	private static boolean isValidInput(String name, double movieRating) throws InvalidInputException {
+		if (name.isBlank())
+			throw new InvalidInputException("Please enter a review.");
+		if (movieRating < 0 || movieRating >= MovieRating.values().length)
+			throw new InvalidInputException("Please select a valid movie rating.");
+
+		return true;
 	}
 
 }
