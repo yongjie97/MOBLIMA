@@ -1,6 +1,4 @@
-package sce.SC2002.WWC.first;
-
-import java.util.ArrayList;
+        import java.util.ArrayList;
 	import java.math.BigDecimal;
 	public class Systemsettings { 
 		private static ArrayList<String> holiday = new ArrayList <String>();
