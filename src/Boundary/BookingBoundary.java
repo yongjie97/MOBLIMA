@@ -28,7 +28,7 @@ import Entity.Cinema;
 import Entity.Customer;
 import Entity.Movie;
 
-public class bookingBoundary {
+public class BookingBoundary {
 	private static Customer customer;
 	private static Movie movie;
 	private static ShowTime time;
