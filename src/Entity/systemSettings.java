@@ -16,16 +16,33 @@ public class systemSettings implements Serializable {
 	private BigDecimal weekendIncrement = new BigDecimal("0.40");
 	private BigDecimal holidayIncrement = new BigDecimal("2.00");
 	private BigDecimal gst = new BigDecimal("0.7");
+	private BigDecimal totalPrice;
+	private BigDecimal weekendPriceIncrementPercent;
+	private BigDecimal holidayPriceIncrement;
+	private BigDecimal goodsAndServicesTaxPercentForWeekdays;
 
-	public BigDecimal getNormalPrice() {
+	public systemSettings(BigDecimal totalPrice, BigDecimal regularPrice, BigDecimal seniorPrice,
+			BigDecimal childPrice, BigDecimal platinumPrice, BigDecimal weekendPriceIncrementPercent,
+			BigDecimal holidayPriceIncrement, BigDecimal goodsAndServicesTaxPercentForWeekdays) {
+		this.totalPrice = totalPrice;
+		this.regularPrice = regularPrice;
+		this.seniorPrice = seniorPrice;
+		this.childPrice = childPrice;
+		this.platinumPrice = platinumPrice;
+		this.weekendPriceIncrementPercent= weekendPriceIncrementPercent;
+		this.holidayPriceIncrement = holidayPriceIncrement;
+		this.goodsAndServicesTaxPercentForWeekdays = goodsAndServicesTaxPercentForWeekdays;
+	}
+
+	public BigDecimal getregularPrice() {
 		return regularPrice;
 	}
 
-	public BigDecimal getSeniorPrice() {
+	public BigDecimal getseniorPrice() {
 		return seniorPrice;
 	}
 
-	public BigDecimal getChildPrice() {
+	public BigDecimal getchildPrice() {
 		return childPrice;
 	}
 
@@ -73,11 +90,16 @@ public class systemSettings implements Serializable {
 		this.holidayIncrement = price;
 	}
 
-	public void setRegularPrice(BigDecimal price) {
+	public void setregularPrice(BigDecimal price) {
 		this.regularPrice = price;
 	}
 
 	public void setGst(BigDecimal price) {
 		this.gst = price;
+	}
+
+	public void add(systemSettings systemSettings) {
+		// TODO Auto-generated method stub
+		
 	}
 }
