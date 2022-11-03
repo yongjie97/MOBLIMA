@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class systemSettings implements Serializable {
+public class SystemSettings implements Serializable {
 	private ArrayList<String> holiday = new ArrayList<String>();
 	// to change later to set generic prices first
 	private BigDecimal regularPrice = new BigDecimal("13.50");
@@ -21,7 +21,7 @@ public class systemSettings implements Serializable {
 	private BigDecimal holidayPriceIncrement;
 	private BigDecimal goodsAndServicesTaxPercentForWeekdays;
 
-	public systemSettings(BigDecimal totalPrice, BigDecimal regularPrice, BigDecimal seniorPrice,
+	public SystemSettings(BigDecimal totalPrice, BigDecimal regularPrice, BigDecimal seniorPrice,
 			BigDecimal childPrice, BigDecimal platinumPrice, BigDecimal weekendPriceIncrementPercent,
 			BigDecimal holidayPriceIncrement, BigDecimal goodsAndServicesTaxPercentForWeekdays) {
 		this.totalPrice = totalPrice;
