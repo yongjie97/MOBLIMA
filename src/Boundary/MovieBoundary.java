@@ -65,45 +65,6 @@ public class MovieBoundary {
         } while (userInput != -1);
     }
 
-    public static void findMovie() {
-        int userInput = 0;
-        do {
-            try {
-                Scanner sc = new Scanner(System.in);
-                System.out.println("===============================");
-                System.out.println("Action List");
-                System.out.println("1: Search Movie");
-                System.out.println("2: List Available Movie");
-                System.out.println("Enter -1 to go back");
-                System.out.println("===============================");
-                System.out.print("Please enter your option: ");
-                userInput = sc.nextInt();
-                sc.nextLine();
-                switch (userInput) {
-                    case 1:
-                        MovieBoundary.searchMovie();
-                        break;
-                    case 2:
-                        MovieBoundary.showAvailableMovieList();
-                        break;
-                    case -1:
-                        return;
-                    default:
-                        throw new Exception();
-                }
-                int movieId = MovieBoundary.askForMovieSelection();
-                if (movieId == -1)
-                    break;
-                MovieBoundary.showMovieOptions(movieIds.get(movieId - 1));
-            } catch (EmptyListException e) {
-                System.out.println(e.getMessage());
-            } catch (Exception e) {
-                System.out.println("Please enter a valid option.");
-                break;
-            }
-        } while (userInput != -1);
-    }
-
     public static int askForMovieSelection() {
         int userInput = 0;
         do {
@@ -225,7 +186,7 @@ public class MovieBoundary {
                         int editField = 0;
                         while (editField != -1) {
                             showMovieDetails(movieId);
-                            System.out.println("1: Edit mame");
+                            System.out.println("1: Edit name");
                             System.out.println("2: Edit synopsis");
                             System.out.println("3: Edit cast");
                             System.out.println("4: Edit director");
@@ -364,6 +325,45 @@ public class MovieBoundary {
         }
     }
 
+    public static void findMovie() {
+        int userInput = 0;
+        do {
+            try {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("===============================");
+                System.out.println("Action List");
+                System.out.println("1: Search Movie");
+                System.out.println("2: List Available Movie");
+                System.out.println("Enter -1 to go back");
+                System.out.println("===============================");
+                System.out.print("Please enter your option: ");
+                userInput = sc.nextInt();
+                sc.nextLine();
+                switch (userInput) {
+                    case 1:
+                        MovieBoundary.searchMovie();
+                        break;
+                    case 2:
+                        MovieBoundary.showAvailableMovieList();
+                        break;
+                    case -1:
+                        return;
+                    default:
+                        throw new Exception();
+                }
+                int movieId = MovieBoundary.askForMovieSelection();
+                if (movieId == -1)
+                    break;
+                MovieBoundary.showMovieOptions(movieIds.get(movieId - 1));
+            } catch (EmptyListException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println("Please enter a valid option.");
+                break;
+            }
+        } while (userInput != -1);
+    }
+
     public static void showAvailableMovieList() throws EmptyListException {
         try {
             movieIds.clear();
@@ -412,7 +412,7 @@ public class MovieBoundary {
             output.append("Synopsis: " + movie.getSynopsis() + "\n");
             output.append("Cast: " + movie.getCast() + "\n");
             output.append("Director: " + movie.getDirector() + "\n");
-            output.append("Rating: " + movie.getRating() + "\n");
+            output.append("Rating: " + String.format("%.2f", movie.getRating()) + "\n");
             output.append("Movie Type: " + movie.getMovieType().getValue() + "\n");
             output.append("Movie Rating: " + movie.getMovieRating().getValue() + "\n");
             output.append("Movie Status: " + movie.getMovieStatus().getValue());

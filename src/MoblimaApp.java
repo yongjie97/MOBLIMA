@@ -1,8 +1,10 @@
 import Boundary.HomeBoundary;
 import Controller.CinemaController;
 import Controller.CineplexController;
+import Controller.MovieController;
 import Controller.ShowTimeController;
 import Controller.SystemSettingsController;
+import Controller.UserController;
 import Entity.CinemaClass;
 
 public class MoblimaApp {
@@ -40,15 +42,15 @@ public class MoblimaApp {
 
                 // CineplexController.addCineplex("GV Bishan");
                 // CinemaController.addCinema(2, "Hall 1", CinemaClass.NORMAL, layout3);
-
-                // HomeBoundary.userUI();
+                // UserController.register("Staff 1", "abc@hotmail.com", "123");
+                HomeBoundary.userUI();
                 // SystemSettingsController.createDefaultSystemSettings();
                 // System.out.println(SystemSettingsController.listPrices());
                 // System.out.println(ShowTimeController.getAvailableSeats(1, 2, 1));
                 // ShowTimeController.reserveSeat(1, 2, 1, "B3");
                 // System.out.println(ShowTimeController.checkIfSeatAvailable(1, 2, 1, "A2"));
                 // System.out.println(ShowTimeController.getAvailableSeats(1, 2, 1));
-                HomeBoundary.adminUI();
+                // HomeBoundary.adminUI();
         }
 
 }

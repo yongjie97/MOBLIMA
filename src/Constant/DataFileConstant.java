@@ -11,6 +11,7 @@ public class DataFileConstant {
     public final static String MOVIE_FILE = s.concat("/src/data/movie.txt");
     public final static String CINEPLEX_FILE = s.concat("/src/data/cineplex.txt");
     public final static String SYSTEM_SETTINGS_FILE = s.concat("/src/data/system_settings.txt");
+    public final static String USER_FILE = s.concat("/src/data/user.txt");
 
 
     

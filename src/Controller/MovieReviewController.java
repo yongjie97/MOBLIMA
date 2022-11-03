@@ -14,15 +14,15 @@ public class MovieReviewController {
 
     private static MovieRepository movieRepository = new MovieRepository(DataFileConstant.MOVIE_FILE);
 
-    public static void addReview(int movieId, String review, double rating)
+    public static void addReview(int movieId, String name, String review, double rating)
             throws InvalidIdException, InvalidInputException {
         movieId = normaliseId(movieId);
         if (movieId < 0 || movieId >= MovieController.movieRepository.size())
             throw new InvalidIdException("Please enter a valid movie id.");
-        if (!isValidInput(review, rating))
+        if (!isValidInput(name, review, rating))
             throw new InvalidInputException("Please enter a valid input.");
 
-        MovieReview movieReview = new MovieReview(review, rating);
+        MovieReview movieReview = new MovieReview(name, review, rating);
         Movie movie = movieRepository.get(movieId);
         movie.getMovieReviews().add(movieReview);
         movie.setRating(calculateRating(movie));
@@ -51,16 +51,17 @@ public class MovieReviewController {
 
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < movie.getMovieReviews().size(); i++) {
-            output.append(MessageFormat.format("Review {0}:\n", i+1));
-            output.append(MessageFormat.format("Name: {0}\n", "Name"));
+            output.append(MessageFormat.format("Name: {0}\n", movie.getMovieReviews().get(i).getName()));
             output.append(MessageFormat.format("Rating: {0,number,#.##}\n", movie.getMovieReviews().get(i).getRating()));
-            output.append(MessageFormat.format("Review: {0}\n", movie.getMovieReviews().get(i).getReview()));
+            output.append(MessageFormat.format("Review: {0}\n\n", movie.getMovieReviews().get(i).getReview()));
         }
-        return output.substring(0, output.length() - 1).toString();
+        return output.substring(0, output.length() - 2).toString();
     }
 
-    private static boolean isValidInput(String name, double rating) throws InvalidInputException {
+    private static boolean isValidInput(String name, String review, double rating) throws InvalidInputException {
         if (name.isBlank())
+            throw new InvalidInputException("Please enter a name.");
+        if (review.isBlank())
             throw new InvalidInputException("Please enter a review.");
         if (rating < 1 || rating > 5)
             throw new InvalidInputException("Please select a valid movie rating.");
