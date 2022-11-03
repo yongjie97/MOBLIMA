@@ -42,7 +42,7 @@ public class MoblimaApp {
 
                 // CineplexController.addCineplex("GV Bishan");
                 // CinemaController.addCinema(2, "Hall 1", CinemaClass.NORMAL, layout3);
-                // UserController.register("Staff 1", "abc@hotmail.com", "123");
+                // UserController.register("Staff 2", "guestusername", "guestpassword");
                 HomeBoundary.userUI();
                 // SystemSettingsController.createDefaultSystemSettings();
                 // System.out.println(SystemSettingsController.listPrices());
