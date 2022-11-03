@@ -41,7 +41,7 @@ public class MoblimaApp {
                 // CineplexController.addCineplex("GV Bishan");
                 // CinemaController.addCinema(2, "Hall 1", CinemaClass.NORMAL, layout3);
 
-                HomeBoundary.userUI();
+                // HomeBoundary.userUI();
                 // SystemSettingsController.createDefaultSystemSettings();
                 // System.out.println(SystemSettingsController.listPrices());
                 // System.out.println(ShowTimeController.getAvailableSeats(1, 2, 1));
