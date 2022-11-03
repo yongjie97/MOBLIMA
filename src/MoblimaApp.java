@@ -1,18 +1,49 @@
 import Boundary.HomeBoundary;
+import Controller.CinemaController;
+import Controller.CineplexController;
+import Controller.SystemSettingsController;
+import Entity.CinemaClass;
 
 public class MoblimaApp {
-    public static void main(String[] args) throws Exception {
+        public static void main(String[] args) throws Exception {
 
-        char[][] layout = {
-                { 0, 0, 0, 0, 0, 'S', 'C', 'R', 'E', 'E', 'N', 0, 0, 0 },
-                { 'E', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'E' },
-                { 'D', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'D' },
-                { 'C', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'C' },
-                { 'B', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'B' },
-                { 'A', 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 'A' } };
-        //CinemaController.addCinema("Hall 1", CinemaClass.NORMAL, layout);
+                char[][] layout = {
+                                { 0, 0, 0, 0, 0, 'S', 'C', 'R', 'E', 'E', 'N', 0, 0, 0 },
+                                { 'E', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'E' },
+                                { 'D', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'D' },
+                                { 'C', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'C' },
+                                { 'B', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'B' },
+                                { 'A', 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 'A' } };
+                char[][] layout2 = {
+                                { 0, 0, 0, 0, ' ', 'S', 'C', 'R', 'E', 'E', 'N', 0, 0 },
+                                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                                { 'D', 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 'D' },
+                                { 'C', 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 'C' },
+                                { 'B', 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 'B' },
+                                { 'A', 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 'A' } };
 
-        HomeBoundary.userUI();
-        HomeBoundary.adminUI();
-    }
+                char[][] layout3 = {
+                                { 0, 0, 0, 0, 0, 0, 0, 0, 0, ' ', 'S', 'C', 'R', 'E', 'E', 'N', 0, 0 },
+                                { 'G', 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 'G' },
+                                { 'F', 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 'F' },
+                                { 'E', 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 'E' },
+                                { 'D', 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 'D' },
+                                { 'C', 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 'C' },
+                                { 'B', 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 'B' },
+                                { 'A', 0, 0, 2, 0, 0, 2, 2, 2, 2, 0, 0, 2, 0, 0, 'A' } };
+
+                // CineplexController.addCineplex("GV Yishun");
+                // CinemaController.addCinema(1, "Hall 1", CinemaClass.NORMAL, layout);
+                // CinemaController.addCinema(1, "Hall 2", CinemaClass.NORMAL, layout3);
+                // CinemaController.addCinema(1, "Hall 3", CinemaClass.PLATINUM, layout2);
+
+                // CineplexController.addCineplex("GV Bishan");
+                // CinemaController.addCinema(2, "Hall 1", CinemaClass.NORMAL, layout3);
+
+                // HomeBoundary.userUI();
+                // SystemSettingsController.createDefaultSystemSettings();
+                System.out.println(SystemSettingsController.listPrices());
+                HomeBoundary.adminUI();
+        }
+
 }

@@ -2,8 +2,6 @@ package Boundary;
 
 import java.util.Scanner;
 
-import Controller.MovieController;
-
 public class HomeBoundary {
 
     public static void adminUI() {
@@ -12,9 +10,11 @@ public class HomeBoundary {
             try {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("===============================");
-                System.out.println("Welcome to MOBLIMA - ADMIN");
+                System.out.println("==       MOBLIMA ADMIN       ==");
+                System.out.println("===============================");
+                System.out.println("Action List");
                 System.out.println("1: Manage Movie Listing");
-                System.out.println("2: Manage Cinema/Showtime");
+                System.out.println("2: Manage Cineplex");
                 System.out.println("3: Configure System Settings");
                 System.out.println("Enter -1 to exit the program");
                 System.out.println("===============================");
@@ -26,7 +26,7 @@ public class HomeBoundary {
                         MovieBoundary.manageMovie();
                         break;
                     case 2:
-                        CinemaBoundary.manageCinema();
+                        CineplexBoundary.manageCineplex();
                         break;
                     case 3:
                         // Configure settings UI
@@ -64,7 +64,7 @@ public class HomeBoundary {
                         MovieBoundary.findMovie();
                         break;
                     case 2:
-                        //MovieBoundary.showAvailableMovieList();
+                        // MovieBoundary.showAvailableMovieList();
                         break;
                     case 3:
                         break;
