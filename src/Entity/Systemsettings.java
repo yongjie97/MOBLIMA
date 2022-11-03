@@ -14,7 +14,7 @@
 	    BigDecimal HolidayPriceIncrement = new BigDecimal("2.00");
 	    BigDecimal GoodsandServicesTaxpercentforWeekdays= new BigDecimal("0.7");
 	    
-	    public Systemsettings (BigDecimal TotalPrice, BigDecimal NormalPrice,BigDecimal SeniorPrice, BigDecimal ChildPrice, BigDecimal PlatinumPrice, BigDecimal WeekendPriceIncrementpercent, BigDecimal HolidayPriceIncrement, BigDecimal GoodsandServicesTaxpercentforWeekdays) {
+	    public Systemsettings (BigDecimal TotalPrice, BigDecimal NormalPrice,BigDecimal SeniorPrice, BigDecimal ChildPrice, BigDecimal PlatinumPrice, BigDecimal WeekendPriceIncrementpercent, BigDecimal HolidayPriceIncrement, BigDecimal GoodsandServicesTaxpercentforWeekdays,ArrayList<String> holiday) {
 			this.TotalPrice = TotalPrice;
 			this.NormalPrice = NormalPrice;
 			this.SeniorPrice = SeniorPrice;
@@ -22,7 +22,8 @@
 			this.PlatinumPrice = PlatinumPrice;
 			this.WeekendPriceIncrementpercent = WeekendPriceIncrementpercent;
 			this.HolidayPriceIncrement = HolidayPriceIncrement;
-			this.GoodsandServicesTaxpercentforWeekdays = GoodsandServicesTaxpercentforWeekdays; 
+			this.GoodsandServicesTaxpercentforWeekdays = GoodsandServicesTaxpercentforWeekdays;
+			this.holiday= holiday;
 		}
 		
 		public BigDecimal getTotalPrice() {
@@ -53,6 +54,4 @@
 	
 		return holiday;
 		}
-	
-
 }
