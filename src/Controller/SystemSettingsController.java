@@ -1,4 +1,3 @@
-package sce.SC2002.WWC.first;
 import Constant.DataFileConstant;
 import Entity.SystemSettings;
 import Repository.SystemSettingsRepository;
