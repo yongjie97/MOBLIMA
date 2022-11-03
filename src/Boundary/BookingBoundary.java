@@ -58,16 +58,16 @@ public class BookingBoundary {
 				sc.nextLine();
 				switch (userInput) {
 				case 1:
-					bookingBoundary.viewshowTimes();
+					BookingBoundary.viewshowTimes();
 					break;
 				case 2:
-					bookingBoundary.viewSeats();
+					BookingBoundary.viewSeats();
 					break;
 				case 3:
-					bookingBoundary.viewticketPrices();
+					BookingBoundary.viewticketPrices();
 					break;
 				case 4:
-					bookingBoundary.viewtransactionDetails();
+					BookingBoundary.viewtransactionDetails();
 					break;
 				case -1:
 					System.out.println("Thank you for choosing MOBLIMA");
