@@ -1,7 +1,7 @@
 package Repository;
-import Entity.systemSettings;
+import Entity.SystemSettings;
 
-public class SystemRepository extends Repository<systemSettings> {
+public class SystemRepository extends Repository<SystemSettings> {
 
     public SystemRepository(String fileName) {
         super(fileName);
