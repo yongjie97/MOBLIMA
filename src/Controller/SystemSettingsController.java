@@ -1,17 +1,17 @@
 package Controller;
 import Constant.DataFileConstant;
-import Entity.Systemsettings;
-import Repository.SystemsettingsRepository;
+import Entity.systemSettings;
+import Repository.systemSettingsRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-public class SystemsettingsController {
-	private static SystemsettingsRespository systemsettingsRepository = new SystemsettingsRespository(DataFileConstant.SYSTEMSETTINGS_FILE);
+public class systemSettingsController {
+	private static systemSettingsRespository systemSettingsRepository = new systemSettingsRespository(DataFileConstant.SYSTEMSETTINGS_FILE);
 	
 	
-	public static void addSystemsettings(ArrayList<String> holiday, BigDecimal totalPrice, BigDecimal normalPrice, BigDecimal seniorPrice ,BigDecimal childPrice, BigDecimal platinumPrice, BigDecimal weekendPriceIncrementpercent, BigDecimal holidayPriceIncrement, BigDecimal goodsandServicesTaxpercentforWeekdays)
-	{ Systemsettings Systemsettings = new Systemsettings(totalPrice,normalPrice,seniorPrice,childPrice,platinumPrice,weekendPriceIncrementpercent, holidayPriceIncrement,goodsandServicesTaxpercentforWeekdays);
-	Systemsettings.add(Systemsettings);
+	public static void addsystemSettings(ArrayList<String> holiday, BigDecimal totalPrice, BigDecimal normalPrice, BigDecimal seniorPrice ,BigDecimal childPrice, BigDecimal platinumPrice, BigDecimal weekendPriceIncrementpercent, BigDecimal holidayPriceIncrement, BigDecimal goodsandServicesTaxpercentforWeekdays)
+	{ systemSettings systemSettings = new systemSettings(totalPrice,normalPrice,seniorPrice,childPrice,platinumPrice,weekendPriceIncrementpercent, holidayPriceIncrement,goodsandServicesTaxpercentforWeekdays);
+	systemSettings.add(systemSettings);
 	}
 		
 
