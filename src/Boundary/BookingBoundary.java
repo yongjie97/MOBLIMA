@@ -24,7 +24,7 @@ import Exception.InvalidInputException;
 import Entity.Booking;
 import Entity.Cinema;
 
-public class BookingBoundary {
+public class bookingBoundary {
 	public static void Booking() {
 		int userInput = 0;
 
@@ -44,16 +44,16 @@ public class BookingBoundary {
 				sc.nextLine();
 				switch (userInput) {
 				case 1:
-					BookingBoundary.viewShowTimes();
+					bookingBoundary.viewshowTimes();
 					break;
 				case 2:
-					BookingBoundary.viewSeats();
+					bookingBoundary.viewSeats();
 					break;
 				case 3:
-					BookingBoundary.viewTicketPrices();
+					bookingBoundary.viewticketPrices();
 					break;
 				case 4:
-					BookingBoundary.viewTransactionDetails();
+					bookingBoundary.viewtransactionDetails();
 					break;
 				case -1:
 					System.out.println("Thank you for choosing MOBLIMA");
@@ -67,7 +67,7 @@ public class BookingBoundary {
 		} while (userInput != -1);
 	}
 
-	public static void viewShowTimes() {
+	public static void viewshowTimes() {
 		while (true) {
 			try {
 				getCinema();
@@ -95,7 +95,7 @@ public class BookingBoundary {
 		int cinemaId= g.nextInt();
 		g.nextLine();
 		System.out.println("How many seats do you want to book?");
-		int numberofseats = g.nextInt();
+		int numberOfSeats = g.nextInt();
 		System.out.println("Which seat(s) do you want to book?");
 		System.out.println("0, 0, 0, 0, 0, 'S', 'C', 'R', 'E', 'E', 'N', 0, 0, 0, 0, 0"+ g.nextLine()+
 				                   "'E', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'E'"+ g.nextLine()+
@@ -103,19 +103,19 @@ public class BookingBoundary {
 				                   "'C', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'C'"+ g.nextLine()+
 				                   "'B', 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 'B'"+ g.nextLine()+
 				                   "'A', 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 'A'");
-		String seatno = g.toString();
+		String seatNo = g.toString();
 		}
 	}
 
-	public static void viewTicketPrices() {
+	public static void viewticketPrices() {
 
 		Scanner s = new Scanner(System.in);
 		System.out.println("What is your age?");
 		int age = s.nextInt();
 		System.out.println("Do you want an upgraded seat(Type 1 = Yes; Type 2 = No)?");
-		int YesorNo = s.nextInt();
+		int yesOrNo = s.nextInt();
 		System.out.println("Do you want to have a couple seat(Type 1=Yes; Type 2 = No)?");
-		int YorN = s.nextInt();
+		int yorN = s.nextInt();
 		System.out.print("Please enter a positive integer (0 for holidays,1 for weekends, others for other days): ");
 		int choice = s.nextInt();
 
@@ -154,31 +154,31 @@ public class BookingBoundary {
 		}
 	}
 
-	public static void viewTransactionDetails() {
+	public static void viewtransactionDetails() {
 		LocalDateTime DateTime = LocalDateTime.now();
 		DateTimeFormatter Format = DateTimeFormatter.ofPattern("YYYYMMDDHHmm");
-		String FormatDateTime = DateTime.format(Format);
-		String transID = "Transaction ID: MOB" + FormatDateTime;
-		String bookingdate = FormatDateTime;
+		String formatDateTime = DateTime.format(Format);
+		String transID = "Transaction ID: MOB" + formatDateTime;
+		String bookingDate = formatDateTime;
 		System.out.println("ShowTime:" + time);
 		System.out.println("Movie Title : " + movie);
 		System.out.println("Name : " + customer);
-		System.out.println("Cinema Name:" + cinemaname);
-		System.out.println("Seat No.:" + seatno);
-		System.out.println("Total Price:" + TotalPrice);
-		System.out.println("Mobile Number:" + mobilenumber);
-		System.out.println("Email Address:" + emailaddress);
-		System.out.println("Booking Date:" + FormatDateTime);
-		System.out.println("Transaction ID: MOB" + FormatDateTime);
+		System.out.println("Cinema Name:" + cinemaName);
+		System.out.println("Seat No.:" + seatNo);
+		System.out.println("Total Price:" + totalPrice);
+		System.out.println("Mobile Number:" + mobileNumber);
+		System.out.println("Email Address:" + emailAddress);
+		System.out.println("Booking Date:" + formatDateTime);
+		System.out.println("Transaction ID: MOB" + formatDateTime);
 		System.out.println("Thanks for Booking with Us!");
 
 	}
 
-	public static void getTransactionDetails(Customer customer, Movie movie, ShowTime time, int seatno,
-			BigDecimal TotalPrice, String transID, String cinemaname, int mobilenumber, String emailaddress,
-			String bookingdate) throws InvalidIdException {
-		System.out.println(BookingController.getTransactionDetails(customer, movie, time, seatno, TotalPrice, transID,
-				cinemaname, mobilenumber, emailaddress, bookingdate));
+	public static void gettransactionDetails(Customer customer, Movie movie, ShowTime time, int seatNo,
+			BigDecimal totalPrice, String transID, String cinemaName, int mobileNumber, String emailAddress,
+			String bookingDate) throws InvalidIdException {
+		System.out.println(BookingController.gettransactionDetails(customer, movie, time, seatNo, totalPrice, transID,
+				cinemaName, mobileNumber, emailAddress, bookingDate));
 	}
 
 	public static void getShowTime(int cinemaId) throws InvalidIdException, EmptyListException {
