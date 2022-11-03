@@ -1,57 +1,83 @@
-        import java.util.ArrayList;
-	import java.math.BigDecimal;
-	public class Systemsettings { 
-		private static ArrayList<String> holiday = new ArrayList <String>();
-		ArrayList<String> s = holiday;
-		BigDecimal  TotalPrice=null;
-		BigDecimal NormalPrice = new BigDecimal("13.50");
-		BigDecimal SeniorPrice = new BigDecimal("5.00");
-		BigDecimal ChildPrice  = new BigDecimal("7.50");
-		BigDecimal PlatinumPrice = new BigDecimal("15.00");
-		
-		 
-            BigDecimal WeekendPriceIncrementpercent =new BigDecimal("0.40");
-	    BigDecimal HolidayPriceIncrement = new BigDecimal("2.00");
-	    BigDecimal GoodsandServicesTaxpercentforWeekdays= new BigDecimal("0.7");
-	    
-	    public Systemsettings (BigDecimal TotalPrice, BigDecimal NormalPrice,BigDecimal SeniorPrice, BigDecimal ChildPrice, BigDecimal PlatinumPrice, BigDecimal WeekendPriceIncrementpercent, BigDecimal HolidayPriceIncrement, BigDecimal GoodsandServicesTaxpercentforWeekdays,ArrayList<String> holiday) {
-			this.TotalPrice = TotalPrice;
-			this.NormalPrice = NormalPrice;
-			this.SeniorPrice = SeniorPrice;
-			this.ChildPrice = ChildPrice;
-			this.PlatinumPrice = PlatinumPrice;
-			this.WeekendPriceIncrementpercent = WeekendPriceIncrementpercent;
-			this.HolidayPriceIncrement = HolidayPriceIncrement;
-			this.GoodsandServicesTaxpercentforWeekdays = GoodsandServicesTaxpercentforWeekdays;
-			this.holiday= holiday;
-		}
-		
-		public BigDecimal getTotalPrice() {
-			return TotalPrice;
-		}
-		public BigDecimal getNormalPrice() {
-			return NormalPrice;
-		}
-		public BigDecimal getSeniorPrice() {
-			return SeniorPrice;
-		}
-		public BigDecimal getChildPrice() {
-			return ChildPrice;
-		}
-		public BigDecimal getPlatinumPrice() {
-			return PlatinumPrice;
-		}
-		public BigDecimal getWeekendPriceIncrementpercent() {
-			return WeekendPriceIncrementpercent;
-		}
-		public BigDecimal getHolidayPriceIncrement() {
-			return HolidayPriceIncrement;
-		}
-		public BigDecimal getGoodsandServicesTaxpercentforWeekdays() {
-			return GoodsandServicesTaxpercentforWeekdays;
-		}
-                public static ArrayList<String> getHoliday() {
-	
+package Entity;
+
+import java.util.ArrayList;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+public class SystemSettings implements Serializable {
+	private ArrayList<String> holiday = new ArrayList<String>();
+	// to change later to set generic prices first
+	private BigDecimal regularPrice = new BigDecimal("13.50");
+	private BigDecimal seniorPrice = new BigDecimal("5.00");
+	private BigDecimal childPrice = new BigDecimal("7.50");
+	private BigDecimal platinumPrice = new BigDecimal("15.00");
+
+	private BigDecimal weekendIncrement = new BigDecimal("0.40");
+	private BigDecimal holidayIncrement = new BigDecimal("2.00");
+	private BigDecimal gst = new BigDecimal("0.7");
+
+	public BigDecimal getNormalPrice() {
+		return regularPrice;
+	}
+
+	public BigDecimal getSeniorPrice() {
+		return seniorPrice;
+	}
+
+	public BigDecimal getChildPrice() {
+		return childPrice;
+	}
+
+	public BigDecimal getPlatinumPrice() {
+		return platinumPrice;
+	}
+
+	public BigDecimal getWeekendPriceIncrementpercent() {
+		return weekendIncrement;
+	}
+
+	public BigDecimal getHolidayPriceIncrement() {
+		return holidayIncrement;
+	}
+
+	public BigDecimal getGoodsandServicesTaxpercentforWeekdays() {
+		return gst;
+	}
+
+	public ArrayList<String> getHoliday() {
 		return holiday;
-		}
+	}
+
+	public void setHoliday(ArrayList<String> holiday) {
+
+	}
+
+	public void setChildPrice(BigDecimal childPrice) {
+		this.childPrice = childPrice;
+	}
+
+	public void setSeniorPrice(BigDecimal seniorPrice) {
+		this.seniorPrice = seniorPrice;
+	}
+
+	public void setPlatinumPrice(BigDecimal platinumPrice) {
+		this.platinumPrice = platinumPrice;
+	}
+
+	public void setWeekendIncrement(BigDecimal price) {
+		this.weekendIncrement = price;
+	}
+
+	public void setHolidayIncrement(BigDecimal price) {
+		this.holidayIncrement = price;
+	}
+
+	public void setRegularPrice(BigDecimal price) {
+		this.regularPrice = price;
+	}
+
+	public void setGst(BigDecimal price) {
+		this.gst = price;
+	}
 }
