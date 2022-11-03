@@ -98,7 +98,7 @@ public class SystemSettings implements Serializable {
 		this.gst = price;
 	}
 
-	public void add(systemSettings systemSettings) {
+	public void add(SystemSettings systemSettings) {
 		// TODO Auto-generated method stub
 		
 	}
