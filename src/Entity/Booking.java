@@ -8,25 +8,25 @@ import java.util.ArrayList;
 		private Customer customer;
 		private Movie movie;
 		private ShowTime time;
-		private int seatno;
-		private String cinemaname;
+		private int seatNo;
+		private String cinemaName;
 		private String transID; 
-		private String emailaddress;
-		private int mobilenumber;
+		private String emailAddress;
+		private int mobileNumber;
 		private String bookingdate;
-		private BigDecimal TotalPrice;
+		private BigDecimal totalPrice;
 		
-		public Booking(Customer customer, Movie movie, ShowTime time, int seatno, BigDecimal TotalPrice, String transID, String cinemaname,int mobilenumber,String emailaddress,String bookingdate) {
+		public Booking(Customer customer, Movie movie, ShowTime time, int seatNo, BigDecimal totalPrice, String transID, String cinemaName,int mobileNumber,String emailAddress,String bookingDate) {
 			this.customer = customer;
 			this.time = time;
 			this.movie = movie;
-			this.seatno = seatno;
-			this.TotalPrice = TotalPrice;
+			this.seatNo = seatno;
+			this.totalPrice = totalPrice;
 			this.transID = transID;
-			this.cinemaname = cinemaname;
-			this.mobilenumber = mobilenumber;
-			this.emailaddress = emailaddress;
-			this.bookingdate = bookingdate;		
+			this.cinemaName = cinemaName;
+			this.mobileNumber = mobileNumber;
+			this.emailAddress = emailAddress;
+			this.bookingDate = bookingDate;		
 		}
 		
 		public String getName() {
@@ -40,27 +40,27 @@ import java.util.ArrayList;
 		public LocalDateTime getShowTime() {
 			return time.getDateTime();
 		}
-		public int getMobileNumber() {
-			return mobilenumber;
+		public int getmobileNumber() {
+			return mobileNumber;
 		}
 		public int getSeat() {
-			return seatno;
+			return seatNo;
 		}
 		
-		public BigDecimal getTotalPrice() {
-			return TotalPrice;
+		public BigDecimal gettotalPrice() {
+			return totalPrice;
 		}
 		public String getID() {
 			return transID;
 		}
-		public String getEmailAddress() {
-			return emailaddress;
+		public String getemailAddress() {
+			return emailAddress;
 		}
 		public String getCinema() {
-			return cinemaname;
+			return cinemaName;
 		}
-		public String getBookingDate() {
-			return bookingdate;
+		public String getbookingDate() {
+			return bookingDate;
 		}
 		}
 			
