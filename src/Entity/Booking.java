@@ -1,5 +1,6 @@
 package Entity;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;  
@@ -20,15 +21,29 @@ import java.util.ArrayList;
 			this.customer = customer;
 			this.time = time;
 			this.movie = movie;
-			this.seatNo = seatno;
+			this.seatNo = seatNo;
 			this.totalPrice = totalPrice;
 			this.transID = transID;
 			this.cinemaName = cinemaName;
 			this.mobileNumber = mobileNumber;
 			this.emailAddress = emailAddress;
-			this.bookingDate = bookingDate;		
+			this.bookingdate = bookingDate;		
 		}
 		
+
+		public Booking(Boolean upgraded, Boolean coupleSeat, int age, BigDecimal normalPrice, BigDecimal totalPrice2,
+				BigDecimal couplePrice, BigDecimal platinumPrice, BigDecimal seniorPrice, BigDecimal childPrice) {
+			// TODO Auto-generated constructor stub
+		}
+
+
+
+		public Booking(Customer customer2, Movie movie2, ShowTime showtime, int seatno2, double price, int transID2,
+				String cinemaname2) {
+			// TODO Auto-generated constructor stub
+		}
+
+
 		public String getName() {
 			return customer.getName();
 		}
@@ -60,7 +75,6 @@ import java.util.ArrayList;
 			return cinemaName;
 		}
 		public String getbookingDate() {
-			return bookingDate;
+			return bookingdate;
 		}
 		}
-			
