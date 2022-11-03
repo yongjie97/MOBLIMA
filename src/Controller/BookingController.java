@@ -1,4 +1,4 @@
-package sce.SC2002.WWC.first;
+package Controller;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
