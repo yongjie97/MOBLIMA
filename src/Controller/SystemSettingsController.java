@@ -1,16 +1,17 @@
 package Controller;
 import Constant.DataFileConstant;
-import Entity.systemSettings;
+import Entity.SystemSettings;
+
 import Repository.SystemRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-public class systemSettingsController {
+public class SystemSettingsController {
 	private static Repository.SystemRepository SystemRepository = new Repository.SystemRepository(DataFileConstant.SYSTEMSETTINGS_FILE);
 	
 	
 	public static void addsystemSettings(ArrayList<String> holiday, BigDecimal totalPrice, BigDecimal regularPrice, BigDecimal seniorPrice ,BigDecimal childPrice, BigDecimal platinumPrice, BigDecimal weekendPriceIncrementpercent, BigDecimal holidayPriceIncrement, BigDecimal goodsandServicesTaxpercentforWeekdays)
-	{ systemSettings systemSettings = new systemSettings(totalPrice,regularPrice,seniorPrice,childPrice,platinumPrice,weekendPriceIncrementpercent, holidayPriceIncrement,goodsandServicesTaxpercentforWeekdays);
+	{ SystemSettings systemSettings = new SystemSettings(totalPrice,regularPrice,seniorPrice,childPrice,platinumPrice,weekendPriceIncrementpercent, holidayPriceIncrement,goodsandServicesTaxpercentforWeekdays);
 	systemSettings.add(systemSettings);
 	}
 
