@@ -3,14 +3,16 @@ import java.util.Scanner;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import Controller.systemSettingsController;
+
+import Controller.SystemSettingsController;
+
 import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
-import Entity.systemSettings;
+import Entity.SystemSettings;
 
 
-public class systemSettingsBoundary {
+public class SystemSettingsBoundary {
 	public static void systemSettings() {
 		int userInput = 0;
 
@@ -30,16 +32,16 @@ public class systemSettingsBoundary {
 				s.nextLine();
 				switch (userInput) {
 				case 1:
-					systemSettingsBoundary.seeticketPrices();
+					SystemSettingsBoundary.seeticketPrices();
 					break;
 				case 2:
-					systemSettingsBoundary.viewweekendPriceIncrementpercent();
+					SystemSettingsBoundary.viewweekendPriceIncrementpercent();
 					break;
 				case 3:
-					systemSettingsBoundary.viewholidayPriceIncrement();
+					SystemSettingsBoundary.viewholidayPriceIncrement();
 					break;
 				case 4:
-					systemSettingsBoundary.viewgoodsandServicesTaxpercentforWeekdays();
+					SystemSettingsBoundary.viewgoodsandServicesTaxpercentforWeekdays();
 					break;
 				case -1:
 					System.out.println("Thank you for choosing MOBLIMA");
@@ -115,18 +117,18 @@ public static void viewgoodsandServicesTaxpercentforWeekdays() {
 
 public static void getticketPrices(BigDecimal normalPrice, BigDecimal seniorPrice, BigDecimal childPrice,BigDecimal platinumPrice, BigDecimal couplePrice) 
 	throws InvalidIdException {
-		System.out.println(systemSettingsController.getticketPrices(normalPrice, seniorPrice, childPrice, platinumPrice, couplePrice));
+		System.out.println(SystemSettingsController.getticketPrices(normalPrice, seniorPrice, childPrice, platinumPrice, couplePrice));
 }
 public static void getweekendPriceIncrementpercent() {
 	System.out.println("weekendPriceIncrementpercent");
-	System.out.println(systemSettingsController.getweekendPriceIncrementpercent());
+	System.out.println(SystemSettingsController.getweekendPriceIncrementpercent());
 }
 public static void getholidayPriceIncrement() {
 	System.out.println("HolidayPriceIncrement");
-	System.out.println(systemSettingsController.getholidayPriceIncrement());
+	System.out.println(SystemSettingsController.getholidayPriceIncrement());
 }
 public static void getgoodsandServicesTaxpercentforWeekdays() {
 	System.out.println("GoodsandServicesTaxpercentforWeekdays");
-	System.out.println(systemSettingsController.getgoodsandServicesTaxpercentforWeekdays());
+	System.out.println(SystemSettingsController.getgoodsandServicesTaxpercentforWeekdays());
 }
 }
