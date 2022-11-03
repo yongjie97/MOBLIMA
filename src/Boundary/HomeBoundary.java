@@ -34,7 +34,8 @@ public class HomeBoundary {
                 System.out.print("Please enter your option: ");
                 userInput = sc.nextInt();
                 sc.nextLine();
-                userInput += UserController.isLoggedIn() ? 1 : 0;
+                if (userInput != -1)
+                    userInput += UserController.isLoggedIn() ? 1 : 0;
                 switch (userInput) {
                     case 1:
                         if (UserController.isLoggedIn())

@@ -38,6 +38,8 @@ public class CinemaBoundary {
                 switch (userInput) {
                     case 1:
                         CinemaBoundary.listCinemaDetails(cineplexId);
+                        System.out.print("Press enter to continue..");
+                        sc.nextLine();
                         break;
                     // case 2:
                     //     // Add cinema

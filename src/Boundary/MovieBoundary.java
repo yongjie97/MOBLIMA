@@ -109,7 +109,7 @@ public class MovieBoundary {
                         MovieReviewBoundary.addReview(movieId);
                         break;
                     case 4:
-                        // Purchase ticket
+                        BookingBoundary.purchaseTicket(movieId);
                         break;
                     case -1:
                         break;
@@ -352,14 +352,12 @@ public class MovieBoundary {
                         throw new Exception();
                 }
                 int movieId = MovieBoundary.askForMovieSelection();
-                if (movieId == -1)
-                    break;
-                MovieBoundary.showMovieOptions(movieIds.get(movieId - 1));
+                if (movieId != -1)
+                    MovieBoundary.showMovieOptions(movieIds.get(movieId - 1));
             } catch (EmptyListException e) {
                 System.out.println(e.getMessage());
             } catch (Exception e) {
                 System.out.println("Please enter a valid option.");
-                break;
             }
         } while (userInput != -1);
     }
