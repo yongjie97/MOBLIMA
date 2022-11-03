@@ -1,6 +1,7 @@
 package Boundary;
 
 import java.util.Scanner;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.lang.Math;
@@ -11,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import Controller.BookingController;
@@ -23,8 +25,20 @@ import Exception.InvalidIdException;
 import Exception.InvalidInputException;
 import Entity.Booking;
 import Entity.Cinema;
+import Entity.Customer;
+import Entity.Movie;
 
 public class bookingBoundary {
+	private static Customer customer;
+	private static Movie movie;
+	private static ShowTime time;
+	private static int seatNo;
+	private static String cinemaName;
+	private String transID; 
+	private static String emailAddress;
+	private static int mobileNumber;
+	private String bookingdate;
+	private static BigDecimal totalPrice;
 	public static void Booking() {
 		int userInput = 0;
 
@@ -118,15 +132,13 @@ public class bookingBoundary {
 		int yorN = s.nextInt();
 		System.out.print("Please enter a positive integer (0 for holidays,1 for weekends, others for other days): ");
 		int choice = s.nextInt();
-
 		List<List<String>> rows = new ArrayList<>();
 		List<String> headers = Arrays.asList("        ", "Weekday", "Weekend", "Holiday");
 		rows.add(headers);
-		rows.add(Arrays.asList("Child", TotalPrice = ChildPrice.add(GoodsandServicesTax4),TotalPrice = ChildPrice.add(weekendPriceIncrement4),TotalPrice = ChildPrice.add(HolidayPriceIncrement)));
-		rows.add(Arrays.asList("Senior", TotalPrice = SeniorPrice.add(GoodsandServicesTax3), TotalPrice = SeniorPrice.add(weekendPriceIncrement3), TotalPrice = SeniorPrice.add(HolidayPriceIncrement)));
-		rows.add(Arrays.asList("Normal", TotalPrice = NormalPrice.add(GoodsandServicesTax), TotalPrice = NormalPrice.add(weekendPriceIncrement), TotalPrice = NormalPrice.add(HolidayPriceIncrement)));
-		rows.add(Arrays.asList("Couple", TotalPrice = CouplePrice.add(GoodsandServicesTax5), TotalPrice = CouplePrice.add(weekendPriceIncrement5), TotalPrice = CouplePrice.add(HolidayPriceIncrement)));
-		System.out.println(formatAsTable(rows));
+		rows.add(Arrays.asList("Child", "12.75", "10.25", "9.50"));
+		rows.add(Arrays.asList("Senior", "8.50", "7.00", "7.00"));
+		rows.add(Arrays.asList("Regular", "22.95", "18.90", "15.50"));
+		rows.add(Arrays.asList("Couple", "27.20", "21.00", "17.00"));}
 	private static String formatAsTable(List<List<String>> rows) {
 		{
 		    int[] maxLengths = new int[rows.get(0).size()];
@@ -195,6 +207,6 @@ public class bookingBoundary {
 	}
 	public static void getCinemaLayout() {
 		System.out.println("Cinema Layout");
-		System.out.println(CinemaController.getCinemaLayout());
+		System.out.println(CinemaController.getCinemaLayout(null));
 	}
 }
