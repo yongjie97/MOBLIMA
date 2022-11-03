@@ -21,7 +21,7 @@ public class Movie implements Serializable {
     
     private MovieRating movieRating;
 
-    //private List<Review> reviews;
+    private ArrayList<MovieReview> reviews;
 
     public Movie(String name, String synopsis, String director, String cast,
             MovieType movieType, MovieStatus movieStatus, MovieRating movieRating) {
@@ -97,6 +97,14 @@ public class Movie implements Serializable {
 
     public void setMovieRating(MovieRating movieRating) {
         this.movieRating = movieRating;
+    }
+    
+    public ArrayList<MovieReview> getMovieReview(){
+    	return this.reviews;
+    }
+    
+    public void setMovieReview(ArrayList<MovieReview> reviews) {
+    	this.reviews=reviews;
     }
     
 }
