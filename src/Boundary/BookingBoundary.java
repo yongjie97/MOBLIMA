@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import Controller.BookingController
+import Controller.BookingController;
 
 import Controller.CinemaController;
 import Controller.ShowTimeController;
