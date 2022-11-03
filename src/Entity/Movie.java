@@ -1,6 +1,7 @@
 package Entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Movie implements Serializable {
@@ -21,7 +22,7 @@ public class Movie implements Serializable {
     
     private MovieRating movieRating;
 
-    //private List<Review> reviews;
+    private List<MovieReview> movieReviews;
 
     public Movie(String name, String synopsis, String director, String cast,
             MovieType movieType, MovieStatus movieStatus, MovieRating movieRating) {
@@ -33,6 +34,7 @@ public class Movie implements Serializable {
         this.movieStatus = movieStatus;
         this.movieRating = movieRating;
         this.rating = 0;
+        movieReviews = new ArrayList<>();
     }
 
     public String getName() {
@@ -97,6 +99,14 @@ public class Movie implements Serializable {
 
     public void setMovieRating(MovieRating movieRating) {
         this.movieRating = movieRating;
+    }
+
+    public List<MovieReview> getMovieReviews() {
+        return movieReviews;
+    }
+
+    public void setMovieReviews(List<MovieReview> movieReviews) {
+        this.movieReviews = movieReviews;
     }
     
 }

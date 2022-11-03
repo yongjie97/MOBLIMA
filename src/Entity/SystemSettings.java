@@ -1,10 +1,9 @@
 package Entity;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SystemSettings implements Serializable {
 
@@ -18,7 +17,7 @@ public class SystemSettings implements Serializable {
     private BigDecimal blockbusterIncrement;
     private BigDecimal threeDIncrement;
     private BigDecimal gst;
-    private List<LocalDate> holidays;
+    private List<Holiday> holidays;
 
     public SystemSettings() {
         normalPrice = new BigDecimal(9.50);
@@ -114,11 +113,11 @@ public class SystemSettings implements Serializable {
         this.gst = gst;
     }
 
-    public List<LocalDate> getHolidays() {
+    public List<Holiday> getHolidays() {
         return holidays;
     }
 
-    public void setHolidays(List<LocalDate> holidays) {
+    public void setHolidays(List<Holiday> holidays) {
         this.holidays = holidays;
     }
 

@@ -33,7 +33,7 @@ public class ShowTimeBoundary {
                 System.out.println("2: Edit Showtime");
                 System.out.println("3: Delete Showtime");
                 System.out.println("4: View Cinema's Showtime");
-                System.out.println("Enter -1 to exit the program");
+                System.out.println("Enter -1 to go back");
                 System.out.println("===============================");
                 System.out.print("Please enter your option: ");
                 userInput = sc.nextInt();

@@ -45,7 +45,7 @@ public abstract class Repository<T> {
 
     public int size() {
         List<T> itemList = readFile();
-        if (itemList == null)
+        if (itemList.isEmpty())
             return 0;
         else
             return itemList.size();
@@ -53,7 +53,7 @@ public abstract class Repository<T> {
 
     public boolean isEmpty() {
         List<T> itemList = readFile();
-        if (itemList == null)
+        if (itemList.isEmpty())
             return true;
         else
             return false;

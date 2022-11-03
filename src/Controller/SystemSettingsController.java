@@ -9,6 +9,7 @@ import java.util.Locale;
 
 import Constant.ApplicationConstant;
 import Constant.DataFileConstant;
+import Entity.Holiday;
 import Entity.SystemSettings;
 import Exception.EmptyListException;
 import Exception.InvalidIdException;
@@ -33,28 +34,32 @@ public class SystemSettingsController {
         SystemSettings systemSettings = getSystemSettings();
         StringBuilder sb = new StringBuilder();
         Locale.setDefault(Locale.US);
-        sb.append(MessageFormat.format("{0}: {1,number,currency}\n", "Normal Price", systemSettings.getNormalPrice()));
-        sb.append(MessageFormat.format("{0}: {1,number,currency}\n", "Platinum Price",
+        int i = 0;
+        sb.append(MessageFormat.format("{0}: {1} - {2,number,currency}\n", ++i, "Normal Price",
+                systemSettings.getNormalPrice()));
+        sb.append(MessageFormat.format("{0}: {1} - {2,number,currency}\n", ++i, "Platinum Price",
                 systemSettings.getPlatinumPrice()));
-        sb.append(MessageFormat.format("{0}: {1,number,currency}\n", "Couple Seat Price",
-                systemSettings.getCouplePrice()));
         sb.append(
-                MessageFormat.format("{0}: {1,number,currency}\n", "Student Price", systemSettings.getStudentPrice()));
-        sb.append(MessageFormat.format("{0}: {1,number,currency}\n", "Senior Citizen Price",
+                MessageFormat.format("{0}: {1} - {2,number,currency}\n", ++i, "Student Price",
+                        systemSettings.getStudentPrice()));
+        sb.append(MessageFormat.format("{0}: {1} - {2,number,currency}\n", ++i, "Senior Citizen Price",
                 systemSettings.getSeniorPrice()));
-        sb.append(MessageFormat.format("{0}: {1,number,currency}\n", "Weekend Increment Price",
+        sb.append(MessageFormat.format("{0}: {1} - {2,number,currency}\n", ++i, "Couple Seat Price",
+                systemSettings.getCouplePrice()));
+        sb.append(MessageFormat.format("{0}: {1} - {2,number,currency}\n", ++i, "Weekend Increment Price",
                 systemSettings.getWeekendIncrement()));
-        sb.append(MessageFormat.format("{0}: {1,number,currency}\n", "Holiday Increment Price",
-                systemSettings.getHolidayIncrement()));
-        sb.append(MessageFormat.format("{0}: {1,number,currency}\n", "Blockbuster Increment Price",
+        sb.append(MessageFormat.format("{0}: {1} - {2,number,currency}\n", ++i, "Blockbuster Increment Price",
                 systemSettings.getBlockbusterIncrement()));
-        sb.append(MessageFormat.format("{0}: {1,number,currency}\n", "3D Increment Price",
+        sb.append(MessageFormat.format("{0}: {1} - {2,number,currency}\n", ++i, "3D Increment Price",
                 systemSettings.getThreeDIncrement()));
-        sb.append(MessageFormat.format("{0}: {1,number,percent}", "GST", systemSettings.getGst()));
+        sb.append(MessageFormat.format("{0}: {1} - {2,number,currency}\n", ++i, "Holiday Increment Price",
+                systemSettings.getHolidayIncrement()));
+        sb.append(MessageFormat.format("{0}: {1} - {2,number,percent}", ++i, "GST", systemSettings.getGst()));
         return sb.toString();
     }
 
     public static void editPrices(int option, double value) throws InvalidInputException {
+        option = normaliseId(option);
         SystemSettings systemSettings = getSystemSettings();
         if (value <= 0)
             throw new InvalidInputException("Please enter a valid price.");
@@ -97,18 +102,21 @@ public class SystemSettingsController {
         systemSettingsRepository.edit(ID, systemSettings);
     }
 
-    public static void addHoliday(String date) throws InvalidInputException {
+    public static void addHoliday(String holidayName, String date) throws InvalidInputException {
         try {
-            LocalDate holiday = LocalDate.parse(date, dateFormatter());
+            if (holidayName.isEmpty())
+                throw new InvalidInputException("Please enter a holiday name.");
+            LocalDate holidayDate = LocalDate.parse(date, dateFormatter());
             SystemSettings systemSettings = systemSettingsRepository.get(ID);
-            systemSettings.getHolidays().add(holiday);
+            systemSettings.getHolidays().add(new Holiday(holidayName, holidayDate));
+            systemSettingsRepository.edit(ID, systemSettings);
         } catch (DateTimeParseException e) {
-            System.out.println(e.getMessage());
             throw new InvalidInputException("Please enter a valid date format.");
         }
     }
 
-    public static void editHoliday(int id, String date) throws InvalidInputException, InvalidIdException {
+    public static void editHoliday(int id, String holidayName, String date)
+            throws InvalidInputException, InvalidIdException {
         id = normaliseId(id);
 
         SystemSettings systemSettings = getSystemSettings();
@@ -116,10 +124,11 @@ public class SystemSettingsController {
             throw new InvalidIdException("Please enter a valid holiday id.");
 
         try {
-            LocalDate holiday = LocalDate.parse(date, dateFormatter());
+            LocalDate holidayDate = LocalDate.parse(date, dateFormatter());
+            Holiday holiday = new Holiday(holidayName, holidayDate);
             systemSettings.getHolidays().set(id, holiday);
+            systemSettingsRepository.edit(ID, systemSettings);
         } catch (DateTimeParseException e) {
-            System.out.println(e.getMessage());
             throw new InvalidInputException("Please enter a valid date format.");
         }
     }
@@ -142,7 +151,8 @@ public class SystemSettingsController {
 
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < systemSettings.getHolidays().size(); i++) {
-            output.append(MessageFormat.format("{0}: {1}\n", i + 1, systemSettings.getHolidays().get(i)));
+            output.append(MessageFormat.format("{0}: {1} - {2}\n", i + 1, systemSettings.getHolidays().get(i).getName(),
+                    systemSettings.getHolidays().get(i).getDate().format(dateFormatter())));
         }
         return output.substring(0, output.length() - 1).toString();
     }

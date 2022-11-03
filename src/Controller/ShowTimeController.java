@@ -126,13 +126,13 @@ public class ShowTimeController {
             throw new InvalidIdException("Please enter a valid showtime id.");
 
         cinema.getShowTime().remove(showTimeId);
-        cineplexRepository.edit(cinemaId, cineplex);
+        cineplexRepository.edit(cineplexId, cineplex);
     }
 
     public static boolean hasShowTime(int cineplexId, int cinemaId) {
         cineplexId = normaliseId(cineplexId);
         cinemaId = normaliseId(cinemaId);
-        
+
         return cineplexRepository.get(cineplexId).getCinemas().get(cinemaId).getShowTime().size() > 0;
     }
 
@@ -232,13 +232,13 @@ public class ShowTimeController {
             int seatNo = 1;
             for (int j = 0; j < seatLayout[i].length; j++) {
                 newString.append(getSeatTypeFormat(seatLayout[i][j], row, seatNo, showTime));
-                if (seatLayout[i][j] == 1)
+                if (seatLayout[i][j] == 1 || seatLayout[i][j] == 2)
                     seatNo++;
             }
             newString.append("\n");
         }
-        newString.append("* - Available Seat\n");
-        newString.append("x - Reserved Seat");
+        newString.append(
+                "\nLEGEND:\nSeat ranges from 1 (starting from to left) to the right.\n|*| - Available, |*  *| - Couple Seat, |x| - Sold");
         return newString.toString();
     }
 
@@ -248,6 +248,11 @@ public class ShowTimeController {
                 return "|x|";
             else
                 return "|*|";
+        } else if (c == 2) {
+            if (showTime.getSeatsTaken().contains(new StringBuilder().append(row).append(seatNo).toString()))
+                return "|x  x|";
+            else
+                return "|*  *|";
         } else if (c == 0) {
             return "   ";
         } else {
@@ -255,7 +260,10 @@ public class ShowTimeController {
         }
     }
 
-    public static void reserveSeat(int cineplexId, int cinemaId, int showTimeId, String seatNo) {
+    public static void reserveSeat(int cineplexId, int cinemaId, int showTimeId, String seatNo) throws InvalidInputException {
+       if (!checkIfSeatAvailable(cineplexId, cinemaId, showTimeId, seatNo))
+            throw new InvalidInputException("Please enter a valid seat.");
+       
         cineplexId = normaliseId(cineplexId);
         cinemaId = normaliseId(cinemaId);
         showTimeId = normaliseId(showTimeId);
@@ -264,6 +272,7 @@ public class ShowTimeController {
         Cinema cinema = cineplex.getCinemas().get(cinemaId);
         ShowTime showTime = cinema.getShowTime().get(showTimeId);
         showTime.getSeatsTaken().add(seatNo);
+        cineplexRepository.edit(cineplexId, cineplex);
     }
 
     public static boolean checkIfSeatAvailable(int cineplexId, int cinemaId, int showTimeId, String seat) {
@@ -283,7 +292,7 @@ public class ShowTimeController {
             for (int i = 0; i < seatLayout.length; i++) {
                 if (seatLayout[i][0] == seat.charAt(0)) {
                     for (int j = 0; j < seatLayout[i].length; j++) {
-                        if (seatLayout[i][j] == 1) {
+                        if (seatLayout[i][j] == 1 || seatLayout[i][j] == 2) {
                             currentSeat += 1;
                             if (currentSeat == (seat.charAt(1) - '0'))
                                 return true;
@@ -308,7 +317,7 @@ public class ShowTimeController {
         int totalSeats = 0;
         for (int i = 0; i < seatLayout.length; i++) {
             for (int j = 0; j < seatLayout[i].length; j++) {
-                if (seatLayout[i][j] == 1)
+                if (seatLayout[i][j] == 1 || seatLayout[i][j] == 2)
                     totalSeats += 1;
             }
         }

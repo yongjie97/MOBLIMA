@@ -29,7 +29,7 @@ public class HomeBoundary {
                         CineplexBoundary.manageCineplex();
                         break;
                     case 3:
-                        // Configure settings UI
+                        SystemSettingsBoundary.manageSystemSettings();
                         break;
                     case -1:
                         System.out.println("Goodbye!");
