@@ -9,6 +9,7 @@ import Entity.Movie;
 import Entity.MovieRating;
 import Entity.MovieStatus;
 import Entity.MovieType;
+import Entity.MovieReview;
 import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
