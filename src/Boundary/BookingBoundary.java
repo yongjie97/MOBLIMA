@@ -127,41 +127,6 @@ public class BookingBoundary {
 		rows.add(Arrays.asList("Normal", TotalPrice = NormalPrice.add(GoodsandServicesTax), TotalPrice = NormalPrice.add(weekendPriceIncrement), TotalPrice = NormalPrice.add(HolidayPriceIncrement)));
 		rows.add(Arrays.asList("Couple", TotalPrice = CouplePrice.add(GoodsandServicesTax5), TotalPrice = CouplePrice.add(weekendPriceIncrement5), TotalPrice = CouplePrice.add(HolidayPriceIncrement)));
 		System.out.println(formatAsTable(rows));
-				if (age < 12) {
-					TotalPrice = ChildPrice;
-					System.out.println("You are under 12." + "Your price is: " + TotalPrice);
-				}
-
-				else {
-					if (age >= 12 && age <= 65) {
-						TotalPrice = NormalPrice;
-						System.out.println("Your price is SGD " + TotalPrice);
-					} else if (age > 65) {
-						TotalPrice = SeniorPrice;
-						System.out.println("You are over 65. Your price is SGD " + TotalPrice);
-					}
-				}
-				System.out.println("For Upgraded Seats :");
-				if (YesorNo < 2) {
-					TotalPrice = PlatinumPrice;
-					System.out.println("Your price is SGD " + TotalPrice);
-				} else {
-					if (YesorNo >= 2) {
-						System.out.println("Not Applicable");
-					}
-				}
-				System.out.println("For Couple Seats:");
-				if (YorN < 2) {
-					TotalPrice = CouplePrice;
-					System.out.println("Your price is SGD" + TotalPrice);
-				} else {
-					if (YorN > 2) {
-						System.out.println("Not Applicable");
-					}
-				}
-			
-	}
-
 	private static String formatAsTable(List<List<String>> rows) {
 		{
 		    int[] maxLengths = new int[rows.get(0).size()];
