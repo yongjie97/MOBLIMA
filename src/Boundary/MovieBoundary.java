@@ -225,7 +225,7 @@ public class MovieBoundary {
                         int editField = 0;
                         while (editField != -1) {
                             showMovieDetails(movieId);
-                            System.out.println("1: Edit mame");
+                            System.out.println("1: Edit name");
                             System.out.println("2: Edit synopsis");
                             System.out.println("3: Edit cast");
                             System.out.println("4: Edit director");
