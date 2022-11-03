@@ -15,32 +15,32 @@ import Repository.BookingRepository;
 
 public class BookingController{
 	private static BigDecimal TotalPrice;
-	static BigDecimal CouplePrice = new BigDecimal("16.00");
-	static BigDecimal NormalPrice = new BigDecimal("13.50");
-	static BigDecimal SeniorPrice = new BigDecimal("5.00");
-	static BigDecimal ChildPrice = new BigDecimal("7.50");
-	static BigDecimal PlatinumPrice = new BigDecimal("15.00");
-	static BigDecimal WeekendPriceIncrementpercent = new BigDecimal("0.40");
-	static BigDecimal HolidayPriceIncrement = new BigDecimal("2.00");
-	static BigDecimal GoodsandServicesTaxpercentforWeekdays = new BigDecimal("0.7");
+	static BigDecimal couplePrice = new BigDecimal("16.00");
+	static BigDecimal normalPrice = new BigDecimal("13.50");
+	static BigDecimal seniorPrice = new BigDecimal("5.00");
+	static BigDecimal childPrice = new BigDecimal("7.50");
+	static BigDecimal platinumPrice = new BigDecimal("15.00");
+	static BigDecimal weekendPriceIncrementpercent = new BigDecimal("0.40");
+	static BigDecimal holidayPriceIncrement = new BigDecimal("2.00");
+	static BigDecimal goodsandServicesTaxpercentforWeekdays = new BigDecimal("0.7");
 
 	Scanner s = new Scanner(System.in);
 	int choice = s.nextInt();{
 	while (true) {
 		if (choice == 0) {
-			TotalPrice = NormalPrice.add(HolidayPriceIncrement);
-			TotalPrice = SeniorPrice.add(HolidayPriceIncrement);
-			TotalPrice = ChildPrice.add(HolidayPriceIncrement);
-			TotalPrice = PlatinumPrice.add(HolidayPriceIncrement);
-			TotalPrice = CouplePrice.add(HolidayPriceIncrement);
+			totalPrice = normalPrice.add(HolidayPriceIncrement);
+			totalPrice = seniorPrice.add(HolidayPriceIncrement);
+			totalPrice = childPrice.add(HolidayPriceIncrement);
+			totalPrice = platinumPrice.add(HolidayPriceIncrement);
+			totalPrice = couplePrice.add(HolidayPriceIncrement);
 			
 		} else {
 			if (choice == 1) {
-				BigDecimal weekendPriceIncrement = NormalPrice.multiply(WeekendPriceIncrementpercent);
-				BigDecimal weekendPriceIncrement2 = PlatinumPrice.multiply(WeekendPriceIncrementpercent);
-				BigDecimal weekendPriceIncrement3 = SeniorPrice.multiply(WeekendPriceIncrementpercent);
-				BigDecimal weekendPriceIncrement4 = ChildPrice.multiply(WeekendPriceIncrementpercent);
-				BigDecimal weekendPriceIncrement5 = CouplePrice.multiply(WeekendPriceIncrementpercent);
+				BigDecimal weekendPriceIncrement = normalPrice.multiply(weekendPriceIncrementpercent);
+				BigDecimal weekendPriceIncrement2 = platinumPrice.multiply(weekendPriceIncrementpercent);
+				BigDecimal weekendPriceIncrement3 = seniorPrice.multiply(weekendPriceIncrementpercent);
+				BigDecimal weekendPriceIncrement4 = childPrice.multiply(weekendPriceIncrementpercent);
+				BigDecimal weekendPriceIncrement5 = couplePrice.multiply(weekendPriceIncrementpercent);
 
 				weekendPriceIncrement = weekendPriceIncrement.setScale(2, RoundingMode.HALF_UP);
 				weekendPriceIncrement2 = weekendPriceIncrement2.setScale(2, RoundingMode.HALF_UP);
@@ -48,33 +48,33 @@ public class BookingController{
 				weekendPriceIncrement4 = weekendPriceIncrement4.setScale(2, RoundingMode.HALF_UP);
 				weekendPriceIncrement5 = weekendPriceIncrement5.setScale(2, RoundingMode.HALF_UP);
 
-				TotalPrice = NormalPrice.add(weekendPriceIncrement);
-				TotalPrice = PlatinumPrice.add(weekendPriceIncrement2);
-				TotalPrice = SeniorPrice.add(weekendPriceIncrement3);
-				TotalPrice = ChildPrice.add(weekendPriceIncrement4);
-				TotalPrice = CouplePrice.add(weekendPriceIncrement5);
+				totalPrice = normalPrice.add(weekendPriceIncrement);
+				totalPrice = platinumPrice.add(weekendPriceIncrement2);
+				totalPrice = seniorPrice.add(weekendPriceIncrement3);
+				totalPrice = childPrice.add(weekendPriceIncrement4);
+				totalPrice = couplePrice.add(weekendPriceIncrement5);
 			} else if (choice > 1) {
-				BigDecimal GoodsandServicesTax = NormalPrice.multiply(GoodsandServicesTaxpercentforWeekdays);
-				BigDecimal GoodsandServicesTax2 = PlatinumPrice.multiply(GoodsandServicesTaxpercentforWeekdays);
-				BigDecimal GoodsandServicesTax3 = SeniorPrice.multiply(GoodsandServicesTaxpercentforWeekdays);
-				BigDecimal GoodsandServicesTax4 = ChildPrice.multiply(GoodsandServicesTaxpercentforWeekdays);
-				BigDecimal GoodsandServicesTax5 = CouplePrice.multiply(GoodsandServicesTaxpercentforWeekdays);
+				BigDecimal goodsandServicesTax = normalPrice.multiply(goodsandServicesTaxpercentforWeekdays);
+				BigDecimal goodsandServicesTax2 = platinumPrice.multiply(goodsandServicesTaxpercentforWeekdays);
+				BigDecimal goodsandServicesTax3 = seniorPrice.multiply(goodsandServicesTaxpercentforWeekdays);
+				BigDecimal goodsandServicesTax4 = childPrice.multiply(goodsandServicesTaxpercentforWeekdays);
+				BigDecimal goodsandServicesTax5 = couplePrice.multiply(goodsandServicesTaxpercentforWeekdays);
 
-				GoodsandServicesTax = GoodsandServicesTax.setScale(2, RoundingMode.HALF_UP);
+				goodsandServicesTax = goodsandServicesTax.setScale(2, RoundingMode.HALF_UP);
 
-				GoodsandServicesTax2 = GoodsandServicesTax2.setScale(2, RoundingMode.HALF_UP);
+				goodsandServicesTax2 = goodsandServicesTax2.setScale(2, RoundingMode.HALF_UP);
 
-				GoodsandServicesTax3 = GoodsandServicesTax3.setScale(2, RoundingMode.HALF_UP);
+				goodsandServicesTax3 = goodsandServicesTax3.setScale(2, RoundingMode.HALF_UP);
 
-				GoodsandServicesTax4 = GoodsandServicesTax4.setScale(2, RoundingMode.HALF_UP);
+				goodsandServicesTax4 = goodsandServicesTax4.setScale(2, RoundingMode.HALF_UP);
 
-				GoodsandServicesTax5 = GoodsandServicesTax5.setScale(2, RoundingMode.HALF_UP);
+				goodsandServicesTax5 = goodsandServicesTax5.setScale(2, RoundingMode.HALF_UP);
 
-				TotalPrice = NormalPrice.add(GoodsandServicesTax);
-				TotalPrice = PlatinumPrice.add(GoodsandServicesTax2);
-				TotalPrice = SeniorPrice.add(GoodsandServicesTax3);
-				TotalPrice = ChildPrice.add(GoodsandServicesTax4);
-				TotalPrice = CouplePrice.add(GoodsandServicesTax5);
+				totalPrice = normalPrice.add(goodsandServicesTax);
+				totalPrice = platinumPrice.add(goodsandServicesTax2);
+				totalPrice = seniorPrice.add(goodsandServicesTax3);
+				totalPrice = childPrice.add(goodsandServicesTax4);
+				totalPrice = couplePrice.add(goodsandServicesTax5);
 
 				
 				
@@ -93,9 +93,9 @@ public class BookingController{
 			bookingRepository.add(Booking);
 		}
 	
-		public static void getPrice(Boolean upgraded,Boolean coupleSeat, int age , BigDecimal NormalPrice, BigDecimal TotalPrice, BigDecimal CouplePrice, BigDecimal PlatinumPrice,BigDecimal SeniorPrice, BigDecimal ChildPrice) {
-			Booking Booking  = new Booking(upgraded, coupleSeat, age , NormalPrice, TotalPrice, CouplePrice, PlatinumPrice, SeniorPrice, ChildPrice);
-		       bookingRepository.get(upgraded,coupleSeat,age,NormalPrice,TotalPrice,CouplePrice,PlatinumPrice,SeniorPrice,ChildPrice);
+		public static void getPrice(Boolean upgraded,Boolean coupleSeat, int age , BigDecimal normalPrice, BigDecimal totalPrice, BigDecimal couplePrice, BigDecimal platinumPrice,BigDecimal seniorPrice, BigDecimal childPrice) {
+			Booking Booking  = new Booking(upgraded, coupleSeat, age , normalPrice, totalPrice, couplePrice, platinumPrice, seniorPrice, childPrice);
+		       bookingRepository.get(upgraded,coupleSeat,age,normalPrice,totalPrice,couplePrice,platinumPrice,seniorPrice,childPrice);
 		}
 
 }
