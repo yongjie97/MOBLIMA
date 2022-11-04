@@ -6,14 +6,14 @@ import java.util.HashSet;
 
 public class ShowTime implements Serializable {
 
-    private Movie movie;
+    private int movieId;
 
     private LocalDateTime dateTime;
 
     private HashSet<String> seatsTaken;
 
-    public ShowTime(Movie movie, LocalDateTime dateTime) {
-        this.movie = movie;
+    public ShowTime(int movieId, LocalDateTime dateTime) {
+        this.movieId = movieId;
         this.dateTime = dateTime;
         seatsTaken = new HashSet<>();
     }
@@ -34,12 +34,12 @@ public class ShowTime implements Serializable {
         this.dateTime = dateTime;
     }
 
-    public Movie getMovie() {
-        return movie;
+    public int getMovieId() {
+        return movieId;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
     
 }

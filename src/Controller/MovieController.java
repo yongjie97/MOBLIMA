@@ -1,7 +1,10 @@
 package Controller;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import Constant.DataFileConstant;
 import Entity.Movie;
@@ -31,7 +34,8 @@ public class MovieController {
     }
 
     public static void editMovie(int id, String name, String synopsis, String cast, String director,
-            int movieType, int movieRating, int movieStatus) throws InvalidIdException, InvalidInputException {    
+            int movieType, int movieRating, int movieStatus) throws InvalidIdException, InvalidInputException {
+        id = normaliseId(id);
         if (id < 0 || id >= movieRepository.size())
             throw new InvalidIdException("Please enter a valid movie id.");
         try {
@@ -46,13 +50,17 @@ public class MovieController {
     }
 
     public static void deleteMovie(int id) throws InvalidIdException {
+        id = normaliseId(id);
         if (id < 0 || id >= movieRepository.size())
             throw new InvalidIdException("Please enter a valid movie id.");
-        else
-            movieRepository.remove(id);
+
+        Movie movie = movieRepository.get(id);
+        movie.setMovieStatus(MovieStatus.FINISHED);
+        movieRepository.edit(id, movie);
     }
 
     public static Movie getMovie(int id) throws InvalidIdException {
+        id = normaliseId(id);
         if (id < 0 || id >= movieRepository.size())
             throw new InvalidIdException("Please enter a valid movie id.");
 
@@ -67,19 +75,19 @@ public class MovieController {
 
     public static HashMap<Integer, Movie> getAvailableMovieList() throws EmptyListException {
 
-        List<Movie> movies = movieRepository.getAll();   
-        if (movies.isEmpty())     
+        List<Movie> movies = movieRepository.getAll();
+        if (movies.isEmpty())
             throw new EmptyListException("No available movies found.");
 
-        HashMap<Integer, Movie> list = new HashMap<>(); 
+        HashMap<Integer, Movie> list = new HashMap<>();
         for (int i = 0; i < movies.size(); i++) {
             if (movies.get(i).getMovieStatus() != MovieStatus.FINISHED)
                 list.put(i, movies.get(i));
         }
 
         return list;
-    }    
-    
+    }
+
     public static boolean isEmpty() {
         return movieRepository.isEmpty();
     }
@@ -105,6 +113,32 @@ public class MovieController {
         if (movieStatus < 0 || movieStatus >= MovieStatus.values().length)
             throw new InvalidInputException("Please select a valid movie status.");
         return true;
+    }
+
+    public static int normaliseId(int id) {
+        return id - 1;
+    }
+
+    public static List<Movie> listByRating() throws EmptyListException {
+        List<Movie> movies = movieRepository.getAll();
+        if (movies.isEmpty())
+            throw new EmptyListException("No available movies found.");
+
+        List<Movie> highestRated = new ArrayList<>();
+        Comparator<Movie> ratingSorter = Comparator.comparing(Movie::getRating);
+        PriorityQueue<Movie> maxHeap = new PriorityQueue<Movie>(ratingSorter.reversed());
+        for (int i = 0; i < MovieController.size(); i++) {
+            if (movies.get(i).getMovieStatus() != MovieStatus.FINISHED)
+            if (movies.get(i).getRating() != 0)
+                maxHeap.add(movies.get(i));
+        }
+
+        for (int i = 0; i < 5; i++) {
+            if (maxHeap.isEmpty())
+                break;
+            highestRated.add(i, maxHeap.poll());
+        }
+        return highestRated;
     }
 
 }

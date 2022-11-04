@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Repository<T> {
+public abstract class Repository<T> {
 
     private String filePath;
 
@@ -45,7 +45,7 @@ public class Repository<T> {
 
     public int size() {
         List<T> itemList = readFile();
-        if (itemList == null)
+        if (itemList.isEmpty())
             return 0;
         else
             return itemList.size();
@@ -53,7 +53,7 @@ public class Repository<T> {
 
     public boolean isEmpty() {
         List<T> itemList = readFile();
-        if (itemList == null)
+        if (itemList.isEmpty())
             return true;
         else
             return false;
@@ -69,7 +69,7 @@ public class Repository<T> {
             out.flush();
             out.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -80,7 +80,7 @@ public class Repository<T> {
             ois.close();
             return itemList;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
             return new ArrayList<>();
         } 
     }

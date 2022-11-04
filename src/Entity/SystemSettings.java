@@ -1,105 +1,124 @@
 package Entity;
 
-import java.util.ArrayList;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SystemSettings implements Serializable {
-	private ArrayList<String> holiday = new ArrayList<String>();
-	// to change later to set generic prices first
-	private BigDecimal regularPrice = new BigDecimal("13.50");
-	private BigDecimal seniorPrice = new BigDecimal("5.00");
-	private BigDecimal childPrice = new BigDecimal("7.50");
-	private BigDecimal platinumPrice = new BigDecimal("15.00");
 
-	private BigDecimal weekendIncrement = new BigDecimal("0.40");
-	private BigDecimal holidayIncrement = new BigDecimal("2.00");
-	private BigDecimal gst = new BigDecimal("0.7");
-	private BigDecimal totalPrice;
-	private BigDecimal weekendPriceIncrementPercent;
-	private BigDecimal holidayPriceIncrement;
-	private BigDecimal goodsAndServicesTaxPercentForWeekdays;
+    private BigDecimal normalPrice;
+    private BigDecimal platinumPrice;
+    private BigDecimal studentPrice;
+    private BigDecimal seniorPrice;
+    private BigDecimal couplePrice;
+    private BigDecimal weekendIncrement;
+    private BigDecimal holidayIncrement;
+    private BigDecimal blockbusterIncrement;
+    private BigDecimal threeDIncrement;
+    private BigDecimal gst;
+    private List<Holiday> holidays;
 
-	public SystemSettings(BigDecimal totalPrice, BigDecimal regularPrice, BigDecimal seniorPrice,
-			BigDecimal childPrice, BigDecimal platinumPrice, BigDecimal weekendPriceIncrementPercent,
-			BigDecimal holidayPriceIncrement, BigDecimal goodsAndServicesTaxPercentForWeekdays) {
-		this.totalPrice = totalPrice;
-		this.regularPrice = regularPrice;
-		this.seniorPrice = seniorPrice;
-		this.childPrice = childPrice;
-		this.platinumPrice = platinumPrice;
-		this.weekendPriceIncrementPercent= weekendPriceIncrementPercent;
-		this.holidayPriceIncrement = holidayPriceIncrement;
-		this.goodsAndServicesTaxPercentForWeekdays = goodsAndServicesTaxPercentForWeekdays;
-	}
+    public SystemSettings() {
+        normalPrice = new BigDecimal(9.50);
+        platinumPrice = new BigDecimal(30);
+        studentPrice = new BigDecimal(7);
+        seniorPrice = new BigDecimal(4);
+        couplePrice = new BigDecimal(12);
+        weekendIncrement = new BigDecimal(2.50);
+        holidayIncrement = new BigDecimal(2.50);
+        blockbusterIncrement = new BigDecimal(1);
+        threeDIncrement = new BigDecimal(3);
+        gst = new BigDecimal(0.07);
+        holidays = new ArrayList<>();
+    }
 
-	public BigDecimal getregularPrice() {
-		return regularPrice;
-	}
+    public BigDecimal getNormalPrice() {
+        return normalPrice;
+    }
 
-	public BigDecimal getseniorPrice() {
-		return seniorPrice;
-	}
+    public void setNormalPrice(BigDecimal normalPrice) {
+        this.normalPrice = normalPrice;
+    }
 
-	public BigDecimal getchildPrice() {
-		return childPrice;
-	}
+    public BigDecimal getPlatinumPrice() {
+        return platinumPrice;
+    }
 
-	public BigDecimal getPlatinumPrice() {
-		return platinumPrice;
-	}
+    public void setPlatinumPrice(BigDecimal platinumPrice) {
+        this.platinumPrice = platinumPrice;
+    }
 
-	public BigDecimal getWeekendPriceIncrementpercent() {
-		return weekendIncrement;
-	}
+    public BigDecimal getStudentPrice() {
+        return studentPrice;
+    }
 
-	public BigDecimal getHolidayPriceIncrement() {
-		return holidayIncrement;
-	}
+    public void setStudentPrice(BigDecimal studentPrice) {
+        this.studentPrice = studentPrice;
+    }
 
-	public BigDecimal getGoodsandServicesTaxpercentforWeekdays() {
-		return gst;
-	}
+    public BigDecimal getSeniorPrice() {
+        return seniorPrice;
+    }
 
-	public ArrayList<String> getHoliday() {
-		return holiday;
-	}
+    public void setSeniorPrice(BigDecimal seniorPrice) {
+        this.seniorPrice = seniorPrice;
+    }
 
-	public void setHoliday(ArrayList<String> holiday) {
+    public BigDecimal getCouplePrice() {
+        return couplePrice;
+    }
 
-	}
+    public void setCouplePrice(BigDecimal couplePrice) {
+        this.couplePrice = couplePrice;
+    }
 
-	public void setChildPrice(BigDecimal childPrice) {
-		this.childPrice = childPrice;
-	}
+    public BigDecimal getWeekendIncrement() {
+        return weekendIncrement;
+    }
 
-	public void setSeniorPrice(BigDecimal seniorPrice) {
-		this.seniorPrice = seniorPrice;
-	}
+    public void setWeekendIncrement(BigDecimal weekendIncrement) {
+        this.weekendIncrement = weekendIncrement;
+    }
 
-	public void setPlatinumPrice(BigDecimal platinumPrice) {
-		this.platinumPrice = platinumPrice;
-	}
+    public BigDecimal getHolidayIncrement() {
+        return holidayIncrement;
+    }
 
-	public void setWeekendIncrement(BigDecimal price) {
-		this.weekendIncrement = price;
-	}
+    public void setHolidayIncrement(BigDecimal holidayIncrement) {
+        this.holidayIncrement = holidayIncrement;
+    }
 
-	public void setHolidayIncrement(BigDecimal price) {
-		this.holidayIncrement = price;
-	}
+    public BigDecimal getBlockbusterIncrement() {
+        return blockbusterIncrement;
+    }
 
-	public void setregularPrice(BigDecimal price) {
-		this.regularPrice = price;
-	}
+    public void setBlockbusterIncrement(BigDecimal blockbusterIncrement) {
+        this.blockbusterIncrement = blockbusterIncrement;
+    }
 
-	public void setGst(BigDecimal price) {
-		this.gst = price;
-	}
+    public BigDecimal getThreeDIncrement() {
+        return threeDIncrement;
+    }
 
-	public void add(SystemSettings systemSettings) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void setThreeDIncrement(BigDecimal threeDIncrement) {
+        this.threeDIncrement = threeDIncrement;
+    }
+
+    public BigDecimal getGst() {
+        return gst;
+    }
+
+    public void setGst(BigDecimal gst) {
+        this.gst = gst;
+    }
+
+    public List<Holiday> getHolidays() {
+        return holidays;
+    }
+
+    public void setHolidays(List<Holiday> holidays) {
+        this.holidays = holidays;
+    }
+
 }

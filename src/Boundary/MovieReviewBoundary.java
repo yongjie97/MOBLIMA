@@ -1,63 +1,63 @@
 package Boundary;
-import java.util.ArrayList;
-import Exception.InvalidIdException;
-import Exception.InvalidInputException;
-import Exception.EmptyListException;
+
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Scanner;
+
+import Controller.MovieController;
 import Controller.MovieReviewController;
-import Entity.MovieReview;
-import Exception.InvalidIdException;
+import Entity.Movie;
+import Exception.EmptyListException;
 
 public class MovieReviewBoundary {
 
-	public MovieReviewBoundary() {
+    public static void listReview(int movieId) {
+        Scanner sc = new Scanner(System.in);
+        try {
+            System.out.println(MovieReviewController.listMovieReviews(movieId));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.print("Press enter to continue..");
+        sc.nextLine();
+    }
 
-	}
-	
-	public void userReview() throws InvalidIdException, InvalidInputException, EmptyListException {
-		System.out.println("1: Add Movie Review");
-		System.out.println("2: See Movie Reviews");
-		System.out.println("3: Exit");
-		Scanner sc = new Scanner(System.in);
-		int choice,id;
-		double rating;
-		String review,name;
-		while(true) {
-			choice = sc.nextInt();
-			if (choice==1) {
-				System.out.println("Enter movie id to review");
-				id = sc.nextInt();
-				System.out.println("Enter your name");
-				name = sc.next();
-				System.out.println("Enter review");
-				review = sc.next();
-				System.out.println("Enter rating");
-				rating =sc.nextDouble();
-				MovieReviewController.addReview(id,name,review,rating);
-				
-				}
-				
-			
-			else if (choice == 2) {
-				System.out.println("Enter movie id");
-				id = sc.nextInt();
-				List<MovieReview> reviewList = MovieReviewController.getMovieReviewList(id);
-				int size = reviewList.size();
-				for (int i = 0; i<size;i++) {
-					System.out.println(reviewList.get(i));
-				}
-			}
-			
-			else if (choice == 3) {
-				System.out.println("Exitting");
-				break;
-			}
-			
-			else {System.out.println("Enter valid choice");}
-		}
-		sc.close();	
-		}
-		
+    public static void listTop5ByRating() {
+        try {
+            System.out.println("Top 5 Movies by Rating: ");
+            List<Movie> sortedMovies = MovieController.listByRating();
+            StringBuilder output = new StringBuilder();
+            for (int i = 0; i < 5; i++) {
+                if (i < sortedMovies.size()) {
+                    output.append(MessageFormat.format("{0}: {1} - {2,number,#.#}/5\n", i+1, sortedMovies.get(i).getName(), sortedMovies.get(i).getRating()));
+                } else {
+                    output.append(MessageFormat.format("{0}: N/A\n", i+1));
+                }
+            }
+            System.out.println(output.substring(0, output.length() - 1).toString());
+            System.out.print("Press enter to continue..");
+            Scanner sc = new Scanner(System.in);
+            sc.nextLine();
+        } catch (EmptyListException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void addReview(int movieId) {
+        try {
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Please enter your name: ");
+            String name = sc.nextLine();
+            System.out.print("Please enter your review: ");
+            String review = sc.nextLine();
+            System.out.print("Please enter your rating (1-5): ");
+            double rating = sc.nextDouble();
+            MovieReviewController.addReview(movieId, name, review, rating);
+            System.out.println("Your review has been added.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
 }
-

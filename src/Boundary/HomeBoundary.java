@@ -1,72 +1,89 @@
 package Boundary;
 
+import java.util.Locale;
 import java.util.Scanner;
-import Controller.UserController;
-import Entity.UserRole;
-import Controller.MovieController;
 
+import Controller.UserController;
 public class HomeBoundary {
-	public static void userUI() {
-		int userInput = 0;
-		do {
-			try {
-				Scanner sc = new Scanner(System.in);
-				System.out.println("===============================");
-				System.out.println("Welcome to MOBLIMA");
-				System.out.println("1: Search/List Movie");
-				System.out.println("2: My Purchase History");
-				System.out.println("3: List Top 5 Movie Ranking by Sales");
-				System.out.println("4: List Top 5 Movie Ranking by Ratings");
-				if (UserController.isLogin() == 2) {
-					System.out.println("5: Manage Movie Listing");
-					System.out.println("6: Manage Cinema/Showtime");
-					System.out.println("7: Configure System Settings");
-				}
-				if (UserController.isLogin() == 0) {
-					System.out.println("8: Login");
-				}
-				System.out.println("Enter -1 to exit the program");
-				System.out.println("===============================");
-				System.out.print("Please enter your option: ");
-				userInput = sc.nextInt();
-				sc.nextLine();
-				switch (userInput) {
-				case 1:
-					MovieBoundary.findMovie();
-					break;
-				case 2:
-					// MovieBoundary.showAvailableMovieList();
-					break;
-				case 3:
-					// Sales is total number of bookings per movie
-					// if not then by alphabetical
-					break;
-				case 4:
-					// by average rating
-					// if not then by alphabetical
-					break;
-				case 5:
-					MovieBoundary.manageMovie();
-					break;
-				case 6:
-					CinemaBoundary.manageCinema();
-					break;
-				case 7:
-					// system settings boundary;
-					break;
-				case 8:
-					LoginBoundary.Login();
-					break;
-				case -1:
-					System.out.println("Thank you for choosing MOBLIMA! We hope to see you again.");
-					break;
-				default:
-					throw new Exception();
-				}
-			} catch (Exception e) {
-				System.out.println("Please enter a valid option.");
-			}
-		} while (userInput != -1);
-	}
+
+    public static void userUI() {
+        Locale.setDefault(Locale.US);
+        int userInput = 0;
+        do {
+            try {
+                int order = 1;
+                Scanner sc = new Scanner(System.in);
+                System.out.println("===============================");
+                System.out.println("=      Welcome to MOBLIMA     =");
+                System.out.println("===============================");
+                if (!UserController.isLoggedIn())
+                    System.out.println(order++ +": Login (FOR ADMIN ONLY)");
+                System.out.println(order++ +": View Ticket Prices");
+                System.out.println(order++ +": Search/List Movie");
+                System.out.println(order++ +": Search Booking");
+                System.out.println(order++ +": List Top 5 Movie Ranking by Sales");
+                System.out.println(order++ +": List Top 5 Movie Ranking by Ratings");
+                if (UserController.isLoggedIn()) {
+                    System.out.println("==== ADMIN FUNCTIONALITIES ====");
+                    System.out.println(order++ +": Manage Movie Listing");
+                    System.out.println(order++ +": Manage Cineplex");
+                    System.out.println(order++ +": Configure System Settings");
+                    System.out.println(order++ +": Logout");
+                    System.out.println("===============================");
+                }
+                System.out.println("Enter -1 to exit the program");
+                System.out.println("===============================");
+                System.out.print("Please enter your option: ");
+                userInput = sc.nextInt();
+                sc.nextLine();
+                if (userInput != -1)
+                    userInput += UserController.isLoggedIn() ? 1 : 0;
+                switch (userInput) {
+                    case 1:
+                        if (UserController.isLoggedIn())
+                            throw new Exception();
+                        UserBoundary.login();
+                        break;
+                    case 2:
+                        BookingBoundary.listPrices();
+                        break;
+                    case 3:
+                        MovieBoundary.findMovie();
+                        break;
+                    case 4:
+                        BookingBoundary.searchBooking();
+                        break;
+                    case 5:
+                        BookingBoundary.listTop5BySales();
+                        break;
+                    case 6:
+                        MovieReviewBoundary.listTop5ByRating();
+                        break;
+                    case 7:
+                    case 8:
+                    case 9:
+                    case 10:
+                        if (!UserController.isLoggedIn())
+                            throw new Exception();
+                        else if (userInput == 7)
+                            MovieBoundary.manageMovie();
+                        else if (userInput == 8)
+                            CineplexBoundary.manageCineplex();
+                        else if (userInput == 9)
+                            SystemSettingsBoundary.manageSystemSettings();
+                        else if (userInput == 10)
+                            UserController.logout();
+                        break;
+                    case -1:
+                        System.out.println("Thank you for choosing MOBLIMA! We hope to see you again.");
+                        break;
+                    default:
+                        throw new Exception();
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } while (userInput != -1);
+    }
 
 }

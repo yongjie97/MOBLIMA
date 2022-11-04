@@ -1,40 +1,48 @@
 package Controller;
 
 import Constant.DataFileConstant;
-import Entity.UserRole;
+import Entity.Staff;
+import Entity.User;
+import Exception.InvalidIdException;
+import Exception.InvalidInputException;
 import Repository.UserRepository;
 
 public class UserController {
-	private static UserRepository userRepository = new UserRepository(DataFileConstant.USER_FILE);
-	private static int isLogin = 0;
-	private static int size = userRepository.size();
 
-	public static int LoginFunction(String username, String password) {
-		for (int i = 0; i < size; i++) {
-			if ((userRepository.get(i).getName().equals(username)) && (userRepository.get(i).getPassword().equals(password))){
-				isLogin = 1;
-				if (userRepository.get(i).getRole() == UserRole.Customer) {
-				return 1;
-			} 
-			else {
-				isLogin = 2;
-				return 2;
-			}
-			}
-		}
-		return 0;
+    private static UserRepository userRepository = new UserRepository(DataFileConstant.USER_FILE);
+    private static User loginUser;
+
+    public static void login(String email, String password) throws InvalidInputException {
+        for (User user : userRepository.getAll()) {
+            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+                loginUser = user;
+                return;
+            }
+        }
+        throw new InvalidInputException("Email/Password is wrong.");
 	}
 
-	public static int isLogin() {
-		return isLogin;
-	}
+    public static void register(String name, String email, String password) throws InvalidInputException {
+        if (email.isEmpty())
+            throw new InvalidInputException("Please enter a email.");
+        if (password.isEmpty())
+            throw new InvalidInputException("Please enter a password.");
+        User user = new Staff(name, email, password);
+        userRepository.add(user);
+    }
 
-	public static int Logout() {
-		if (isLogin() == 1) {
-			isLogin = 0;
-			return 1;
-		} else {
-			return 0;
-		}
-	}
+    public static void logout() {
+        loginUser = null;
+    }
+
+    public static boolean isLoggedIn() {
+        return loginUser != null;
+    }
+
+    public static User getUser() throws InvalidIdException {
+        if (!isLoggedIn())
+            throw new InvalidIdException("You are not logged in.");
+        return loginUser;
+    }
+
 }

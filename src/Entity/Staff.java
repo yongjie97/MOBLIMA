@@ -1,30 +1,19 @@
+package Entity;
 
 public class Staff extends User {
 
-	private String name;
-	private String email;
-	private String password;
-	private UserRole role;
+	private String staffID;
 
-	public Staff(String name, String email, String password, UserRole role) {
-		super(email, password, name, role);
-
+	public Staff(String name, String email, String password) {
+		super(name, email, password, UserRole.Staff);
 	}
 
-	public String getName() {
-		return this.name;
+	public String getStaffID() {
+		return staffID;
 	}
 
-	public String getEmail() {
-		return this.email;
-	}
-
-	public String getPassword() {
-		return this.password;
-	}
-
-	public UserRole getRole() {
-		return this.role;
+	public void setStaffID(String staffID) {
+		this.staffID = staffID;
 	}
 
 }

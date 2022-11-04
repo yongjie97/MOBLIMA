@@ -1,80 +1,136 @@
 package Entity;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Scanner;
-import java.time.format.DateTimeFormatter;  
-import java.util.ArrayList;
-	public class Booking implements Serializable{
-		private Customer customer;
-		private Movie movie;
-		private ShowTime time;
-		private int seatNo;
-		private String cinemaName;
-		private String transID; 
-		private String emailAddress;
-		private int mobileNumber;
-		private String bookingdate;
-		private BigDecimal totalPrice;
+import java.util.List;
+
+public class Booking implements Serializable {
+
+    private String transactionID; 
+    private String name;
+    private String email;
+    private String mobile;
+    private List<String> seats;
+    private int movieId;
+    private int cineplexId;
+    private int cinemaId;
+    private int showTimeId;
+    private LocalDateTime bookingTime;
+    private BigDecimal totalPrice;
+    private int age;
+
+    public Booking(String transactionID, String name, String email, String mobile, List<String> seats, int movieId,
+            int cineplexId, int cinemaId, int showTimeId, LocalDateTime bookingTime, BigDecimal totalPrice) {
+        this.transactionID = transactionID;
+        this.name = name;
+        this.email = email;
+        this.email = email;
+        this.mobile = mobile;
+        this.seats = seats;
+        this.movieId = movieId;
+        this.cineplexId = cineplexId;
+        this.cinemaId = cinemaId;
+        this.showTimeId = showTimeId;
+        this.bookingTime = bookingTime;
+        this.totalPrice = totalPrice;
+    }
+
+    public String getTransactionID() {
+        return transactionID;
+    }
+    
+    public void setTransactionID(String transactionID) {
+        this.transactionID = transactionID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public LocalDateTime getBookingTime() {
+        return bookingTime;
+    }
+
+    public void setBookingTime(LocalDateTime bookingTime) {
+        this.bookingTime = bookingTime;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<String> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<String> seats) {
+        this.seats = seats;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
+
+    public int getCineplexId() {
+        return cineplexId;
+    }
+
+    public void setCineplexId(int cineplexId) {
+        this.cineplexId = cineplexId;
+    }
+
+    public int getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(int cinemaId) {
+        this.cinemaId = cinemaId;
+    }
+
+    public int getShowTimeId() {
+        return showTimeId;
+    }
+
+    public void setShowTimeId(int showTimeId) {
+        this.showTimeId = showTimeId;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+	public void setAge(int age) {
+		this.age = age;
 		
-		public Booking(Customer customer, Movie movie, ShowTime time, int seatNo, BigDecimal totalPrice, String transID, String cinemaName,int mobileNumber,String emailAddress,String bookingDate) {
-			this.customer = customer;
-			this.time = time;
-			this.movie = movie;
-			this.seatNo = seatNo;
-			this.totalPrice = totalPrice;
-			this.transID = transID;
-			this.cinemaName = cinemaName;
-			this.mobileNumber = mobileNumber;
-			this.emailAddress = emailAddress;
-			this.bookingdate = bookingDate;		
-		}
-		
+	}
+	
+	public int getAge() {
+		return age;
+	}
 
-		public Booking(Boolean upgraded, Boolean coupleSeat, int age, BigDecimal normalPrice, BigDecimal totalPrice2,
-				BigDecimal couplePrice, BigDecimal platinumPrice, BigDecimal seniorPrice, BigDecimal childPrice) {
-			// TODO Auto-generated constructor stub
-		}
-
-
-
-		public Booking(Customer customer2, Movie movie2, ShowTime showtime, int seatno2, double price, int transID2,
-				String cinemaname2) {
-			// TODO Auto-generated constructor stub
-		}
-
-
-		public String getName() {
-			return customer.getName();
-		}
-		
-		public String getMovieName() {
-			return movie.getName();
-		}
-		
-		public LocalDateTime getShowTime() {
-			return time.getDateTime();
-		}
-		public int getmobileNumber() {
-			return mobileNumber;
-		}
-		public int getSeat() {
-			return seatNo;
-		}
-		
-		public BigDecimal gettotalPrice() {
-			return totalPrice;
-		}
-		public String getID() {
-			return transID;
-		}
-		public String getemailAddress() {
-			return emailAddress;
-		}
-		public String getCinema() {
-			return cinemaName;
-		}
-		public String getbookingDate() {
-			return bookingdate;
-		}
-		}
+}

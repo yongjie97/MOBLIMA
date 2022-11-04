@@ -6,6 +6,8 @@ import java.util.List;
 
 public class Cinema implements Serializable {
 
+    private String cinemaCode;
+
     private String name;
 
     private CinemaClass cinemaClass;
@@ -14,7 +16,8 @@ public class Cinema implements Serializable {
 
     private List<ShowTime> showTime;
 
-    public Cinema(String name, CinemaClass cinemaClass, char[][] cinemaLayout) {
+    public Cinema(String cinemaCode, String name, CinemaClass cinemaClass, char[][] cinemaLayout) {
+        this.cinemaCode = cinemaCode;
         this.name = name;
         this.cinemaClass = cinemaClass;
         this.cinemaLayout = cinemaLayout;
@@ -51,6 +54,18 @@ public class Cinema implements Serializable {
 
     public void setShowTime(List<ShowTime> showTime) {
         this.showTime = showTime;
+    }
+
+
+
+    public String getCinemaCode() {
+        return cinemaCode;
+    }
+
+
+
+    public void setCinemaCode(String cinemaCode) {
+        this.cinemaCode = cinemaCode;
     }
     
 }
