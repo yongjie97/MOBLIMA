@@ -17,6 +17,7 @@ import Entity.Cinema;
 import Entity.CinemaClass;
 import Entity.Cineplex;
 import Entity.Movie;
+import Entity.MovieStatus;
 import Entity.ShowTime;
 import Exception.EmptyListException;
 import Exception.InvalidIdException;
@@ -245,6 +246,9 @@ public class BookingBoundary {
     }
 
     public static void listShowTime(int movieId) throws InvalidIdException, EmptyListException {
+        Movie movie = MovieController.getMovie(movieId);
+        if (movie.getMovieStatus() == MovieStatus.COMING_SOON)
+            throw new InvalidIdException("Movie not available for booking yet.");
         System.out.println("Showtime List - " + MovieController.getMovie(movieId).getName());
         System.out.println(BookingController.listMovieShowTime(movieId));
     }
