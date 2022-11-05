@@ -78,8 +78,8 @@ public class BookingController {
         for (Entry<Integer, Integer> item : list) {
             Movie tempMovie = movies.get(item.getKey());
             if (tempMovie.getMovieStatus() != MovieStatus.FINISHED)
-            if (item.getValue() != 0)
-                sortedMovieList.add(Map.entry(tempMovie, item.getValue()));
+                if (item.getValue() != 0)
+                    sortedMovieList.add(Map.entry(tempMovie, item.getValue()));
         }
         return sortedMovieList;
     }
@@ -97,7 +97,7 @@ public class BookingController {
                 Cinema cinema = cineplex.getCinemas().get(j2);
                 for (int j3 = 0; j3 < cinema.getShowTime().size(); j3++) {
                     ShowTime showTime = cinema.getShowTime().get(j3);
-                    if (showTime.getMovieId() == movieId) {
+                    if (showTime.getMovieId() == movieId && showTime.getDateTime().isAfter(LocalDateTime.now())) {
                         output.append(MessageFormat.format("{0}: {1} | {2} - {3}\n", i++, cineplex.getName(),
                                 cinema.getName(), getDateTimeFormat(showTime.getDateTime())));
                         showTimeList.add(new int[] { j, j2, j3 });

@@ -4,7 +4,6 @@ import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 import Constant.ApplicationConstant;
@@ -180,6 +179,32 @@ public class ShowTimeController {
                     getDateTimeFormat(showTime.get(i).getDateTime())));
         }
         return output.substring(0, output.length() - 1).toString();
+    }
+
+    public static String listAvailableShowTime(int cineplexId, int cinemaId) throws InvalidIdException, EmptyListException {
+        cineplexId = normaliseId(cineplexId);
+        cinemaId = normaliseId(cinemaId);
+        if (cineplexId < 0 || cineplexId > cineplexRepository.size())
+            throw new InvalidIdException("Please enter a valid cineplex id.");
+
+        Cineplex cineplex = cineplexRepository.get(cineplexId);
+        if (cinemaId < 0 || cinemaId >= cineplex.getCinemas().size())
+            throw new InvalidIdException("Please enter a valid cinema id.");
+
+        Cinema cinema = cineplex.getCinemas().get(cinemaId);
+        if (cinema.getShowTime().isEmpty())
+            throw new EmptyListException("No showtime found.");
+
+        List<ShowTime> showTime = cinema.getShowTime();
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < showTime.size(); i++) {
+            if (showTime.get(i).getDateTime().isAfter(LocalDateTime.now())) {
+                Movie movie = movieRepository.get(showTime.get(i).getMovieId());
+                output.append(MessageFormat.format("{0}: {1} | {2}\n", i + 1, movie.getName(),
+                        getDateTimeFormat(showTime.get(i).getDateTime())));
+            }
+        }
+        return output.substring(0, output.length() - 1).toString();
 
     }
 
@@ -206,22 +231,6 @@ public class ShowTimeController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ApplicationConstant.DATETIME_FORMAT);
         return dateTime.format(formatter).toString();
     }
-
-    // public static void reserveSeat(int cineplexId, int cinemaId, int showTimeId,
-    // String seatNo) throws InvalidInputException {
-    // if (!checkIfSeatAvailable(cineplexId, cinemaId, showTimeId, seatNo))
-    // throw new InvalidInputException("Please enter a valid seat.");
-
-    // cineplexId = normaliseId(cineplexId);
-    // cinemaId = normaliseId(cinemaId);
-    // showTimeId = normaliseId(showTimeId);
-
-    // Cineplex cineplex = cineplexRepository.get(cineplexId);
-    // Cinema cinema = cineplex.getCinemas().get(cinemaId);
-    // ShowTime showTime = cinema.getShowTime().get(showTimeId);
-    // showTime.getSeatsTaken().add(seatNo);
-    // cineplexRepository.edit(cineplexId, cineplex);
-    // }
 
     public static int normaliseId(int id) {
         return id - 1;
