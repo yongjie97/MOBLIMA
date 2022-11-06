@@ -1,10 +1,7 @@
 package Controller;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.PriorityQueue;
 
 import Constant.DataFileConstant;
 import Entity.Movie;
@@ -117,28 +114,6 @@ public class MovieController {
 
     public static int normaliseId(int id) {
         return id - 1;
-    }
-
-    public static List<Movie> listByRating() throws EmptyListException {
-        List<Movie> movies = movieRepository.getAll();
-        if (movies.isEmpty())
-            throw new EmptyListException("No available movies found.");
-
-        List<Movie> highestRated = new ArrayList<>();
-        Comparator<Movie> ratingSorter = Comparator.comparing(Movie::getRating);
-        PriorityQueue<Movie> maxHeap = new PriorityQueue<Movie>(ratingSorter.reversed());
-        for (int i = 0; i < MovieController.size(); i++) {
-            if (movies.get(i).getMovieStatus() != MovieStatus.FINISHED)
-            if (movies.get(i).getRating() != 0)
-                maxHeap.add(movies.get(i));
-        }
-
-        for (int i = 0; i < 5; i++) {
-            if (maxHeap.isEmpty())
-                break;
-            highestRated.add(i, maxHeap.poll());
-        }
-        return highestRated;
     }
 
 }

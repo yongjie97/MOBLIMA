@@ -1,12 +1,8 @@
 package Boundary;
 
-import java.text.MessageFormat;
-import java.util.List;
 import java.util.Scanner;
 
-import Controller.MovieController;
 import Controller.MovieReviewController;
-import Entity.Movie;
 import Exception.EmptyListException;
 
 public class MovieReviewBoundary {
@@ -25,16 +21,7 @@ public class MovieReviewBoundary {
     public static void listTop5ByRating() {
         try {
             System.out.println("Top 5 Movies by Rating: ");
-            List<Movie> sortedMovies = MovieController.listByRating();
-            StringBuilder output = new StringBuilder();
-            for (int i = 0; i < 5; i++) {
-                if (i < sortedMovies.size()) {
-                    output.append(MessageFormat.format("{0}: {1} - {2,number,#.#}/5\n", i+1, sortedMovies.get(i).getName(), sortedMovies.get(i).getRating()));
-                } else {
-                    output.append(MessageFormat.format("{0}: N/A\n", i+1));
-                }
-            }
-            System.out.println(output.substring(0, output.length() - 1).toString());
+            System.out.print(MovieReviewController.listByRating());
             System.out.print("Press enter to continue..");
             Scanner sc = new Scanner(System.in);
             sc.nextLine();

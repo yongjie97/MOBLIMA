@@ -59,6 +59,10 @@ public class CinemaController {
         return cineplex.getCinemas().get(cinemaId);
     }
 
+    public static String getCinemaName(int cineplexId, int cinemaId) throws InvalidIdException {
+        return getCinema(cineplexId, cinemaId).getName();
+    }
+
     public static boolean hasCinema(int cineplexId) {
         cineplexId = normaliseId(cineplexId);
         return cineplexRepository.get(cineplexId).getCinemas().size() > 0;

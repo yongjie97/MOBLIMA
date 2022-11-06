@@ -7,8 +7,6 @@ import Constant.ApplicationConstant;
 import Controller.CinemaController;
 import Controller.CineplexController;
 import Controller.ShowTimeController;
-import Entity.Cinema;
-import Entity.Cineplex;
 import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
@@ -16,8 +14,8 @@ import Exception.InvalidInputException;
 public class ShowTimeBoundary {
 
     public static void manageShowTime(int cineplexId, int cinemaId) throws InvalidIdException, IndexOutOfBoundsException {
-        Cineplex cineplex = CineplexController.getCineplex(cineplexId);
-        Cinema cinema = CinemaController.getCinema(cineplexId, cinemaId);
+        String cineplexName = CineplexController.getCineplexName(cineplexId);
+        String cinemaName = CinemaController.getCinemaName(cineplexId, cinemaId);
 
         int userInput = 0;
         do {
@@ -26,7 +24,7 @@ public class ShowTimeBoundary {
                 System.out.println("===============================");
                 System.out.println("==     Managing Showtime     ==");
                 System.out.println("===============================");
-                System.out.println(MessageFormat.format("Selected: {0} | {1}", cineplex.getName(), cinema.getName()));
+                System.out.println(MessageFormat.format("Selected: {0} | {1}", cineplexName, cinemaName));
                 System.out.println("===============================");
                 System.out.println("Action List");
                 System.out.println("1: Add Showtime");
