@@ -97,7 +97,6 @@ public class ShowTimeBoundary {
             try {
                 ShowTimeBoundary.listShowTime(cineplexId, cinemaId);
                 System.out.print("Please enter a showtime id to edit (-1 to back): ");
-1
                 Scanner sc = new Scanner(System.in);
                 int showTimeId = sc.nextInt();
                 sc.nextLine();
