@@ -75,7 +75,7 @@ public class ShowTimeController {
         ShowTime oldShowTime = cinema.getShowTime().get(showTimeId);
         ShowTime newShowTime = new ShowTime(movieId, oldShowTime.getDateTime());
         cinema.getShowTime().set(showTimeId, newShowTime);
-        cineplexRepository.edit(cinemaId, cineplex);
+        cineplexRepository.edit(cineplexId, cineplex);
     }
 
     public static void editShowTimeDateTime(int cineplexId, int cinemaId, int showTimeId, String dateTime)
@@ -101,7 +101,7 @@ public class ShowTimeController {
             ShowTime oldShowTime = cinema.getShowTime().get(showTimeId);
             ShowTime newShowTime = new ShowTime(oldShowTime.getMovieId(), formattedDateTime);
             cinema.getShowTime().set(showTimeId, newShowTime);
-            cineplexRepository.edit(cinemaId, cineplex);
+            cineplexRepository.edit(cineplexId, cineplex);
         } catch (DateTimeParseException e) {
             throw new InvalidInputException("Please enter a valid date time format.");
         }
@@ -231,7 +231,7 @@ public class ShowTimeController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ApplicationConstant.DATETIME_FORMAT);
         return dateTime.format(formatter).toString();
     }
-
+    
     public static int normaliseId(int id) {
         return id - 1;
     }
