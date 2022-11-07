@@ -1,10 +1,15 @@
 package Controller;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
 
 import Constant.DataFileConstant;
 import Entity.Movie;
 import Entity.MovieReview;
+import Entity.MovieStatus;
 import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
@@ -56,6 +61,37 @@ public class MovieReviewController {
             output.append(MessageFormat.format("Review: {0}\n\n", movie.getMovieReviews().get(i).getReview()));
         }
         return output.substring(0, output.length() - 2).toString();
+    }
+
+    public static String listByRating() throws EmptyListException {
+        List<Movie> movies = movieRepository.getAll();
+        if (movies.isEmpty())
+            throw new EmptyListException("No available movies found.");
+
+        List<Movie> highestRated = new ArrayList<>();
+        Comparator<Movie> ratingSorter = Comparator.comparing(Movie::getRating);
+        PriorityQueue<Movie> maxHeap = new PriorityQueue<Movie>(ratingSorter.reversed());
+        for (int i = 0; i < MovieController.size(); i++) {
+            if (movies.get(i).getMovieStatus() != MovieStatus.FINISHED)
+            if (movies.get(i).getRating() != 0)
+                maxHeap.add(movies.get(i));
+        }
+
+        for (int i = 0; i < 5; i++) {
+            if (maxHeap.isEmpty())
+                break;
+            highestRated.add(i, maxHeap.poll());
+        }
+
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < 5; i++) {
+            if (i < highestRated.size()) {
+                output.append(MessageFormat.format("{0}: {1} - {2,number,#.#}/5\n", i+1, highestRated.get(i).getName(), highestRated.get(i).getRating()));
+            } else {
+                output.append(MessageFormat.format("{0}: N/A\n", i+1));
+            }
+        }
+        return output.substring(0, output.length() - 1).toString();
     }
 
     private static boolean isValidInput(String name, String review, double rating) throws InvalidInputException {

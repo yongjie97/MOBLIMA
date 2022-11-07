@@ -21,6 +21,10 @@ public class CineplexController {
         return cineplexRepository.get(id);
     }
 
+    public static String getCineplexName(int id) throws InvalidIdException {
+        return getCineplex(id).getName();
+    }
+
     public static void addCineplex(String name) {
         Cineplex cineplex = new Cineplex(name);
         cineplexRepository.add(cineplex);

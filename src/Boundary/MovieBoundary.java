@@ -10,7 +10,6 @@ import java.util.Scanner;
 import Controller.MovieController;
 import Entity.Movie;
 import Entity.MovieRating;
-import Entity.MovieReview;
 import Entity.MovieStatus;
 import Entity.MovieType;
 import Exception.EmptyListException;
