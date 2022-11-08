@@ -22,9 +22,27 @@ import Entity.ShowTime;
 import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
+/**
+Interface for booking of movie
+A customer can search for a booking
+List the top 5 movies by sales
+list bookings
+list prices
+purchase tickets
+View seat options
+List booking details
+select/unselect seats
+Confirm selection
+List show times
 
+*/
 public class BookingBoundary {
-
+	/**
+	 * Searches for the booking and lists 
+	 * the details of the customer
+	 * Check this {@link BookingBoundary#listBookings(List)} method
+	 * for printing list
+	 */
     public static void searchBooking() {
         String userInput = "";
         do {
@@ -52,7 +70,9 @@ public class BookingBoundary {
             }
         } while (true);
     }
-
+    /**
+     * Lists the top five movies by the number of sales
+     */
     public static void listTop5BySales() {
         try {
             System.out.println("Top 5 Movies by Sales:");
@@ -73,6 +93,12 @@ public class BookingBoundary {
             System.out.println(e.getMessage());
         }
     }
+    /**
+     * Prints the bookings by the customer
+     * Used by {@link BookingBoundary#searchBooking()} method
+     * 
+     * @param bookings	The list of bookings to be printed
+     */
 
     public static void listBookings(List<Booking> bookings) {
         System.out.println("Booking List");
@@ -81,6 +107,9 @@ public class BookingBoundary {
                     getDateTimeFormat(bookings.get(i).getBookingTime())));
         }
     }
+    /**
+     * Lists the prices for the movie
+     */
 
     public static void listPrices() {
         System.out.println("Prices");
@@ -89,6 +118,13 @@ public class BookingBoundary {
         Scanner sc = new Scanner(System.in);
         sc.nextLine();
     }
+    /**
+     * Interface for customer to purchase
+     * their ticket by show time
+     * 
+     * @param movieId	The id of the movie for the 
+     * 					ticket to be purchased from
+     */
 
     public static void purchaseTicket(int movieId) {
         int userInput = -1;
@@ -109,7 +145,16 @@ public class BookingBoundary {
             }
         } while (userInput != -1);
     }
-
+    /**
+     * Interface for user to select 
+     * the seats in cinema to book
+     * 
+     * @param selectedShowTime		The timing of the 
+     * 								show selected by customer
+     * @param movieId				Id of the movie to be booked
+     * @throws InvalidIdException	If an id input 
+     * 								exception occurred
+     */
     public static void seatOptions(int selectedShowTime, int movieId) throws InvalidIdException {
         int userInput = -1;
         do {
@@ -154,7 +199,14 @@ public class BookingBoundary {
             }
         } while (userInput != -1);
     }
-
+    /**
+     * Lists the booking details of the 
+     * customer after they have booked the movie
+     * 
+     * @param booking				The booking of the customer
+     * @throws InvalidIdException	If an id input 
+     * 								exception occurs
+     */
     public static void listBookingDetails(Booking booking) throws InvalidIdException {
         Cineplex cineplex = CineplexController.getCineplex(booking.getCineplexId() + 1);
         Cinema cinema = cineplex.getCinemas().get(booking.getCinemaId());
@@ -176,6 +228,14 @@ public class BookingBoundary {
         output.append("===============================");
         System.out.println(output.toString());
     }
+    /**
+     * For the customer to select available seats
+     * 
+     * @param selectedShowtime		Show time the 
+     * 								customer selected
+     * @throws InvalidIdException	If an id input 
+     * 								exception occurs
+     */
 
     public static void selectSeat(int selectedShowtime) throws InvalidIdException {
         try {
@@ -208,6 +268,12 @@ public class BookingBoundary {
             System.out.println(e.getMessage());
         }
     }
+    /**
+     * Unselect the seats that the customer has selected
+     * 
+     * @throws InvalidInputException	If an id input 
+     * 									exception occurs
+     */
 
     public static void unselectSeat() throws InvalidInputException {
         try {
@@ -221,7 +287,14 @@ public class BookingBoundary {
             System.out.println(e.getMessage());
         }
     }
-
+    /**
+     * Confirms the booking selection customers buys the ticket
+     * 
+     * @param selectedShowTime			Show time and booking 
+     * 									the customer selected
+     * @throws InvalidInputException	If an id input 
+     * 									exception occurs
+     */
     public static void confirmSelection(int selectedShowTime) throws InvalidInputException {
         if (!BookingController.hasSelectedSeat())
             throw new InvalidInputException("Please select a seat.");
@@ -244,6 +317,15 @@ public class BookingBoundary {
             System.out.println(e.getMessage());
         }
     }
+    /**
+     * Lists the available show times for the customer to book
+     * 
+     * @param movieId					Id of the movie to view show time
+     * @throws InvalidIdException		If an id input 
+     * 									exception occurs
+     * @throws EmptyListException		If an empty list input 
+     * 									exception occurs
+     */
 
     public static void listShowTime(int movieId) throws InvalidIdException, EmptyListException {
         Movie movie = MovieController.getMovie(movieId);
@@ -252,10 +334,22 @@ public class BookingBoundary {
         System.out.println("Showtime List - " + MovieController.getMovie(movieId).getName());
         System.out.println(BookingController.listMovieShowTime(movieId));
     }
-
+    /**
+     * Lists the seats for the selected show time
+     * 
+     * @param selectedShowtime		Show time customer selected
+     * @throws InvalidIdException	If an id input 
+     * 								exception occurs
+     */
     public static void listSeats(int selectedShowtime) throws InvalidIdException {
         System.out.println(BookingController.listShowTimeSeats(selectedShowtime));
     }
+    /**
+     * Get the date and time format
+     * 
+     * @param dateTime	Date and time for movie
+     * @return			The date and time format for movie
+     */
 
     public static String getDateTimeFormat(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ApplicationConstant.DATETIME_FORMAT);

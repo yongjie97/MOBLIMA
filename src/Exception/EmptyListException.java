@@ -1,5 +1,7 @@
 package Exception;
-
+/**
+ * Class for performing empty list exceptions in the application
+ */
 public class EmptyListException extends Exception {
 
     public EmptyListException() {

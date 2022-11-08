@@ -15,11 +15,21 @@ import Entity.MovieType;
 import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
-
+/**
+ * UI for movie
+ */
 public class MovieBoundary {
-
+	/**
+	 * A list of array of Movie object
+	 */
     private static List<Integer> movieIds = new ArrayList<>();
-
+    /**
+     * UI for staff to select options
+     * Staff can Add movie
+     * Edit movie
+     * Delete Movie
+     * Show movie details
+     */
     public static void manageMovie() {
         int userInput = 0;
         do {
@@ -63,7 +73,11 @@ public class MovieBoundary {
             }
         } while (userInput != -1);
     }
-
+    /**
+     * Gets the id of movie to be selected
+     * 
+     * @return	Exit status
+     */
     public static int askForMovieSelection() {
         int userInput = 0;
         do {
@@ -80,7 +94,13 @@ public class MovieBoundary {
         } while (userInput != -1);
         return -1;
     }
-
+    /**
+     * UI for selection actions to be done to movie
+     * 
+     * @param movieId				Id of movie chosen
+     * @throws InvalidIdException	If an id input 
+     * 								exception occurs
+     */
     public static void showMovieOptions(int movieId) throws InvalidIdException {
         int userInput = 0;
         do {
@@ -124,7 +144,9 @@ public class MovieBoundary {
             }
         } while (userInput != -1);
     }
-
+    /**
+     * Creates a new movie and adds it to the list of movies
+     */
     public static void addMovie() {
         try {
             String name, synopsis, cast, director;
@@ -168,6 +190,13 @@ public class MovieBoundary {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Edits current movie objects that have been created
+     * 
+     * @throws EmptyListException	If an empty list
+     * 								exception occurs
+     */
 
     public static void editMovie() throws EmptyListException {
         if (!MovieController.getMovieList().isEmpty()) {
@@ -261,7 +290,12 @@ public class MovieBoundary {
             System.out.println("No movies found.");
         }
     }
-
+    /**
+     * Deletes movie from the list of movies
+     * 
+     * @throws EmptyListException	If an empty list
+     * 								exception occurs
+     */
     public static void deleteMovie() throws EmptyListException {
         if (!MovieController.getMovieList().isEmpty()) {
             while (true) {
@@ -286,7 +320,12 @@ public class MovieBoundary {
             System.out.println("No movies found.");
         }
     }
-
+    /**
+     * Chooses a movie to view details
+     * 
+     * @throws EmptyListException	If an id input 
+     * 								exception occurs
+     */
     public static void selectMovieForDetails() throws EmptyListException {
         if (!MovieController.getMovieList().isEmpty()) {
             System.out.print("Please select a movie: ");
@@ -304,6 +343,9 @@ public class MovieBoundary {
             System.out.println("No movies found.");
         }
     }
+    /**
+     * Shows the list of movies
+     */
 
     public static void showMovieList() {
         try {
@@ -323,7 +365,9 @@ public class MovieBoundary {
             System.out.println(e.getMessage());
         }
     }
-
+    /**
+     * Searches for a movie or lists the movies currently available
+     */
     public static void findMovie() {
         int userInput = 0;
         do {
@@ -360,7 +404,9 @@ public class MovieBoundary {
             }
         } while (userInput != -1);
     }
-
+    /**
+     * Shows the list of movies currently available
+     */
     public static void showAvailableMovieList() throws EmptyListException {
         try {
             movieIds.clear();
@@ -377,6 +423,12 @@ public class MovieBoundary {
             throw new EmptyListException(e.getMessage());
         }
     }
+    /**
+     * Search for a movie
+     * 
+     * @throws EmptyListException	If an empty list 
+     * 								exception occurs
+     */
 
     public static void searchMovie() throws EmptyListException {
         try {
@@ -400,7 +452,11 @@ public class MovieBoundary {
             throw new EmptyListException(e.getMessage());
         }
     }
-
+    /**
+     * Show details of movie selected from its id
+     * 	
+     * @param movieId	Id of movie selected
+     */
     public static void showMovieDetails(int movieId) {
         try {
             Movie movie = MovieController.getMovie(movieId);
@@ -418,7 +474,12 @@ public class MovieBoundary {
             System.out.println(e.getMessage());
         }
     }
-
+    /**
+     * Shows the type of movie
+     * 
+     * @throws EmptyListException	If an empty list
+     * 								exception occurs
+     */
     public static void showMovieType() throws EmptyListException {
         StringBuilder output = new StringBuilder("Movie Type\n");
         for (int i = 0; i < MovieType.values().length; i++) {
@@ -426,7 +487,9 @@ public class MovieBoundary {
         }
         System.out.println(output.substring(0, output.length() - 1).toString());
     }
-
+    /**
+     * Shows of rating of the movie
+     */
     public static void showMovieRating() {
         StringBuilder output = new StringBuilder("Movie Rating\n");
         for (int i = 0; i < MovieRating.values().length; i++) {
@@ -434,7 +497,9 @@ public class MovieBoundary {
         }
         System.out.println(output.substring(0, output.length() - 1).toString());
     }
-
+    /**
+     * Show the status of the movie
+     */
     public static void showMovieStatus() {
         StringBuilder output = new StringBuilder("Movie Status\n");
         for (int i = 0; i < MovieStatus.values().length; i++) {

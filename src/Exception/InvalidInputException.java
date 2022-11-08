@@ -1,5 +1,7 @@
 package Exception;
-
+/**
+ * Class for performing invalid input exceptions in the application
+ */
 public class InvalidInputException extends Exception {
 
     public InvalidInputException() {

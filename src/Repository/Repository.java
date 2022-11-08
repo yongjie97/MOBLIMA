@@ -8,7 +8,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Repository for classes that encapsulate the logic required to access data sources.
+ */
 public abstract class Repository<T> {
 
     private String filePath;

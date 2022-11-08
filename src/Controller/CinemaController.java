@@ -10,11 +10,26 @@ import Entity.Cineplex;
 import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Repository.CineplexRepository;
-
+/**
+ * The logic and functions for cinema
+ */
 public class CinemaController {
-
+	/**
+	 * Stored details of cineplex
+	 */
     private static CineplexRepository cineplexRepository = new CineplexRepository(DataFileConstant.CINEPLEX_FILE);
-
+    /**
+     * Creates a cinema object and adds it to
+     * cineplex repository
+     *  
+     * @param cineplexId			Id of cineplex
+     * @param cinemaCode			Code of cinema
+     * @param name					Name of cinema
+     * @param cinemaClass			Class of cinema
+     * @param cinemaLayout			Layout of cinema
+     * @throws InvalidIdException	If an id input
+     * 								exception occurs
+     */
     public static void addCinema(int cineplexId, String cinemaCode, String name, CinemaClass cinemaClass, char[][] cinemaLayout)
             throws InvalidIdException {
         cineplexId = normaliseId(cineplexId);
@@ -23,7 +38,18 @@ public class CinemaController {
         cineplex.getCinemas().add(newCinema);
         cineplexRepository.edit(cineplexId, cineplex);
     }
-
+    /**
+     * Edits a cinema in the cineplex repository
+     * 
+     * @param cineplexId			Id of cineplex		
+     * @param cinemaId				Id of cinema
+     * @param id					Id
+     * @param name					Name of cinema
+     * @param cinemaClass			Class of cinema
+     * @param cinemaLayout			Layout of cinema
+     * @throws InvalidIdException	If an id input
+     * 								exception occurs
+     */
     public static void editCinema(int cineplexId, int cinemaId, int id, String name, CinemaClass cinemaClass,
             char[][] cinemaLayout) throws InvalidIdException {
         cineplexId = normaliseId(cineplexId);
@@ -39,7 +65,14 @@ public class CinemaController {
         cinema.setCinemaLayout(cinemaLayout);
         cineplexRepository.edit(cineplexId, cineplex);
     }
-
+    /**
+     * Removes a cinema from the cineplex repository
+     * 
+     * @param cineplexId				Id of cineplex
+     * @param cinemaId					Id of cinema
+     * @throws InvalidIdException		If an id input
+     * 									exception occurs
+     */
     public static void removeCinema(int cineplexId, int cinemaId) throws InvalidIdException {
         cineplexId = normaliseId(cineplexId);
         cinemaId = normaliseId(cinemaId);
@@ -48,7 +81,15 @@ public class CinemaController {
             throw new InvalidIdException("Please enter a valid cinema id.");
         cineplexRepository.remove(cinemaId);
     }
-
+    /**
+     * Get the cinema object
+     * 
+     * @param cineplexId				Id of cineplex		
+     * @param cinemaId					Id of cinema
+     * @return							cinema from chosen id
+     * @throws InvalidIdException		If an id input
+     * 									exception occurs
+     */
     public static Cinema getCinema(int cineplexId, int cinemaId) throws InvalidIdException {
         cineplexId = normaliseId(cineplexId);
         cinemaId = normaliseId(cinemaId);
@@ -62,12 +103,26 @@ public class CinemaController {
     public static String getCinemaName(int cineplexId, int cinemaId) throws InvalidIdException {
         return getCinema(cineplexId, cinemaId).getName();
     }
-
+    /**
+     * Checks if cinema exists
+     * 
+     * @param cineplexId		Id of cineplex
+     * @return					true/false
+     */
     public static boolean hasCinema(int cineplexId) {
         cineplexId = normaliseId(cineplexId);
         return cineplexRepository.get(cineplexId).getCinemas().size() > 0;
     }
-
+    /**
+     * Returns a list of cinemas
+     * 
+     * @param cineplexId				Id of cineplex
+     * @return							String of cinema name
+     * @throws InvalidIdException		If an id input
+     * 									exception occurs
+     * @throws EmptyListException		If an empty list
+     * 									exception occurs
+     */
     public static String listCinema(int cineplexId) throws InvalidIdException, EmptyListException {
         cineplexId = normaliseId(cineplexId);
         Cineplex cineplex = cineplexRepository.get(cineplexId);
@@ -82,7 +137,17 @@ public class CinemaController {
         }
         return output.substring(0, output.length() - 1).toString();
     }
-
+    /**
+     * Returns the string of cinema info
+     * 
+     * @param cineplexId				Id of cineplex	
+     * @param cinemaId					Id of cinema
+     * @return							String of cinema info
+     * @throws InvalidIdException		If an id input
+     * 									exception occurs
+     * @throws EmptyListException		If an empty list
+     * 									exception occurs
+     */
     public static String listCinemaInfo(int cineplexId, int cinemaId) throws InvalidIdException, EmptyListException {
         cineplexId = normaliseId(cineplexId);
         cinemaId = normaliseId(cinemaId);
@@ -104,7 +169,11 @@ public class CinemaController {
         output.append(getCinemaLayout(cinema));
         return output.toString();
     }
-
+    /**
+     * Gets the layout of the cinema in string
+     * @param cinema	Cinema object
+     * @return			Cinema layout
+     */
     private static String getCinemaLayout(Cinema cinema) {
         StringBuilder newString = new StringBuilder();
         char[][] seatLayout = cinema.getCinemaLayout();
@@ -123,7 +192,14 @@ public class CinemaController {
                 "\nLEGEND:\nSeat ranges from 1 (starting from to left) to the right.\n|*| - Available, |*  *| - Couple Seat, |x| - Sold");
         return newString.toString();
     }
-
+    /**
+     * Gets format of seat
+     * 
+     * @param c			Seat layout
+     * @param row		Row
+     * @param seatNo	Seat number
+     * @return			Seat format
+     */
     private static String getSeatTypeFormat(char c, char row, int seatNo) {
         if (c == 1) {
             return "|*|";
@@ -135,7 +211,12 @@ public class CinemaController {
             return new StringBuilder().append(c).toString();
         }
     }
-
+    /**
+     * Normalises id
+     * 
+     * @param id	Id
+     * @return		Normalised id
+     */
     public static int normaliseId(int id) {
         return id - 1;
     }

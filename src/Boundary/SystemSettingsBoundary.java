@@ -7,9 +7,14 @@ import Controller.SystemSettingsController;
 import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
-
+/**
+ * UI for system settings
+ */
 public class SystemSettingsBoundary {
-
+	/**
+	 * Chooses to manage the holiday and prices
+	 * Used by staff
+	 */
     public static void manageSystemSettings() {
         int userInput = 0;
         do {
@@ -43,7 +48,10 @@ public class SystemSettingsBoundary {
             }
         } while (userInput != -1);
     }
-
+    /**
+     * UI choice to add holiday
+     * or delete holiday
+     */
     public static void manageHoliday() {
         int userInput = 0;
         do {
@@ -79,7 +87,9 @@ public class SystemSettingsBoundary {
             }
         } while (userInput != -1);
     }
-
+    /**
+     * Adds a holiday
+     */
     public static void addHoliday() {
         try {
             Scanner sc = new Scanner(System.in);
@@ -95,7 +105,9 @@ public class SystemSettingsBoundary {
             System.out.println("Please enter a valid option.");
         }
     }
-
+    /**
+     * Deletes a holiday
+     */
     public static void deleteHoliday() {
         Scanner sc = new Scanner(System.in);
         if (SystemSettingsController.getSystemSettings().getHolidays().isEmpty()) {
@@ -116,7 +128,9 @@ public class SystemSettingsBoundary {
             System.out.println("Please enter a valid option.");
         }
     }
-
+    /**
+     * Edits the prices 
+     */
     public static void managePrices() {
         int userInput = 0;
         do {
@@ -144,12 +158,16 @@ public class SystemSettingsBoundary {
             }
         } while (userInput != -1);
     }
-
+    /**
+     * Lists the prices set
+     */
     public static void listSystemSetting() {
         System.out.println("Prices");
         System.out.println(SystemSettingsController.listPrices());
     }
-
+    /**
+     * Lists the holidays
+     */
     public static void listHoliday() {
         System.out.println("Holiday");
         try {

@@ -31,24 +31,63 @@ import Exception.InvalidInputException;
 import Repository.BookingRepository;
 import Repository.CineplexRepository;
 import Repository.MovieRepository;
-
+/**
+ * The logic and functions for bookings
+ */
 public class BookingController {
-
+	/**
+	 * Seat types that can be used
+	 */
     public enum SeatType {
+    	/**
+    	 * Normal seat
+    	 */
         NORMAL,
+        /**
+         * Couple seat
+         */
         COUPLE,
+        /**
+         * Student seat
+         */
         STUDENT,
+        /**
+         * Senior seat
+         */
         SENIOR,
+        /**
+         * Platinum seat
+         */
         PLATINUM
     }
-
+    /**
+     * The list of show times
+     */
     private static List<int[]> showTimeList = new ArrayList<>();
+    /**
+     * The hash map of seats
+     */
     private static HashMap<String, SeatType> selectedSeats = new HashMap<>();
-
+    /**
+     * The stored details of cineplex
+     */
     private static CineplexRepository cineplexRepository = new CineplexRepository(DataFileConstant.CINEPLEX_FILE);
+    /**
+     * The stored details of movie
+     */
     public static MovieRepository movieRepository = new MovieRepository(DataFileConstant.MOVIE_FILE);
+    /**
+     * The stored details of booking
+     */
     private static BookingRepository bookingRepository = new BookingRepository(DataFileConstant.BOOKING_FILE);
-
+    
+    /**
+     * Sorts the list of movies by sales
+     * 
+     * @return						Sorted list of movies by sales
+     * @throws EmptyListException	If an empty list
+     * 								exception occurs
+     */
     public static List<Entry<Movie, Integer>> listBySales() throws EmptyListException {
         if (movieRepository.isEmpty())
             throw new EmptyListException("No movies found.");
@@ -83,7 +122,14 @@ public class BookingController {
         }
         return sortedMovieList;
     }
-
+    /**
+     * Lists the show time of a movie
+     * 
+     * @param movieId				Id of selected movie
+     * @return						String of movie show time
+     * @throws EmptyListException	If an empty list
+     * 								exception occurs
+     */
     public static String listMovieShowTime(int movieId) throws EmptyListException {
         movieId = normaliseId(movieId);
         showTimeList.clear();
@@ -110,7 +156,16 @@ public class BookingController {
         else
             return output.substring(0, output.length() - 1).toString();
     }
-
+    /**
+     * Selects seats and stores it into 
+     * {@link BookingController#selectedSeats } hash map
+     * 
+     * @param showTimeSelection			Choice of show time
+     * @param seatNo					Seat number
+     * @param seatType					Type of seat
+     * @throws InvalidInputException	If an id input
+     * 									exception occurs
+     */
     public static void selectSeat(int showTimeSelection, String seatNo, int seatType) throws InvalidInputException {
         seatType = normaliseId(seatType);
         showTimeSelection = normaliseId(showTimeSelection);
@@ -134,7 +189,14 @@ public class BookingController {
 
         selectedSeats.put(seatNo, stype);
     }
-
+    /**
+     * Lists the bookings of a customer
+     * 
+     * @param query					Query of customer
+     * @return						Booking made by customer
+     * @throws EmptyListException	If an empty list
+     * 								exception occurs
+     */
     public static List<Booking> searchBooking(String query) throws EmptyListException {
         List<Booking> bookings = bookingRepository.getAll();
         for (Booking b : bookings) {
@@ -146,13 +208,32 @@ public class BookingController {
             throw new EmptyListException("No bookings found");
         return bookings;
     }
-
+    /**
+     * Unselectes a selected seat
+     * 
+     * @param seatNo					Seat number
+     * @throws InvalidInputException	If an input
+     * 									exception occurs
+     */
     public static void unselectSeat(String seatNo) throws InvalidInputException {
         if (!selectedSeats.containsKey(seatNo))
             throw new InvalidInputException("You have not selected this seat.");
         selectedSeats.remove(seatNo);
     }
-
+    /**
+     * Confirms the booking of a customer 
+     * and adds it to the repository
+     * 
+     * @param showTimeSelection			Selection of time of movie
+     * @param name						Name of customer
+     * @param email						Email of customer
+     * @param mobile					Mobile of customer
+     * @return							Return booking
+     * @throws InvalidIdException		If an id input
+     * 									exception occurs
+     * @throws InvalidInputException	If an input
+     * 									exception occurs
+     */
     public static Booking confirmSelection(int showTimeSelection, String name, String email, String mobile)
             throws InvalidIdException, InvalidInputException {
 
@@ -238,29 +319,55 @@ public class BookingController {
 
         return booking;
     }
-
+    /**
+     * Checks if seat is selected
+     * 
+     * @return	true/false
+     */
     public static boolean hasSelectedSeat() {
         return !selectedSeats.isEmpty();
     }
-
+    /**
+     * Gets cineplex
+     * 
+     * @param showTimeSelection		Selected show time
+     * @return						This cineplex with the show time
+     */
     public static Cineplex getCineplex(int showTimeSelection) {
         showTimeSelection = normaliseId(showTimeSelection);
         int[] ids = showTimeList.get(showTimeSelection);
         return cineplexRepository.get(ids[0]);
     }
-
+    /**
+     * Gets cinema
+     * 
+     * @param showTimeSelection 	Selected show time
+     * @return						This cinema with the show time
+     */
     public static Cinema getCinema(int showTimeSelection) {
         showTimeSelection = normaliseId(showTimeSelection);
         int[] ids = showTimeList.get(showTimeSelection);
         return cineplexRepository.get(ids[0]).getCinemas().get(ids[1]);
     }
-
+    /**
+     * Gets show time
+     * 
+     * @param showTimeSelection		Selected show time
+     * @return						Cinema with the show time
+     */
     public static ShowTime getShowTime(int showTimeSelection) {
         showTimeSelection = normaliseId(showTimeSelection);
         int[] ids = showTimeList.get(showTimeSelection);
         return cineplexRepository.get(ids[0]).getCinemas().get(ids[1]).getShowTime().get(ids[2]);
     }
-
+    /**
+     * Lists the seats for a show time
+     * 
+     * @param showTimeSelection		Selected show time
+     * @return						Seats for the show time
+     * @throws InvalidIdException	If an id input
+     * 								exception occurs
+     */
     public static String listShowTimeSeats(int showTimeSelection) throws InvalidIdException {
         showTimeSelection = normaliseId(showTimeSelection);
         if (showTimeSelection < 0 || showTimeSelection > showTimeList.size())
@@ -301,7 +408,15 @@ public class BookingController {
                 "\nLEGEND:\nSeat ranges from 1 (starting from to left) to the right.\n|*| - Available, |*  *| - -1, \u001B[34m|*| - Selected Seat\u001B[0m");
         return newString.toString();
     }
-
+    /**
+     * Gets format of seat type
+     * 
+     * @param c			layout of seat
+     * @param row		row in cinema	
+     * @param seatNo	seat number
+     * @param showTime	show time
+     * @return
+     */
     private static String getSeatTypeFormat(char c, char row, int seatNo, ShowTime showTime) {
         if (c == 1) {
             if (showTime.getSeatsTaken().contains(new StringBuilder().append(row).append(seatNo).toString()))
@@ -323,7 +438,15 @@ public class BookingController {
             return new StringBuilder().append(c).toString();
         }
     }
-
+    /**
+     * Checks type of seat
+     * 
+     * @param showTimeSelection			Selected show time
+     * @param seat						seat selected
+     * @return							true/false
+     * @throws InvalidInputException	If an id input
+     * 									exception occurs
+     */
     public static boolean checkIfNormalSeat(int showTimeSelection, String seat) throws InvalidInputException {
         showTimeSelection = normaliseId(showTimeSelection);
         int[] ids = showTimeList.get(showTimeSelection);
@@ -348,7 +471,13 @@ public class BookingController {
         }
         throw new InvalidInputException("Please enter a valid seat.");
     }
-
+    /**
+     * Checks availability of seats
+     * 
+     * @param showTimeSelection		Selected show time
+     * @param seat					selected seat
+     * @return						true/false
+     */
     private static boolean checkIfSeatAvailable(int showTimeSelection, String seat) {
         int[] ids = showTimeList.get(showTimeSelection);
         int cineplexId = ids[0];
@@ -378,7 +507,12 @@ public class BookingController {
         }
         return false;
     }
-
+    /**
+     * Checks if the show time is fully booked
+     * 
+     * @param showTimeSelection		Selected show time
+     * @return						true/false
+     */
     public static boolean checkIfFullyBooked(int showTimeSelection) {
         showTimeSelection = normaliseId(showTimeSelection);
         int[] ids = showTimeList.get(showTimeSelection);
@@ -400,12 +534,22 @@ public class BookingController {
         }
         return (totalSeats == showTime.getSeatsTaken().size()) ? true : false;
     }
-
+    /**
+     * Changes date time to fixed format
+     * 
+     * @param dateTime		Date and time
+     * @return				Formatted date and time
+     */
     public static String getDateTimeFormat(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ApplicationConstant.DATETIME_FORMAT);
         return dateTime.format(formatter).toString();
     }
-
+    /**
+     * Normalises id
+     * 
+     * @param id	id
+     * @return		normalised id
+     */
     public static int normaliseId(int id) {
         return id - 1;
     }

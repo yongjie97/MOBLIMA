@@ -10,9 +10,20 @@ import Controller.ShowTimeController;
 import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
-
+/**
+ * UI to interact with the show time
+ */
 public class ShowTimeBoundary {
-
+	/**
+	 * UI for staff to manage the show time of a movie
+	 * 
+	 * @param cineplexId					Id of cineplex
+	 * @param cinemaId						Id of cinema
+	 * @throws InvalidIdException			If an id input 
+     * 										exception occurs
+	 * @throws IndexOutOfBoundsException	If an index out of 
+     * 										bounds exception occurs
+	 */
     public static void manageShowTime(int cineplexId, int cinemaId) throws InvalidIdException, IndexOutOfBoundsException {
         String cineplexName = CineplexController.getCineplexName(cineplexId);
         String cinemaName = CinemaController.getCinemaName(cineplexId, cinemaId);
@@ -65,7 +76,12 @@ public class ShowTimeBoundary {
             }
         } while (userInput != -1);
     }
-
+    /**
+     * Adds the show time to selected movie
+     * 
+     * @param cineplexId	Id of cineplex
+     * @param cinemaId		Id of cinema
+     */
     public static void addShowTime(int cineplexId, int cinemaId) {
         try {
             MovieBoundary.showMovieList();
@@ -88,7 +104,14 @@ public class ShowTimeBoundary {
             System.out.println("Please enter a valid option.");
         }
     }
-
+    /**
+     * Edits the show time of a movie
+     * 
+     * @param cineplexId			Id of cineplex
+     * @param cinemaId				Id of cinema
+     * @throws EmptyListException	If an empty list
+     * 								exception occurs
+     */
     public static void editShowTime(int cineplexId, int cinemaId) throws EmptyListException {
         if (!ShowTimeController.hasShowTime(cineplexId, cinemaId))
             throw new EmptyListException("No showtime found.");
@@ -140,7 +163,12 @@ public class ShowTimeBoundary {
             }
         }
     }
-
+    /**
+     * Lists the show time of a cinema
+     * 
+     * @param cineplexId	Id of cineplex
+     * @param cinemaId		Id of cinema	
+     */
     public static void listShowTime(int cineplexId, int cinemaId) {
         try {
             System.out.println("Showtime List");
@@ -151,7 +179,13 @@ public class ShowTimeBoundary {
             System.out.println(e.getMessage());
         }
     }
-
+    /**
+     * Lists the details of a selected show time
+     * 
+     * @param cineplexId	Id of cineplex
+     * @param cinemaId		Id of cinema
+     * @param showTimeId	Id of show time
+     */
     public static void listShowTimeDetail(int cineplexId, int cinemaId, int showTimeId) {
         try {
             System.out.println(ShowTimeController.listShowTimeDetail(cineplexId, cinemaId, showTimeId));
@@ -159,7 +193,14 @@ public class ShowTimeBoundary {
             System.out.println(e.getMessage());
         }
     }
-
+    /**
+     * Deletes a show time
+     * 
+     * @param cineplexId			Id of cineplex
+     * @param cinemaId				Id of cinema
+     * @throws EmptyListException	If an empty list
+     * 								exception occurs
+     */
     public static void deleteShowTime(int cineplexId, int cinemaId) throws EmptyListException {
         if (!ShowTimeController.hasShowTime(cineplexId, cinemaId))
         throw new EmptyListException("No showtime found.");

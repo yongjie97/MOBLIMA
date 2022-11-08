@@ -4,9 +4,13 @@ import java.util.Scanner;
 
 import Controller.UserController;
 import Exception.InvalidInputException;
-
+/**
+ * UI for user
+ */
 public class UserBoundary {
-
+	/**
+	 * Login function for user to enter their account
+	 */
     public static void login() {
         try {
             Scanner sc = new Scanner(System.in);

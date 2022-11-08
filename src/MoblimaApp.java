@@ -1,5 +1,10 @@
 import Boundary.HomeBoundary;
-
+/**
+ * Class used to launch application.
+ * Comments are for debugging purposes.
+ * Able to edit or add layout.
+ *
+ */
 public class MoblimaApp {
         public static void main(String[] args) throws Exception {
 

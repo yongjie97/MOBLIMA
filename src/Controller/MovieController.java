@@ -12,11 +12,27 @@ import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
 import Repository.MovieRepository;
-
+/**
+ * The logic and functions for Movie
+ */
 public class MovieController {
-
+	/**
+	 * Stored details of cineplex
+	 */
     public static MovieRepository movieRepository = new MovieRepository(DataFileConstant.MOVIE_FILE);
-
+    /**
+     * Adds a movie to the movie repository	
+     * 
+     * @param name							Name of movie
+     * @param synopsis						Synopsis of movie
+     * @param cast							Cast of movie
+     * @param director						Director of movie
+     * @param movieType						Movie Type
+     * @param movieRating					Movie Rating
+     * @param movieStatus					Movie Status
+     * @throws InvalidInputException		If an id input
+     * 										exception occurs
+     */
     public static void addMovie(String name, String synopsis, String cast, String director,
             int movieType, int movieRating, int movieStatus) throws InvalidInputException {
         try {
@@ -29,7 +45,22 @@ public class MovieController {
             throw new InvalidInputException(e.getMessage());
         }
     }
-
+    /**
+     * Edits the movie in the repository
+     * 
+     * @param id						Id of movie
+     * @param name						Name of movie
+     * @param synopsis					Synopsis of movie
+     * @param cast						Cast of movie
+     * @param director					Director of movie
+     * @param movieType					Movie Type
+     * @param movieRating				Movie Rating
+     * @param movieStatus				Movie Status
+     * @throws InvalidIdException		If an id input
+     * 									exception occurs
+     * @throws InvalidInputException	If an input
+     * 									exception occurs
+     */
     public static void editMovie(int id, String name, String synopsis, String cast, String director,
             int movieType, int movieRating, int movieStatus) throws InvalidIdException, InvalidInputException {
         id = normaliseId(id);
@@ -45,7 +76,13 @@ public class MovieController {
             throw new InvalidInputException(e.getMessage());
         }
     }
-
+    /**
+     * Deletes a movie in the repository
+     * 
+     * @param id						Id of movie
+     * @throws InvalidIdException		If an id input
+     * 									exception occurs
+     */
     public static void deleteMovie(int id) throws InvalidIdException {
         id = normaliseId(id);
         if (id < 0 || id >= movieRepository.size())
@@ -55,7 +92,14 @@ public class MovieController {
         movie.setMovieStatus(MovieStatus.FINISHED);
         movieRepository.edit(id, movie);
     }
-
+    /**
+     * Gets movie from the repository from chosen id
+     * 
+     * @param id						Id of movie
+     * @return							Movie object
+     * @throws InvalidIdException		If an id input
+     * 									exception occurs
+     */
     public static Movie getMovie(int id) throws InvalidIdException {
         id = normaliseId(id);
         if (id < 0 || id >= movieRepository.size())
@@ -63,13 +107,25 @@ public class MovieController {
 
         return movieRepository.get(id);
     }
-
+    /**
+     * Gets the list of movies
+     * 
+     * @return							List of movie
+     * @throws EmptyListException		If an empty list
+     * 									exception occurs
+     */
     public static List<Movie> getMovieList() throws EmptyListException {
         if (movieRepository.isEmpty())
             throw new EmptyListException("No movies found.");
         return movieRepository.getAll();
     }
-
+    /**
+     * Gets list of movies that are still airing
+     * 
+     * @return							HashMap of movie
+     * @throws EmptyListException		If an empty list
+     * 									exception occurs
+     */
     public static HashMap<Integer, Movie> getAvailableMovieList() throws EmptyListException {
 
         List<Movie> movies = movieRepository.getAll();
@@ -84,15 +140,36 @@ public class MovieController {
 
         return list;
     }
-
+    /**
+     * Checks if movie repository is empty
+     * 
+     * @return		true/false
+     */
     public static boolean isEmpty() {
         return movieRepository.isEmpty();
     }
-
+    /**
+     * Gets size of list of movies in the repository
+     * 
+     * @return		int of size of list
+     */
     public static int size() {
         return movieRepository.size();
     }
-
+    /**
+     * Checks if an input is valid
+     * 
+     * @param name						Name
+     * @param synopsis					Synopsis
+     * @param cast						Cast
+     * @param director					Director
+     * @param movieType					Movie Type
+     * @param movieRating				Movie Rating
+     * @param movieStatus				Movie Status
+     * @return							Exception/true
+     * @throws InvalidInputException	If an input
+     * 									exception occurs
+     */
     private static boolean isValidInput(String name, String synopsis, String cast, String director,
             int movieType, int movieRating, int movieStatus) throws InvalidInputException {
         if (name.isBlank())
@@ -111,7 +188,12 @@ public class MovieController {
             throw new InvalidInputException("Please select a valid movie status.");
         return true;
     }
-
+    /**
+     * Normalises id
+     * 
+     * @param id	Id
+     * @return		Normalised id
+     */
     public static int normaliseId(int id) {
         return id - 1;
     }

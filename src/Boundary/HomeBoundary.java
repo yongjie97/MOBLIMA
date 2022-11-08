@@ -1,11 +1,25 @@
 package Boundary;
 
 import java.util.Locale;
+
 import java.util.Scanner;
 
 import Controller.UserController;
+/**
+ * Home UI for the MOBALIMA app
+ * Customers can view ticket prices
+ * Search and list movies
+ * Search for bookings
+ * List the top 5 movies by sales or ratings
+ * 
+ * Staff can manage movies/cinplex
+ * Configure system settings
+ */
 public class HomeBoundary {
-
+	/**
+	 * Main UI for MOBALIMA app 
+	 * Staff can access staff options after login
+	 */
     public static void userUI() {
         Locale.setDefault(Locale.US);
         int userInput = 0;

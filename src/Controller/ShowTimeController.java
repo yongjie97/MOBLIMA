@@ -17,12 +17,30 @@ import Exception.InvalidIdException;
 import Exception.InvalidInputException;
 import Repository.CineplexRepository;
 import Repository.MovieRepository;
-
+/**
+ * The logic and function for show time
+ */
 public class ShowTimeController {
-
+	/**
+	 * The stored details of cineplex
+	 */
     private static CineplexRepository cineplexRepository = new CineplexRepository(DataFileConstant.CINEPLEX_FILE);
+    /**
+     * The stored details of movie
+     */
     private static MovieRepository movieRepository = new MovieRepository(DataFileConstant.MOVIE_FILE);
-
+    /**
+     * Adds a new show time to the repository
+     * 
+     * @param cineplexId					Id of cineplex
+     * @param cinemaId						Id of cinema
+     * @param movieId						Id of movie
+     * @param dateTime						Date and time
+     * @throws InvalidIdException			If an id input
+     * 										exception occurs
+     * @throws InvalidInputException		If an input
+     * 										exception occurs
+     */
     public static void addShowTime(int cineplexId, int cinemaId, int movieId, String dateTime)
             throws InvalidIdException, InvalidInputException {
         cineplexId = normaliseId(cineplexId);
@@ -50,7 +68,16 @@ public class ShowTimeController {
             throw new InvalidInputException("Please enter a valid date time format.");
         }
     }
-
+    /**
+     * Edits the show time in the repository
+     * 
+     * @param cineplexId				Id of cineplex
+     * @param cinemaId					Id of cinema
+     * @param showTimeId				Id of show time
+     * @param movieId					Id of movie
+     * @throws InvalidIdException		If an input
+     * 									exception occurs
+     */
     public static void editShowTimeMovie(int cineplexId, int cinemaId, int showTimeId, int movieId)
             throws InvalidIdException {
         cineplexId = normaliseId(cineplexId);
@@ -77,7 +104,18 @@ public class ShowTimeController {
         cinema.getShowTime().set(showTimeId, newShowTime);
         cineplexRepository.edit(cineplexId, cineplex);
     }
-
+    /**
+     * Edits the show time and date time in repository
+     * 
+     * @param cineplexId					Id of cineplex
+     * @param cinemaId						Id of cinema
+     * @param showTimeId					Id of show time	
+     * @param dateTime						Date and Time
+     * @throws InvalidIdException			If an input
+     * 										exception occurs
+     * @throws InvalidInput					ExceptionIf an input
+     * 										exception occurs
+     */
     public static void editShowTimeDateTime(int cineplexId, int cinemaId, int showTimeId, String dateTime)
             throws InvalidIdException, InvalidInputException {
         cineplexId = normaliseId(cineplexId);
@@ -106,7 +144,15 @@ public class ShowTimeController {
             throw new InvalidInputException("Please enter a valid date time format.");
         }
     }
-
+    /**
+     * Deletes show time from repository
+     * 
+     * @param cineplexId				Id of cineplex
+     * @param cinemaId					Id of cinema
+     * @param showTimeId				Id of show time
+     * @throws InvalidIdException		If an input
+     * 									exception occurs
+     */
     public static void deleteShowTime(int cineplexId, int cinemaId, int showTimeId) throws InvalidIdException {
         cineplexId = normaliseId(cineplexId);
         cinemaId = normaliseId(cinemaId);
@@ -126,14 +172,28 @@ public class ShowTimeController {
         cinema.getShowTime().remove(showTimeId);
         cineplexRepository.edit(cineplexId, cineplex);
     }
-
+    /**
+     * Checks if show time exists
+     * @param cineplexId		Id of cineplex
+     * @param cinemaId			Id of cinema
+     * @return
+     */
     public static boolean hasShowTime(int cineplexId, int cinemaId) {
         cineplexId = normaliseId(cineplexId);
         cinemaId = normaliseId(cinemaId);
 
         return cineplexRepository.get(cineplexId).getCinemas().get(cinemaId).getShowTime().size() > 0;
     }
-
+    /**
+     * Gets the show time details and returns it as a string
+     * 
+     * @param cineplexId				Id of cineplex
+     * @param cinemaId					Id of cinema
+     * @param showTimeId				Id of show time
+     * @return							String of show time detail
+     * @throws InvalidIdException		If an id input
+     * 									exception occurs
+     */
     public static String listShowTimeDetail(int cineplexId, int cinemaId, int showTimeId) throws InvalidIdException {
         cineplexId = normaliseId(cineplexId);
         cinemaId = normaliseId(cinemaId);
@@ -156,7 +216,17 @@ public class ShowTimeController {
                 getDateTimeFormat(showtime.getDateTime()));
         return output;
     }
-
+    /**
+     * Gets the show time and returns a string
+     * 	
+     * @param cineplexId				Id of cineplex
+     * @param cinemaId					Id of cinema
+     * @return							String of show time
+     * @throws InvalidIdException		If an id input
+     * 									exception occurs
+     * @throws EmptyListException		If an empty list
+     * 									exception occurs
+     */
     public static String listShowTime(int cineplexId, int cinemaId) throws InvalidIdException, EmptyListException {
         cineplexId = normaliseId(cineplexId);
         cinemaId = normaliseId(cinemaId);
@@ -180,7 +250,17 @@ public class ShowTimeController {
         }
         return output.substring(0, output.length() - 1).toString();
     }
-
+    /**
+     * Gets available show times and returns it as a string
+     * 
+     * @param cineplexId				Id of cineplex
+     * @param cinemaId					Id of cinema
+     * @return							String of available show time
+     * @throws InvalidIdException		If an id input
+     * 									exception occurs
+     * @throws EmptyListException		If an empty list
+     * 									exception occurs
+     */
     public static String listAvailableShowTime(int cineplexId, int cinemaId) throws InvalidIdException, EmptyListException {
         cineplexId = normaliseId(cineplexId);
         cinemaId = normaliseId(cinemaId);
@@ -207,7 +287,15 @@ public class ShowTimeController {
         return output.substring(0, output.length() - 1).toString();
 
     }
-
+    /**
+     * Gets the show time 
+     * @param cineplexId				Id of cineplex
+     * @param cinemaId					Id of cinema
+     * @param showTimeId				Id of showtime
+     * @return							Show Time
+     * @throws InvalidIdException		If an id input
+     * 									exception occurs
+     */
     public static ShowTime getShowTime(int cineplexId, int cinemaId, int showTimeId) throws InvalidIdException {
         cineplexId = normaliseId(cineplexId);
         cinemaId = normaliseId(cinemaId);
@@ -226,12 +314,22 @@ public class ShowTimeController {
 
         return cinema.getShowTime().get(showTimeId);
     }
-
+    /**
+     * Gets format for date time
+     * 
+     * @param dateTime 	Date and Time
+     * @return			Formatted date and time
+     */
     public static String getDateTimeFormat(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ApplicationConstant.DATETIME_FORMAT);
         return dateTime.format(formatter).toString();
     }
-    
+    /**
+     * Normalises id
+     * 
+     * @param id	Id
+     * @return		Normalised id
+     */
     public static int normaliseId(int id) {
         return id - 1;
     }

@@ -2,7 +2,9 @@ package Constant;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+/**
+ *Data containing movie, cineplex, system settings, user and booking details. 
+ */
 public class DataFileConstant {
 
     private final static Path currentRelativePath = Paths.get("");

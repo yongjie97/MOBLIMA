@@ -14,11 +14,26 @@ import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
 import Repository.MovieRepository;
-
+/**
+ * The logic and functions for Movie
+ */
 public class MovieReviewController {
-
+	/**
+	 * Stored details of movie
+	 */
     private static MovieRepository movieRepository = new MovieRepository(DataFileConstant.MOVIE_FILE);
-
+    /**
+     * Adds a review to the review list in the movie object
+     * 
+     * @param movieId						Id of movie
+     * @param name							Name of reviewer
+     * @param review						Review
+     * @param rating						Rating
+     * @throws InvalidIdException			If an id input
+     * 										exception occurs
+     * @throws InvalidInputException		If an input
+     * 										exception occurs
+     */
     public static void addReview(int movieId, String name, String review, double rating)
             throws InvalidIdException, InvalidInputException {
         movieId = normaliseId(movieId);
@@ -33,7 +48,12 @@ public class MovieReviewController {
         movie.setRating(calculateRating(movie));
         movieRepository.edit(movieId, movie);
     }
-
+    /**
+     * Calculates the new value of rating and returns the average
+     * 
+     * @param movie			Movie object
+     * @return				Average rating
+     */
     private static double calculateRating(Movie movie) {
         if (movie.getMovieReviews().isEmpty())
             return 0;
@@ -44,7 +64,16 @@ public class MovieReviewController {
         }
         return totalRating / movie.getMovieReviews().size();
     }
-
+    /**
+     * Get the list of movie reviews and returns them as a string
+     * 
+     * @param movieId					Id of movie
+     * @return							String of list of reviews
+     * @throws EmptyListException		If an empty list
+     * 									exception occurs
+     * @throws InvalidIdException		If an id input
+     * 									exception occurs
+     */
     public static String listMovieReviews(int movieId) throws EmptyListException, InvalidIdException {
         movieId = normaliseId(movieId);
         if (movieId < 0 || movieId >= MovieController.movieRepository.size())
@@ -62,7 +91,13 @@ public class MovieReviewController {
         }
         return output.substring(0, output.length() - 2).toString();
     }
-
+    /**
+     * Sorts the movie based on rating in desending order
+     * 
+     * @return							Sorted list of movies
+     * @throws EmptyListException		If an empty list
+     * 									exception occurs
+     */
     public static String listByRating() throws EmptyListException {
         List<Movie> movies = movieRepository.getAll();
         if (movies.isEmpty())
@@ -93,7 +128,16 @@ public class MovieReviewController {
         }
         return output.substring(0, output.length() - 1).toString();
     }
-
+    /**
+     * Checks if input is valid
+     * 
+     * @param name						Name
+     * @param review					Review
+     * @param rating					Rating
+     * @return							Exception/true
+     * @throws InvalidInputException	If an input
+     * 									exception occurs
+     */
     private static boolean isValidInput(String name, String review, double rating) throws InvalidInputException {
         if (name.isBlank())
             throw new InvalidInputException("Please enter a name.");
@@ -104,7 +148,12 @@ public class MovieReviewController {
 
         return true;
     }
-
+    /**
+     * Normalises id
+     * 
+     * @param id	Id
+     * @return		Normalised id
+     */
     public static int normaliseId(int id) {
         return id - 1;
     }

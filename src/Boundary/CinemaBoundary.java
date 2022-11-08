@@ -7,9 +7,22 @@ import Controller.CinemaController;
 import Controller.CineplexController;
 import Exception.EmptyListException;
 import Exception.InvalidIdException;
-
+/**
+ * Interface for managing the cinema for staff members
+ * A staff can list cinema details
+ * list cinemas
+ * manage the cinema show time
+ */
 public class CinemaBoundary {
-
+	/**
+	 * UI for staff to manage cinema
+	 * Staff can view cinema details or
+	 * manage the show time for each cineplex
+	 * 
+	 * @param cineplexId			Id of cineplex
+	 * @throws InvalidIdException	If an id input 
+     * 								exception occurs
+	 */
     public static void manageCinema(int cineplexId) throws InvalidIdException {
         CineplexController.getCineplex(cineplexId);
 
@@ -68,6 +81,11 @@ public class CinemaBoundary {
             }
         } while (userInput != -1);
     }
+    /**
+     * Lists the cinema in the cineplex
+     * 
+     * @param cineplexId	Id of cineplex
+     */
 
     public static void listCinema(int cineplexId) {
         try {
@@ -79,6 +97,11 @@ public class CinemaBoundary {
             System.out.println(e.getMessage());
         }
     }
+    /**
+     * Lists the details of the cinema
+     * 
+     * @param cineplexId	Id of cineplex
+     */
 
     public static void listCinemaDetails(int cineplexId) {
         try {
@@ -90,7 +113,14 @@ public class CinemaBoundary {
             System.out.println(e.getMessage());
         }
     }
-
+    /**
+     * Choose a cinema from given cineplex
+     * 
+     * @param cineplexId			Id of cineplex
+     * @return						Choice of the user
+     * @throws EmptyListException	If an empty list 
+     * 								exception occurs
+     */
     public static int chooseCinema(int cineplexId) throws EmptyListException {
         if (!CinemaController.hasCinema(cineplexId))
             throw new EmptyListException("No cinema found.");

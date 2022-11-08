@@ -5,9 +5,15 @@ import java.util.Scanner;
 import Controller.CineplexController;
 import Exception.EmptyListException;
 import Exception.InvalidIdException;
-
+/**
+ * Interface for managing the cineplex for staff members
+ * A staff can choose the cineplex they wish to edit
+ */
 public class CineplexBoundary {
-
+	/**
+	 * UI for staff to manage cineplex
+	 * Staff can manage the cinema in selected cineplex
+	 */
     public static void manageCineplex() {
         int userInput = 0;
         do {
@@ -58,6 +64,9 @@ public class CineplexBoundary {
             }
         } while (userInput != -1);
     }
+    /**
+     * Lists the cineplexs
+     */
 
     public static void listCineplex() {
         System.out.println("Cineplex List");
@@ -67,6 +76,13 @@ public class CineplexBoundary {
             System.out.println(e.getMessage());
         }
     }
+    /**
+     * Chooses a cineplex 
+     * 
+     * @return						exit status
+     * @throws EmptyListException	If an empty list 
+     * 								exception occurs
+     */
 
     public static int chooseCineplex() throws EmptyListException {
         if (!CineplexController.hasCineplex())

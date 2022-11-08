@@ -14,21 +14,35 @@ import Exception.EmptyListException;
 import Exception.InvalidIdException;
 import Exception.InvalidInputException;
 import Repository.SystemSettingsRepository;
-
+/** 
+ * The logic and function of system settings
+ */
 public class SystemSettingsController {
-
+	/**
+	 * The stored details of system setting
+	 */
     private static SystemSettingsRepository systemSettingsRepository = new SystemSettingsRepository(
             DataFileConstant.SYSTEM_SETTINGS_FILE);
-
+    /**
+     * The Id of system settings
+     */
     private static final int ID = 0;
-
+    /**
+     * Gets the system settings from the repository
+     * 
+     * @return		System settings object
+     */
     public static SystemSettings getSystemSettings() {
         if (systemSettingsRepository.size() < 1) {
             systemSettingsRepository.add(new SystemSettings());
         }
         return systemSettingsRepository.get(ID);
     }
-
+    /**
+     * Gets the all prices and returns a string
+     * 
+     * @return		String of prices
+     */
     public static String listPrices() {
         SystemSettings systemSettings = getSystemSettings();
         StringBuilder sb = new StringBuilder();
@@ -55,7 +69,14 @@ public class SystemSettingsController {
         sb.append(MessageFormat.format("{0}: {1} - {2,number,percent}", ++i, "GST", systemSettings.getGst()));
         return sb.toString();
     }
-
+    /**
+     * Edits the prices in the repository
+     * 
+     * @param option					Choice of which price to edit
+     * @param value						Value of price
+     * @throws InvalidInputException	If an input
+     * 									exception occurs
+     */
     public static void editPrices(int option, double value) throws InvalidInputException {
         option = normaliseId(option);
         SystemSettings systemSettings = getSystemSettings();
@@ -99,7 +120,14 @@ public class SystemSettingsController {
         }
         systemSettingsRepository.edit(ID, systemSettings);
     }
-
+    /**
+     * Adds holiday into the repositoary
+     * 
+     * @param holidayName					Name of holiday
+     * @param date							Date
+     * @throws InvalidInputException		If an input
+     * 										exception occurs
+     */
     public static void addHoliday(String holidayName, String date) throws InvalidInputException {
         try {
             if (holidayName.isEmpty())
@@ -112,7 +140,17 @@ public class SystemSettingsController {
             throw new InvalidInputException("Please enter a valid date format.");
         }
     }
-
+    /**
+     * Edits holiday in the repository
+     * 
+     * @param id							id of holiday
+     * @param holidayName					Name of holiday
+     * @param date							Date
+     * @throws InvalidInputException		If an input
+     * 										exception occurs
+     * @throws InvalidIdException			If an id input
+     * 										exception occurs
+     */
     public static void editHoliday(int id, String holidayName, String date)
             throws InvalidInputException, InvalidIdException {
         id = normaliseId(id);
@@ -130,7 +168,13 @@ public class SystemSettingsController {
             throw new InvalidInputException("Please enter a valid date format.");
         }
     }
-
+    /**
+     * Removes holiday from repository
+     * 
+     * @param id						id of holiday
+     * @throws InvalidIdException		If an id input
+     * 									exception occurs
+     */
     public static void removeHoliday(int id) throws InvalidIdException {
         id = normaliseId(id);
 
@@ -141,7 +185,13 @@ public class SystemSettingsController {
         systemSettings.getHolidays().remove(id);
         systemSettingsRepository.edit(ID, systemSettings);
     }
-
+    /**
+     * Gets the list of holidays and returns a string
+     * 
+     * @return							String of holiday
+     * @throws EmptyListException		If an empty list
+     * 									exception occurs
+     */
     public static String listHoliday() throws EmptyListException {
         SystemSettings systemSettings = getSystemSettings();
         if (systemSettings.getHolidays().isEmpty())
@@ -154,11 +204,21 @@ public class SystemSettingsController {
         }
         return output.substring(0, output.length() - 1).toString();
     }
-
+    /**
+     * Gets format for date time
+     * 
+     * @param dateTime 	Date and Time
+     * @return			Formatted date and time
+     */
     private static DateTimeFormatter dateFormatter() {
         return DateTimeFormatter.ofPattern(ApplicationConstant.DATE_FORMAT);
     }
-
+    /**
+     * Normalises id
+     * 
+     * @param id	Id
+     * @return		Normalised id
+     */
     public static int normaliseId(int id) {
         return id - 1;
     }
