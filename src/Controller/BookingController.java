@@ -405,7 +405,7 @@ public class BookingController {
             newString.append("\n");
         }
         newString.append(
-                "\nLEGEND:\nSeat ranges from 1 (starting from to left) to the right.\n|*| - Available, |*  *| - -1, \u001B[34m|*| - Selected Seat\u001B[0m");
+                "\nLEGEND:\nSeat ranges from 1 (starting from to left) to the right.\n|*| - Available, |*  *| - Couple Seat, \u001B[31m|x| - Sold\u001B[0m, \u001B[34m|*| - Selected Seat\u001B[0m");
         return newString.toString();
     }
     /**
