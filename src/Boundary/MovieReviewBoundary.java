@@ -29,7 +29,7 @@ public class MovieReviewBoundary {
     public static void listTop5ByRating() {
         try {
             System.out.println("Top 5 Movies by Rating: ");
-            System.out.print(MovieReviewController.listByRating());
+            System.out.println(MovieReviewController.listByRating());
             System.out.print("Press enter to continue..");
             Scanner sc = new Scanner(System.in);
             sc.nextLine();
