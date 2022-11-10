@@ -206,9 +206,9 @@ public class BookingController {
                 bookingList.add(b);
             }
         }
-        if (bookings.isEmpty())
+        if (bookingList.isEmpty())
             throw new EmptyListException("No bookings found");
-        return bookings;
+        return bookingList;
     }
 
     /**
