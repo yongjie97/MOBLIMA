@@ -205,12 +205,12 @@ public class BookingController {
             if (b.getEmail().equals(query) || b.getMobile().equals(query)) {
                 bookingList.add(b);
             }
-            if (b.getTransactionID().equals(query)) {
+            if (b.getTransactionID().equals(query)) {       	
             	bookingList.add(b);
             	return bookingList;
             }
         }
-        if (bookings.isEmpty())
+        if (bookingList.isEmpty())
             throw new EmptyListException("No bookings found");
         return bookingList;
     }
