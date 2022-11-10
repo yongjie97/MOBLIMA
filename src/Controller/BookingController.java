@@ -202,13 +202,17 @@ public class BookingController {
         List<Booking> bookings = bookingRepository.getAll();
         List<Booking> bookingList = new ArrayList<>();
         for (Booking b : bookings) {
-            if (b.getEmail().equals(query) || b.getMobile().equals(query) || b.getTransactionID().equals(query)) {
+            if (b.getEmail().equals(query) || b.getMobile().equals(query)) {
                 bookingList.add(b);
+            }
+            if (b.getTransactionID().equals(query)) {
+            	bookingList.add(b);
+            	return bookingList;
             }
         }
         if (bookings.isEmpty())
             throw new EmptyListException("No bookings found");
-        return bookings;
+        return bookingList;
     }
 
     /**
